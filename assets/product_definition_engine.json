@@ -1,0 +1,203 @@
+{
+  "metadata": {
+    "component": "Academic Product Differentiator",
+    "purpose": "Define scope, structure, and intent of the requested document.",
+    "version": "1.0 - Taxonomy & Structure"
+  },
+  "product_definition_engine": {
+    "0_selector_matrix": {
+      "description": "Matriz de decisión rápida para clasificar la solicitud del usuario.",
+      "definitions": [
+        {
+          "type": "Tesis (Thesis)",
+          "core_intent": "Obtención de grado académico. Demostración exhaustiva de competencia investigativa.",
+          "key_feature": "Rigurosidad exhaustiva y extensión amplia. Gira en torno a 'Objetivos' y 'Prueba de Hipótesis'.",
+          "audience": "Jurado académico / Institución."
+        },
+        {
+          "type": "Artículo Científico (Paper)",
+          "core_intent": "Comunicación de nuevo conocimiento a la comunidad científica.",
+          "key_feature": "Concisión y formato estandarizado (IMRyD). Se centra en un 'Hallazgo' específico.",
+          "audience": "Pares evaluadores / Lectores de revistas especializadas."
+        },
+        {
+          "type": "Ensayo (Essay)",
+          "core_intent": "Argumentación crítica y personal sobre un tema.",
+          "key_feature": "Subjetividad fundamentada. Prosa fluida sin secciones rígidas numeradas. Defiende una 'Postura'.",
+          "audience": "Público académico general o culto."
+        }
+      ]
+    },
+    "1_thesis_module": {
+      "description": "Estructura para trabajos de grado.",
+      "backbone": "La columna vertebral son los Objetivos (General y Específicos) que responden a la Pregunta de Investigación.",
+      "structure_blueprint": [
+        {
+          "section": "1. Introducción",
+          "content": "Planteamiento del problema, justificación y relevancia."
+        },
+        {
+          "section": "2. Marco Teórico",
+          "content": "Antecedentes y Bases Teóricas. (Ver JSON `theoretical_framework_engine`)."
+        },
+        {
+          "section": "3. Metodología",
+          "content": "Diseño, población, instrumentos. (Ver JSON `methodology_engine`)."
+        },
+        {
+          "section": "4. Resultados",
+          "content": "Presentación fría de los datos (tablas/gráficos)."
+        },
+        {
+          "section": "5. Discusión",
+          "content": "Contraste de hallazgos con la teoría."
+        },
+        {
+          "section": "6. Conclusiones",
+          "content": "Respuesta directa a los objetivos y sugerencias."
+        }
+      ]
+    },
+    "2_scientific_article_module": {
+      "description": "Estructura para publicación en revistas (Papers).",
+      "standard_format": "IMRyD (Introducción, Métodos, Resultados y Discusión).",
+      "sub_types": {
+        "source": "Clasificación basada en recomendaciones editoriales.",
+        "types": [
+          {
+            "name": "Artículo Original",
+            "focus": "Investigación empírica, experimental o aplicada. Presenta resultados inéditos.",
+            "requirement": "Alta rigurosidad metodológica."
+          },
+          {
+            "name": "Artículo de Revisión",
+            "focus": "Análisis crítico de literatura existente sobre un tema (meta-análisis o sistemática).",
+            "requirement": "Sin nuevos datos experimentales, pero con síntesis útil.",
+            "linked_engine": "prisma_engine (Protocolo PRISMA 2020 obligatorio para revisiones sistemáticas: Identificación → Cribado → Elegibilidad → Inclusión)"
+          },
+          {
+            "name": "Artículo Metodológico",
+            "focus": "Describe o valida un nuevo procedimiento o técnica innovadora.",
+            "requirement": "Comparación con métodos anteriores."
+          },
+          {
+            "name": "Estudio de Caso",
+            "focus": "Situación particular o única (clínica, legal, social).",
+            "requirement": "Enfatiza lo excepcional o innovador del caso."
+          },
+          {
+            "name": "Artículo de Reflexión",
+            "focus": "Punto de vista argumentado sobre un tema teórico o ético.",
+            "requirement": "Sólida argumentación, aunque no requiere datos empíricos."
+          }
+        ]
+      },
+      "drafting_strategy": "Escribir 'al revés': Empezar por Resultados y Métodos (lo más concreto), luego Discusión, y dejar Introducción y Resumen para el final."
+    },
+    "3_essay_module": {
+      "description": "Estructura para composición argumentativa en prosa.",
+      "core_characteristics": [
+        "Extensión variable (sin límites rígidos, típicamente 5-15 páginas).",
+        "Visión personal del autor (subjetividad) pero con lógica crítica.",
+        "Lenguaje sencillo pero preciso y elegante.",
+        "Desarrolla el tema sin agotarlo (no es exhaustivo como la tesis).",
+        "Tesis central clara y defendida mediante argumentos."
+      ],
+      "sub_types": {
+        "description": "Clasificación según el propósito dominante del ensayo.",
+        "types": [
+          {
+            "name": "Ensayo Argumentativo",
+            "purpose": "Defender una postura controvertida mediante argumentos lógicos.",
+            "characteristics": "Estructura tesis-argumentos-refutación. Alto rigor lógico.",
+            "example_topics": "¿Debe regularse la inteligencia artificial? ¿Es ética la eutanasia?"
+          },
+          {
+            "name": "Ensayo Expositivo/Informativo",
+            "purpose": "Explicar un tema complejo de manera clara y objetiva.",
+            "characteristics": "Neutro, didáctico. Presentación de conceptos sin tomar postura fuerte.",
+            "example_topics": "El proceso de fotosíntesis, Historia de la democracia ateniense."
+          },
+          {
+            "name": "Ensayo Crítico/Reflexivo",
+            "purpose": "Analizar y evaluar una obra, teoría o fenómeno.",
+            "characteristics": "Perspectiva analítica. Evalúa fortalezas y debilidades.",
+            "example_topics": "Crítica literaria, Análisis de políticas públicas."
+          },
+          {
+            "name": "Ensayo Literario/Creativo",
+            "purpose": "Exploración artística con estilo narrativo personal.",
+            "characteristics": "Lenguaje poético, anécdotas, metáforas. Mayor libertad formal.",
+            "example_topics": "Reflexiones sobre la soledad, La experiencia del exilio."
+          },
+          {
+            "name": "Ensayo Filosófico",
+            "purpose": "Indagación profunda sobre cuestiones existenciales o epistemológicas.",
+            "characteristics": "Razonamiento abstracto, diálogo con filósofos clásicos.",
+            "example_topics": "Naturaleza del conocimiento, El problema del libre albedrío."
+          }
+        ]
+      },
+      "structure_flow": [
+        {
+          "part": "Introducción (10-15% del texto)",
+          "elements": [
+            "Contextualización: Presentar el tema y su relevancia.",
+            "Tesis del ensayo: Anunciar la postura o argumento central de manera clara.",
+            "Gancho (hook): Captar la atención con una pregunta provocadora, cita, anécdota o dato sorprendente.",
+            "Mapa del texto (opcional): Avance breve de los argumentos principales."
+          ]
+        },
+        {
+          "part": "Desarrollo / Cuerpo (70-80% del texto)",
+          "elements": [
+            "Argumento 1: Presentar el primer eje de defensa con evidencias (citas, ejemplos, datos).",
+            "Argumento 2: Segundo eje con respaldo diferenciado.",
+            "Argumento 3 (o más): Tercer eje o argumentos adicionales según complejidad.",
+            "Contraargumentos y refutación: Anticipar objeciones y refutarlas (fortalece la tesis).",
+            "Transiciones fluidas: Uso de conectores discursivos entre párrafos."
+          ],
+          "structure_recommendation": "Un argumento por párrafo. Cada párrafo debe tener: oración temática → desarrollo → evidencia → conexión con tesis."
+        },
+        {
+          "part": "Conclusión (10-15% del texto)",
+          "elements": [
+            "Síntesis: Recapitular los argumentos principales sin repetir literalmente.",
+            "Reafirmación de tesis: Recuperar la postura inicial demostrando su validez tras el desarrollo.",
+            "Reflexión final: Implicaciones más amplias o invitación a la reflexión del lector.",
+            "Final abierto (opcional): Plantear nuevas preguntas o líneas de pensamiento futuras."
+          ]
+        }
+      ],
+      "optional_elements": {
+        "epigraph": "Cita breve inicial que anticipa el tono o tema del ensayo.",
+        "footnotes": "Notas al pie para aclaraciones tangenciales o referencias complementarias.",
+        "subtitles": "Algunos ensayos usan subtítulos para organizar secciones (no obligatorio)."
+      },
+      "drafting_strategy": {
+        "recommendation": "Escribir en tres fases: 1) Brainstorming y esquema de argumentos, 2) Redacción del cuerpo (argumentos centrales), 3) Introducción y conclusión al final (cuando la tesis esté completamente desarrollada).",
+        "revision_focus": [
+          "Coherencia: ¿Todos los argumentos sostienen la tesis?",
+          "Cohesión: ¿Los párrafos fluyen naturalmente?",
+          "Claridad: ¿El lenguaje es accesible sin perder precisión?",
+          "Fuerza argumentativa: ¿Las evidencias son sólidas y pertinentes?"
+        ]
+      },
+      "quality_checklist": [
+        "¿La tesis es clara y aparece en la introducción?",
+        "¿Cada argumento está respaldado por evidencia (citas, ejemplos, datos)?",
+        "¿Se han considerado y refutado contraargumentos?",
+        "¿Las transiciones entre párrafos son fluidas?",
+        "¿La conclusión sintetiza sin repetir mecánicamente?",
+        "¿El estilo es coherente (académico pero personal)?",
+        "¿Las citas siguen el formato requerido (APA u otro)?"
+      ],
+      "evaluation_criteria": {
+        "content": "Solidez de argumentos, profundidad de análisis, originalidad de perspectiva.",
+        "structure": "Organización lógica, fluidez narrativa, equilibrio entre secciones.",
+        "style": "Claridad expositiva, riqueza de vocabulario, uso efectivo de conectores.",
+        "mechanics": "Gramática, ortografía, formato de citas, presentación."
+      }
+    }
+  }
+}

@@ -1,0 +1,214 @@
+{
+  "metadata": {
+    "component": "Web Search & Deep Research Tool",
+    "context": "Academic Source Discovery & Evidence Gathering",
+    "purpose": "Formalizar el uso de las capacidades de búsqueda web y navegación del LLM para localizar fuentes académicas, evidencia empírica, datos estadísticos y literatura relevante.",
+    "capabilities_required": ["web_search", "web_fetch/browse", "pdf_reading"],
+    "version": "1.0"
+  },
+  "web_search_tool": {
+    "0_when_to_use": {
+      "description": "Condiciones para invocar búsqueda web durante el proceso de investigación.",
+      "trigger_conditions": [
+        "Se necesitan fuentes que el usuario no tiene en NotebookLM.",
+        "Se buscan artículos, papers o datos recientes sobre el tema.",
+        "Se requiere construir o complementar el estado del arte.",
+        "Se necesitan estadísticas, cifras o datos oficiales para justificar el problema.",
+        "Se buscan antecedentes internacionales o en otros idiomas.",
+        "Se requiere localizar instrumentos de medición validados.",
+        "Se necesita verificar o actualizar información teórica."
+      ],
+      "priority_over_notebooklm": "Usar web_search_tool para DESCUBRIR fuentes nuevas. Usar notebooklm_tool para CONSULTAR fuentes que el usuario ya posee. Ambas son complementarias."
+    },
+    "1_search_strategies": {
+      "description": "Estrategias de búsqueda según el tipo de información requerida.",
+      "strategies": [
+        {
+          "type": "Búsqueda de artículos científicos (Papers)",
+          "approach": "Usar operadores académicos y bases de datos abiertas.",
+          "search_patterns": [
+            "site:scholar.google.com [tema] [variable]",
+            "site:scielo.org [tema en español]",
+            "site:redalyc.org [tema en español]",
+            "site:researchgate.net [topic in English]",
+            "site:pubmed.ncbi.nlm.nih.gov [health/biomedical topic]",
+            "[tema] filetype:pdf site:edu",
+            "[topic] systematic review OR meta-analysis"
+          ],
+          "databases_to_target": [
+            "Google Scholar (scholar.google.com) — Cobertura amplia, multidisciplinar",
+            "SciELO (scielo.org) — América Latina, España, Portugal",
+            "Redalyc (redalyc.org) — Iberoamérica, ciencias sociales",
+            "DOAJ (doaj.org) — Directorio de revistas de acceso abierto",
+            "PubMed (pubmed.ncbi.nlm.nih.gov) — Biomedicina y salud",
+            "ERIC (eric.ed.gov) — Educación",
+            "SSRN (ssrn.com) — Ciencias sociales, preprints",
+            "arXiv (arxiv.org) — Ciencias exactas, computación, preprints",
+            "Semantic Scholar (semanticscholar.org) — IA para descubrimiento de papers",
+            "Dialnet (dialnet.unirioja.es) — Publicaciones hispanas"
+          ]
+        },
+        {
+          "type": "Búsqueda de datos estadísticos y cifras oficiales",
+          "approach": "Consultar fuentes gubernamentales y organismos internacionales.",
+          "search_patterns": [
+            "site:worldbank.org [indicator] [country]",
+            "site:cepal.org [indicador] [país]",
+            "site:undp.org [development indicator]",
+            "site:who.int [health indicator]",
+            "site:unesco.org [education indicator]",
+            "[país] [indicador] estadísticas oficiales site:gov"
+          ],
+          "sources_by_domain": {
+            "global": ["Banco Mundial", "ONU/PNUD", "OMS", "UNESCO", "OCDE", "FAO"],
+            "latam": ["CEPAL", "BID", "OPS", "SITEAL"],
+            "national": "Buscar el instituto nacional de estadística del país relevante (INE, DANE, INEGI, etc.)"
+          }
+        },
+        {
+          "type": "Búsqueda de libros y textos teóricos",
+          "approach": "Localizar obras fundamentales y autores seminales.",
+          "search_patterns": [
+            "site:books.google.com [autor seminal] [teoría]",
+            "[teoría] handbook OR textbook filetype:pdf",
+            "[autor] [concepto] definición"
+          ],
+          "sources": [
+            "Google Books (books.google.com) — Vista previa de libros",
+            "OpenLibrary (openlibrary.org) — Libros de acceso abierto",
+            "Library Genesis (verificar acceso legal en jurisdicción local)"
+          ]
+        },
+        {
+          "type": "Búsqueda de tesis y trabajos de grado",
+          "approach": "Repositorios institucionales y nacionales.",
+          "search_patterns": [
+            "[tema] tesis de grado filetype:pdf",
+            "site:repositorio [universidad] [tema]",
+            "[topic] thesis OR dissertation site:edu"
+          ],
+          "repositories": [
+            "Repositorios institucionales de universidades",
+            "TESEO (teseo.es) — Tesis doctorales España",
+            "ProQuest Dissertations — Tesis internacionales",
+            "Cybertesis — Red latinoamericana de tesis"
+          ]
+        },
+        {
+          "type": "Búsqueda de noticias y contexto actual",
+          "approach": "Información reciente para justificación y contextualización del problema.",
+          "search_patterns": [
+            "[tema] [año actual] noticias",
+            "[topic] recent developments [current year]",
+            "site:reuters.com OR site:bbc.com [topic]"
+          ],
+          "caution": "Las noticias NO son fuentes académicas. Usar solo para contextualizar el problema o justificar relevancia, nunca como sustento teórico."
+        },
+        {
+          "type": "Búsqueda de instrumentos de medición",
+          "approach": "Localizar cuestionarios, escalas y tests validados.",
+          "search_patterns": [
+            "[variable] scale OR questionnaire validation filetype:pdf",
+            "[variable] instrumento validación confiabilidad",
+            "[variable] psychometric properties",
+            "[escala] alpha de Cronbach validación"
+          ],
+          "validation_check": "Todo instrumento encontrado debe tener reportados: validez (de contenido, constructo o criterio) y confiabilidad (Alpha de Cronbach ≥ 0.70)."
+        }
+      ]
+    },
+    "2_boolean_search_builder": {
+      "description": "Generador de ecuaciones de búsqueda con operadores booleanos para bases de datos.",
+      "operators": {
+        "AND": "Intersección — Ambos términos deben estar presentes. Ej: 'educación AND tecnología'",
+        "OR": "Unión — Al menos uno de los términos. Ej: 'deserción OR abandono OR dropout'",
+        "NOT": "Exclusión — Eliminar resultados con ese término. Ej: 'aprendizaje NOT máquina'",
+        "comillas": "Frase exacta — Ej: '\"rendimiento académico\"'",
+        "asterisco": "Truncamiento — Ej: 'educ*' busca educación, educativo, educacional",
+        "paréntesis": "Agrupación — Ej: '(deserción OR abandono) AND universidad'"
+      },
+      "template": "(\"[Variable 1]\" OR [Sinónimo 1a] OR [Sinónimo 1b]) AND (\"[Variable 2]\" OR [Sinónimo 2a]) AND ([Contexto o población])",
+      "example": "(\"rendimiento académico\" OR \"academic performance\" OR \"logro escolar\") AND (\"uso de tecnología\" OR \"TIC\" OR \"ICT\") AND (\"educación superior\" OR universidad)",
+      "best_practice": "Siempre incluir sinónimos y equivalentes en inglés para ampliar cobertura."
+    },
+    "3_source_evaluation_criteria": {
+      "description": "Criterios para evaluar la calidad de las fuentes encontradas antes de incluirlas.",
+      "academic_quality_filters": [
+        {
+          "criterion": "Revisión por pares (Peer Review)",
+          "check": "¿La fuente fue publicada en una revista con proceso de revisión por pares?",
+          "priority": "ALTA — Preferir siempre fuentes peer-reviewed."
+        },
+        {
+          "criterion": "Actualidad",
+          "check": "¿La fuente tiene menos de 5 años de antigüedad?",
+          "priority": "ALTA — Excepto para autores seminales o teorías clásicas.",
+          "exception": "Autores fundacionales (Piaget, Vygotsky, Bandura, etc.) pueden tener cualquier antigüedad."
+        },
+        {
+          "criterion": "Relevancia directa",
+          "check": "¿La fuente aborda directamente las variables o el fenómeno de la investigación?",
+          "priority": "ALTA — Descartar fuentes tangenciales."
+        },
+        {
+          "criterion": "Indexación",
+          "check": "¿La revista está indexada en Scopus, WoS, SciELO, Latindex Catálogo?",
+          "priority": "MEDIA — Indica estándares de calidad editorial."
+        },
+        {
+          "criterion": "Metodología reportada",
+          "check": "¿El estudio describe claramente su diseño, muestra e instrumentos?",
+          "priority": "MEDIA — Fuentes sin metodología clara tienen menor peso."
+        },
+        {
+          "criterion": "Accesibilidad",
+          "check": "¿Se puede acceder al texto completo?",
+          "priority": "PRÁCTICA — Registrar fuentes no accesibles si son relevantes (para solicitud posterior)."
+        }
+      ],
+      "red_flags": [
+        "Blogs personales o páginas sin autor identificable.",
+        "Revistas predatorias (verificar en Beall's List o Cabells).",
+        "Fuentes sin fecha de publicación.",
+        "Wikipedia (útil como punto de partida, NO como fuente citable).",
+        "Monografías.com, Rincón del Vago, y sitios similares."
+      ]
+    },
+    "4_output_format": {
+      "description": "Formato estándar para reportar fuentes encontradas al usuario.",
+      "per_source_template": {
+        "fields": [
+          "Autor(es) y Año",
+          "Título del artículo/libro",
+          "Revista/Editorial (con volumen, número y páginas si aplica)",
+          "DOI o URL de acceso",
+          "Resumen de relevancia (1-2 oraciones: por qué es útil para esta investigación)",
+          "Tipo de fuente (Paper, Tesis, Libro, Reporte oficial, etc.)"
+        ],
+        "example": {
+          "author": "García-López, L. M., & Gutiérrez, D. (2023)",
+          "title": "Impacto de las TIC en el rendimiento académico universitario: revisión sistemática",
+          "journal": "Revista Iberoamericana de Educación, 91(2), 45-68",
+          "doi": "https://doi.org/10.35362/rie9125432",
+          "relevance": "Revisión sistemática reciente que analiza 42 estudios sobre la misma relación de variables. Útil como antecedente directo.",
+          "type": "Artículo de revisión (peer-reviewed, SciELO)"
+        }
+      },
+      "batch_summary": "Al finalizar una sesión de búsqueda, presentar: total de fuentes encontradas, cuántas cumplen criterios de calidad, y recomendación de cuáles incluir en el marco teórico."
+    },
+    "5_research_workflow_integration": {
+      "description": "Cómo se integra la búsqueda web en cada paso del proceso de investigación.",
+      "integration_points": {
+        "step_1_conception": "Búsqueda exploratoria amplia para mapear el estado general del tema y detectar tendencias.",
+        "step_2_problem_definition": "Buscar estadísticas y noticias para justificar la relevancia del problema. Buscar vacíos en la literatura.",
+        "step_3_literature_and_theory": "Búsqueda intensiva de papers, libros y tesis para construir antecedentes y bases teóricas. Usar ecuaciones booleanas.",
+        "step_5_quantitative_hypothesis": "Buscar estudios previos que sustenten la dirección de la hipótesis (relación esperada entre variables).",
+        "step_5_qualitative_questions": "Buscar investigaciones cualitativas previas sobre el fenómeno para sensibilización teórica.",
+        "step_6_quantitative_design": "Buscar estudios con diseños similares para tomar como referencia metodológica.",
+        "step_8_quantitative_data_collection": "Buscar instrumentos validados (cuestionarios, escalas) para las variables del estudio.",
+        "step_9_quantitative_analysis": "Buscar guías de análisis estadístico para el diseño y nivel de medición seleccionado.",
+        "step_10_reporting": "Verificar formato de referencias APA y completar datos bibliográficos faltantes (DOI, volumen, páginas)."
+      }
+    }
+  }
+}

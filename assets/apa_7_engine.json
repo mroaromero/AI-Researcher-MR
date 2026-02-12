@@ -1,0 +1,172 @@
+{
+  "metadata": {
+    "standard": "Normas APA 7ma Edición",
+    "language": "es-LATAM",
+    "version": "1.0-Consolidated",
+    "purpose": "Academic Writing & Citation Engine for LLMs"
+  },
+  "apa_7_engine": {
+    "1_citation_mechanics": {
+      "description": "Reglas estrictas de formato para citas directas e indirectas dentro del texto.",
+      "direct_quotes": {
+        "short_quote": {
+          "condition": "Menos de 40 palabras (<40)",
+          "formatting": {
+            "style": "Integrada en el párrafo (Inline)",
+            "quotes_required": true,
+            "italics": false,
+            "punctuation_rule": "El punto final se coloca DESPUÉS del paréntesis de la cita."
+          },
+          "templates": {
+            "narrative": "{Apellido} ({Año}) \"{Texto}\" (p. {xx}).",
+            "parenthetical": "\"{Texto}\" ({Apellido}, {Año}, p. {xx})."
+          }
+        },
+        "block_quote": {
+          "condition": "40 palabras o más (>=40)",
+          "formatting": {
+            "style": "Bloque independiente (Block)",
+            "indentation": "Sangría izquierda de 1.27 cm (0.5 in) aplicada a todo el bloque",
+            "quotes_required": false,
+            "italics": false,
+            "punctuation_rule": "El punto final se coloca ANTES del paréntesis de la cita."
+          },
+          "templates": {
+            "narrative": "{Apellido} ({Año}) afirma: [Salto de línea] {BloqueTexto}. (p. {xx})",
+            "parenthetical": "Oración introductoria. [Salto de línea] {BloqueTexto}. ({Apellido}, {Año}, p. {xx})"
+          }
+        }
+      },
+      "author_rules": {
+        "one_author": {
+          "narrative": "{Apellido} ({Año})",
+          "parenthetical": "({Apellido}, {Año})"
+        },
+        "two_authors": {
+          "narrative": "{Apellido1} y {Apellido2} ({Año})",
+          "parenthetical": "({Apellido1} & {Apellido2}, {Año})",
+          "note": "En español a veces se usa 'y' en parentética, pero la imagen indica '&'."
+        },
+        "three_or_more_authors": {
+          "rule": "Desde la primera cita se menciona solo el primero seguido de 'et al.'",
+          "narrative": "{Apellido1} et al. ({Año})",
+          "parenthetical": "({Apellido1} et al., {Año})"
+        },
+        "corporate_author": {
+          "first_citation": {
+            "narrative": "{NombreCompleto} ({Siglas}, {Año})",
+            "parenthetical": "({NombreCompleto} [{Siglas}], {Año})"
+          },
+          "subsequent_citations": {
+            "narrative": "{Siglas} ({Año})",
+            "parenthetical": "({Siglas}, {Año})"
+          }
+        }
+      }
+    },
+    "2_paraphrasing_logic": {
+      "description": "Reglas y estrategias para reescribir ideas manteniendo la atribución.",
+      "definition": "Expresar las ideas de otro autor con palabras propias para mayor claridad y síntesis.",
+      "requirements": {
+        "mandatory": ["Apellido del Autor", "Año"],
+        "optional": ["Número de página"],
+        "forbidden": ["Uso de comillas", "Sangría de bloque (a menos que sea un párrafo nuevo)"]
+      },
+      "strategies": {
+        "mechanical": {
+          "description": "Sustitución simple de sinónimos. Estructura sintáctica casi idéntica.",
+          "complexity": "Baja (No recomendado para nivel experto)",
+          "example_pattern": "Original: 'El sujeto X hizo Y' -> Parafraseo: 'El individuo X realizó Y'"
+        },
+        "constructive": {
+          "description": "Reelaboración total. Cambio de sintaxis, unión de ideas y vocabulario propio.",
+          "complexity": "Alta (Recomendado para LLM)",
+          "example_pattern": "Original: 'El sujeto X hizo Y debido a Z' -> Parafraseo: 'Z fue la causa fundamental por la que X ejecutó Y'"
+        }
+      },
+      "flow_control": "Si la paráfrasis continúa por varias oraciones, no repetir la cita en cada una si el contexto es claro. Reintroducir la cita al cambiar de párrafo."
+    },
+    "3_narrative_vocabulary": {
+      "description": "Banco de verbos y conectores clasificados por intención retórica (Motor de Estilo).",
+      "intents": [
+        {
+          "tag": "neutral_reporting",
+          "purpose": "Presentar información objetivamente",
+          "verbs": ["Afirma", "Sostiene", "Señala", "Describe", "Define", "Plantea", "Refiere", "Menciona", "Indica", "Relaciona", "Da a conocer"],
+          "connectors": ["Según {Autor}...", "De acuerdo con {Autor}...", "Tal como señala {Autor}...", "Para {Autor}...", "Desde la perspectiva de {Autor}..."]
+        },
+        {
+          "tag": "argumentation_defense",
+          "purpose": "Defender una postura o teoría",
+          "verbs": ["Argumenta", "Defiende", "Propone", "Postula", "Enfatiza", "Ratifica", "Deduce"],
+          "connectors": ["{Autor} defiende la idea de que...", "{Autor} postula que...", "Como propone {Autor}, se adopta..."]
+        },
+        {
+          "tag": "contrast_disagreement",
+          "purpose": "Oponer ideas o criticar",
+          "verbs": ["Refuta", "Critica", "Cuestiona", "Discrepa", "Difiere"],
+          "connectors": ["En contraste con {Autor}...", "Sin embargo, {Autor} cuestiona...", "A diferencia de {X}, {Y} sostiene...", "{Autor} refuta la afirmación..."]
+        },
+        {
+          "tag": "consensus_support",
+          "purpose": "Mostrar acuerdo entre fuentes",
+          "verbs": ["Coincide", "Concuerda", "Corroborar", "Apoya"],
+          "connectors": ["En consonancia con {Autor}...", "Estos resultados concuerdan con...", "Lo planteado por {X} coincide con..."]
+        },
+        {
+          "tag": "evidence_findings",
+          "purpose": "Introducir datos empíricos",
+          "verbs": ["Encontró", "Observó", "Demostró", "Verifica", "Revela", "Analiza"],
+          "connectors": ["Los hallazgos de {Autor} indican...", "La evidencia de {Autor} sugiere...", "{Autor} demostró que..."]
+        },
+        {
+          "tag": "nuance_caution",
+          "purpose": "Suavizar afirmaciones",
+          "verbs": ["Sugiere", "Parece señalar", "Recomienda", "Insinúa"],
+          "connectors": ["Podría considerarse que...", "{Autor} parece indicar que..."]
+        },
+        {
+          "tag": "limitations_gaps",
+          "purpose": "Señalar faltas o restricciones",
+          "verbs": ["Reconoce", "Admite"],
+          "connectors": ["No obstante, {Autor} reconoce...", "Existe un vacío en... según {Autor}"]
+        }
+      ]
+    },
+    "4_legal_references": {
+      "description": "Plantillas para la lista de referencias de normas jurídicas (Contexto LATAM/Colombia).",
+      "templates": [
+        {
+          "type": "Constitución",
+          "structure": "{NombreOficial} [{Abreviación}]. {ArtículoEspecifico}. {FechaPromulgación}. {URL}",
+          "example": "Constitución Política de Colombia [Const.]. Art. 6. Julio 7 de 1991."
+        },
+        {
+          "type": "Ley",
+          "structure": "Ley {Numero} de {Año}. {Asunto/Título}. {FechaPromulgación}. {DiarioOficial/Boletín}. {URL}",
+          "example": "Ley 1060 de 2006. Por la cual se modifican las normas... Julio 26 de 2006. DO. No. 46341."
+        },
+        {
+          "type": "Código",
+          "structure": "{TítuloOficial} [{Abreviación}]. Ley {Numero} de {Año} que lo aprueba. {ArtículosCitados}. {FechaPromulgación}. {URL}",
+          "example": "Código Civil Colombiano [CCC]. Ley 57 de 1887. Arts. 2341. Abril 15 de 1887."
+        },
+        {
+          "type": "Actos Administrativos (Decreto/Resolución)",
+          "structure": "{TipoNorma} {Numero} de {Año} [{EnteEmisor}]. {Asunto}. {FechaPromulgación}. {URL}",
+          "example": "Decreto 880 de 2008 [Presidencia de la República]. Por medio del cual se reglamenta... Marzo 27 de 2008."
+        }
+      ]
+    },
+    "5_special_cases": {
+      "secondary_source": {
+        "format": "({AutorOriginal}, {Año}, como se citó en {AutorSecundario}, {Año})",
+        "narrative": "{AutorOriginal} ({Año}, como se citó en {AutorSecundario}, {Año})"
+      },
+      "own_translation": {
+        "suffix": "[traducción propia]",
+        "example": "\"{Texto traducido}\" [traducción propia]."
+      }
+    }
+  }
+}

@@ -1,0 +1,255 @@
+{
+  "metadata": {
+    "component": "MASTER WORKFLOW ORCHESTRATOR",
+    "context": "Scientific Research Process (Quantitative, Qualitative, and Mixed Methods)",
+    "purpose": "Step-by-step project management guiding the LLM through the entire research lifecycle.",
+    "version": "2.0 - MULTI-APPROACH INTEGRATED SYSTEM",
+    "critical_instruction": "This JSON controls the sequence. Do not skip steps. Consult linked engines for execution details. At Step 4B, the chosen approach determines which variant of Steps 5-9 to follow."
+  },
+  "research_process_master_engine": {
+    "step_1_conception": {
+      "phase": "PASO 1: Concebir la idea",
+      "description": "Punto de partida. Identificar un tema de interés general.",
+      "action": "Dialogar con el usuario para delimitar un tema vago en una idea concreta.",
+      "linked_engines": {
+        "exploratory_search": "web_search_tool > 1_search_strategies (Búsqueda exploratoria amplia para mapear el estado general del tema y detectar tendencias.)"
+      }
+    },
+    "step_2_problem_definition": {
+      "phase": "PASO 2: Plantear el problema de investigación",
+      "description": "Transformar la idea en un problema investigable científicamente.",
+      "sub_tasks": [
+        "Establecer objetivos de investigación (General y Específicos).",
+        "Desarrollar las preguntas de investigación (que los objetivos deben responder).",
+        "Justificar la investigación y su viabilidad (¿Por qué y para qué?)."
+      ],
+      "linked_engines": {
+        "structure": "drafting_engine > 1_core_sections_blueprints > introduction",
+        "objectives_logic": "drafting_engine > 1_core_sections_blueprints > objectives_system",
+        "evidence_search": "web_search_tool (Buscar estadísticas, noticias y datos oficiales para justificar la relevancia del problema. Ver estrategias: 'datos estadísticos' y 'noticias'.)"
+      }
+    },
+    "step_3_literature_and_theory": {
+      "phase": "PASO 3: Elaborar el Marco Teórico",
+      "description": "Sustento conceptual del estudio. Implica un ciclo de revisión de literatura.",
+      "sub_tasks_cycle": [
+        "Detección y obtención de literatura (búsqueda de fuentes).",
+        "Consulta y extracción/recopilación de información relevante.",
+        "Construcción del marco teórico (integración de antecedentes y bases teóricas)."
+      ],
+      "linked_engines": {
+        "content_guide": "theoretical_framework_engine (Use flow: 0_construction_workflow)",
+        "source_discovery": "web_search_tool (Búsqueda intensiva de papers, libros y tesis. Usar ecuaciones booleanas de web_search_tool > 2_boolean_search_builder. Evaluar calidad con 3_source_evaluation_criteria.)",
+        "source_consultation": "notebooklm_tool (Si el usuario tiene fuentes en NotebookLM: consultar cuadernos para extraer teorías, antecedentes y datos con cero alucinaciones.)",
+        "systematic_review": "prisma_engine (Opcional: Usar cuando el estudio requiera revisión sistemática de literatura o meta-análisis. Seguir flujo PRISMA 2020.)",
+        "writing_style": "connectors_library (For connecting theoretical concepts)",
+        "citation_format": "apa_7_engine"
+      }
+    },
+    "step_4_scope_definition": {
+      "phase": "PASO 4: Definir el Alcance del Estudio",
+      "description": "Determinar la profundidad y el nivel de conocimiento que se busca.",
+      "critical_decision": "Debe clasificarse en UNO de los siguientes niveles, que condicionará los pasos siguientes.",
+      "options": ["Exploratorio", "Descriptivo", "Correlacional", "Explicativo"],
+      "linked_engines": {
+        "definitions": "methodology_engine > 2_research_levels_scope"
+      }
+    },
+    "step_4b_approach_selection": {
+      "phase": "PASO 4B: Seleccionar el Enfoque de Investigación",
+      "description": "Determinar la naturaleza metodológica del estudio. Esta decisión condiciona los pasos 5-9.",
+      "critical_decision": "Debe clasificarse en UNO de los siguientes enfoques.",
+      "options": ["Cuantitativo", "Cualitativo", "Mixto"],
+      "linked_engines": {
+        "definitions": "methodology_engine > 1_paradigm_and_approach"
+      },
+      "routing_logic": {
+        "quantitative_path": "Si se selecciona 'Cuantitativo': Seguir pasos 5-9 CUANTITATIVOS (step_5_quantitative a step_9_quantitative). Flujo hipotético-deductivo: Hipótesis → Diseño Experimental/No Experimental → Muestreo Estadístico → Instrumentos de Medición → Análisis Estadístico.",
+        "qualitative_path": "Si se selecciona 'Cualitativo': Seguir pasos 5-9 CUALITATIVOS (step_5_qualitative a step_9_qualitative). Flujo inductivo-interpretativo: Preguntas abiertas → Diseño Cualitativo → Selección de Participantes → Recolección Interpretativa → Codificación y Categorización.",
+        "mixed_path": "Si se selecciona 'Mixto': Ver step_5_to_9_mixed_methods_note para estrategias de integración."
+      }
+    },
+
+    "_section_quantitative_path": "===== RUTA CUANTITATIVA (Pasos 5-9) =====",
+
+    "step_5_quantitative_hypothesis": {
+      "phase": "PASO 5 (Cuantitativo): Establecer Hipótesis y Variables",
+      "description": "Formular explicaciones tentativas y definir qué se va a medir. (RUTA CUANTITATIVA)",
+      "prerequisite": "Depende directamente del Alcance definido en el PASO 4.",
+      "sub_tasks": [
+        "Formular hipótesis (Si el alcance lo requiere).",
+        "Detectar las variables (Independiente, Dependiente, Interviniente).",
+        "Definir conceptualmente las variables (Qué son según la teoría).",
+        "Definir operacionalmente las variables (Cómo se medirán en la práctica)."
+      ],
+      "linked_engines": {
+        "hypothesis_logic": "hypothesis_engine (Apply 0_decision_matrix_scope_rule FIRST)",
+        "variable_definitions": "theoretical_framework_engine > 2_structural_components > Definición de Variables"
+      }
+    },
+    "step_6_quantitative_design": {
+      "phase": "PASO 6 (Cuantitativo): Seleccionar el Diseño de Investigación",
+      "description": "Elegir el plan o estrategia para obtener los datos y probar las hipótesis. (RUTA CUANTITATIVA)",
+      "critical_decision_branch": {
+        "path_A": "Diseño Experimental (Preexperimental, Cuasiexperimental, Experimental puro)",
+        "path_B": "Diseño No Experimental (Transversal, Longitudinal)"
+      },
+      "linked_engines": {
+        "design_catalog": "methodology_engine > 3_research_designs > quantitative_designs",
+        "coherence_check": "methodology_engine > 0_golden_rule_consistency"
+      }
+    },
+    "step_7_quantitative_sampling": {
+      "phase": "PASO 7 (Cuantitativo): Selección de la Muestra",
+      "description": "Definir quiénes serán medidos. (RUTA CUANTITATIVA)",
+      "sub_tasks": [
+        "Determinar el universo/población objetivo.",
+        "Extraer la muestra (Cálculo de tamaño y método de selección)."
+      ],
+      "linked_engines": {
+        "sampling_tools": "methodology_engine > 5_population_and_sampling"
+      }
+    },
+    "step_8_quantitative_data_collection": {
+      "phase": "PASO 8 (Cuantitativo): Recolección de Datos",
+      "description": "Trabajo de campo y preparación de datos. (RUTA CUANTITATIVA)",
+      "sub_tasks": [
+        "Elaborar el instrumento de medición (Cuestionario, escala, etc.).",
+        "Calcular validez y confiabilidad del instrumento.",
+        "Aplicar el instrumento (Recolección física o digital).",
+        "Codificar los datos y crear archivo/base de datos para análisis."
+      ],
+      "linked_engines": {
+        "instrument_search": "web_search_tool > 1_search_strategies > instrumentos de medición (Buscar cuestionarios y escalas validadas para las variables del estudio.)"
+      }
+    },
+    "step_9_quantitative_analysis": {
+      "phase": "PASO 9 (Cuantitativo): Analizar los Datos",
+      "description": "Procesamiento estadístico de la información recolectada. (RUTA CUANTITATIVA)",
+      "sub_tasks": [
+        "Seleccionar las pruebas estadísticas apropiadas (según nivel de medición y diseño).",
+        "Realizar los análisis (Descriptivos e Inferenciales).",
+        "Interpretar los resultados estadísticos."
+      ],
+      "linked_engines": null
+    },
+
+    "_section_qualitative_path": "===== RUTA CUALITATIVA (Pasos 5-9) =====",
+
+    "step_5_qualitative_questions": {
+      "phase": "PASO 5 (Cualitativo): Preguntas de Investigación y Supuestos",
+      "description": "En investigación cualitativa NO se formulan hipótesis formales. Se trabaja con preguntas abiertas y supuestos teóricos.",
+      "sub_tasks": [
+        "Formular preguntas de investigación centrales (amplias y abiertas).",
+        "Formular sub-preguntas de investigación (dimensiones específicas a explorar).",
+        "Explicitar supuestos teóricos o filosóficos del investigador.",
+        "Identificar conceptos sensibilizadores (no variables medibles)."
+      ],
+      "linked_engines": {
+        "approach_validation": "methodology_engine > 1_paradigm_and_approach > Cualitativo",
+        "theoretical_concepts": "theoretical_framework_engine > 2_structural_components"
+      },
+      "key_difference": "Preguntas vs. Hipótesis: Las preguntas cualitativas NO pronostican resultados, sino que GUÍAN la exploración."
+    },
+    "step_6_qualitative_design": {
+      "phase": "PASO 6 (Cualitativo): Seleccionar el Diseño Cualitativo",
+      "description": "Elegir la tradición o estrategia cualitativa apropiada para el fenómeno de estudio.",
+      "design_options": [
+        "Etnográfico (Cultura y prácticas sociales)",
+        "Fenomenológico (Experiencias vividas)",
+        "Teoría Fundamentada (Generación de teoría desde datos)",
+        "Investigación Acción (Transformación social)",
+        "Estudio de Caso (Análisis profundo de una entidad)"
+      ],
+      "linked_engines": {
+        "design_catalog": "methodology_engine > 3_research_designs > qualitative_designs",
+        "coherence_check": "methodology_engine > 0_golden_rule_consistency"
+      },
+      "selection_criteria": "El diseño debe alinearse con las preguntas de investigación y el nivel de profundidad deseado."
+    },
+    "step_7_qualitative_participants": {
+      "phase": "PASO 7 (Cualitativo): Selección de Participantes",
+      "description": "Definir quiénes serán los informantes clave. NO se busca representatividad estadística sino riqueza informativa.",
+      "sub_tasks": [
+        "Definir criterios de inclusión/exclusión (Muestreo intencional o teórico).",
+        "Determinar el tamaño aproximado (Principio de saturación teórica: se detiene cuando no emergen nuevos datos).",
+        "Seleccionar estrategia de muestreo: por conveniencia, bola de nieve, casos extremos, máxima variación."
+      ],
+      "linked_engines": {
+        "sampling_context": "methodology_engine > 5_population_and_sampling (NOTA: Las fórmulas estadísticas NO aplican aquí)"
+      },
+      "key_principle": "Profundidad sobre amplitud: Pocos casos pero explorados exhaustivamente."
+    },
+    "step_8_qualitative_data_collection": {
+      "phase": "PASO 8 (Cualitativo): Recolección de Datos",
+      "description": "Trabajo de campo intensivo mediante técnicas interpretativas.",
+      "techniques": [
+        "Entrevistas en profundidad (estructuradas, semi-estructuradas, abiertas)",
+        "Observación participante o no participante",
+        "Grupos focales (focus groups)",
+        "Análisis documental (diarios, archivos, fotografías)",
+        "Historias de vida"
+      ],
+      "sub_tasks": [
+        "Diseñar guiones de entrevista o protocolos de observación.",
+        "Establecer rapport y confianza con los participantes.",
+        "Registrar datos (grabaciones de audio/video, notas de campo, transcripciones).",
+        "Reflexividad del investigador (registrar impresiones y sesgos personales)."
+      ],
+      "linked_engines": null,
+      "ethical_note": "Consentimiento informado y confidencialidad son críticos en investigación cualitativa."
+    },
+    "step_9_qualitative_analysis": {
+      "phase": "PASO 9 (Cualitativo): Análisis de Datos",
+      "description": "Procesamiento interpretativo mediante codificación y categorización.",
+      "analysis_phases": [
+        "1. Codificación Abierta: Identificar conceptos y etiquetas emergentes en los datos.",
+        "2. Codificación Axial: Agrupar códigos en categorías más amplias.",
+        "3. Codificación Selectiva: Identificar categorías centrales y relaciones entre ellas.",
+        "4. Triangulación: Contrastar fuentes múltiples para validar interpretaciones."
+      ],
+      "outputs": [
+        "Categorías emergentes (temas recurrentes)",
+        "Narrativas y citas textuales representativas",
+        "Matrices de análisis o mapas conceptuales",
+        "Teorías fundamentadas (si aplica)"
+      ],
+      "linked_engines": null,
+      "software_optional": "Atlas.ti, NVivo, MAXQDA (No obligatorio, análisis manual es válido)."
+    },
+
+    "_section_mixed_methods": "===== NOTA ESPECIAL: ENFOQUE MIXTO =====",
+
+    "step_5_to_9_mixed_methods_note": {
+      "phase": "NOTA: Pasos 5-9 para Enfoque Mixto",
+      "description": "Si se seleccionó 'Mixto' en el Paso 4B, el investigador debe combinar elementos de las rutas cuantitativa y cualitativa.",
+      "integration_strategies": {
+        "sequential_explanatory": "CUANTITATIVO primero (Pasos 5-9 cuantitativos) → Luego CUALITATIVO (Pasos 5-9 cualitativos) para profundizar en resultados.",
+        "sequential_exploratory": "CUALITATIVO primero (Pasos 5-9 cualitativos) → Luego CUANTITATIVO (Pasos 5-9 cuantitativos) para generalizar hallazgos.",
+        "concurrent_triangulation": "AMBOS simultáneamente. Ejecutar pasos cuantitativos Y cualitativos en paralelo y contrastar resultados al final."
+      },
+      "linked_engines": {
+        "approach_definition": "methodology_engine > 1_paradigm_and_approach > Mixto"
+      },
+      "critical_requirement": "Debe especificarse en Metodología CÓMO y CUÁNDO se integrarán ambos enfoques."
+    },
+
+    "_section_reporting": "===== PASO FINAL (Común a todos los enfoques) =====",
+
+    "step_10_reporting": {
+      "phase": "PASO 10: Presentar los Resultados",
+      "description": "Comunicación final del estudio. Aplica a todos los enfoques.",
+      "sub_tasks": [
+        "Elaborar el reporte de investigación (Escribir el documento final).",
+        "Presentar el reporte (Defensa de tesis, envío a revista, publicación)."
+      ],
+      "linked_engines": {
+        "product_selector": "product_definition_engine (Thesis vs Paper vs Essay)",
+        "structure_guide": "drafting_engine",
+        "report_flow": "methodology_engine > 6_report_structure_guide (Seleccionar quantitative_flow o qualitative_flow según enfoque)",
+        "formatting": "apa_7_engine",
+        "writing_style": "connectors_library"
+      }
+    }
+  }
+}

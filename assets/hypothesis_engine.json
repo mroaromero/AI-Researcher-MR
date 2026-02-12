@@ -1,0 +1,94 @@
+{
+  "metadata": {
+    "component": "Advanced Hypothesis Formulation Engine",
+    "context": "Scientific Research (Quantitative/Mixed)",
+    "architecture": "7-Module Cognitive Architecture (Optimización.txt)",
+    "version": "2.0 - Neuro-Symbolic Logic",
+    "purpose": "Generate, validate, and refine research hypotheses using a multi-stage cognitive process."
+  },
+  "hypothesis_engine": {
+    "module_1_semantic_exploration": {
+      "description": "Deconstructs the research problem into core components.",
+      "steps": [
+        {
+          "step": "extract_key_terms",
+          "action": "Identify the main concepts (nouns and verbs) in the research question.",
+          "instruction": "Output a list of 3-5 key terms."
+        },
+        {
+          "step": "journalistic_decomposition",
+          "action": "Analyze the problem using the 5 Ws: Who (Subject), What (Phenomenon), When (Timeframe), Where (Location), Why (Cause/Effect).",
+          "instruction": "Fill the matrix: [Who, What, When, Where, Why]."
+        }
+      ]
+    },
+    "module_2_variable_mapping": {
+      "description": "Identifies and categorizes variables (Module 3 in architecture).",
+      "categories": {
+        "independent": "The cause or predictor variable (manipulated or observed).",
+        "dependent": "The effect or outcome variable (measured).",
+        "control": "Variables kept constant to isolate the relationship.",
+        "mediating": "Variables that explain the mechanism (How X affects Y).",
+        "moderating": "Variables that change the strength/direction of the relationship (When X affects Y)."
+      },
+      "operational_definition_template": {
+        "structure": "Name of Variable + Concept (What it is) + Indicator (How it is measured).",
+        "example": "Estrés Laboral (Concepto) medido mediante la escala Maslach Burnout Inventory (Indicador)."
+      }
+    },
+    "module_3_creative_generation": {
+      "description": "Generates hypothesis candidates using different logical templates (Module 4).",
+      "types": [
+        {
+          "type": "Descriptive",
+          "template": "El [Grupo] presenta niveles [Alto/Bajo] de [Variable Dependiente] en [Contexto].",
+          "logic": "Predicts a single variable's state."
+        },
+        {
+          "type": "Correlational",
+          "template": "Existe una relación [Positiva/Negativa] entre [Variable Independiente] y [Variable Dependiente].",
+          "logic": "Predicts association without causation."
+        },
+        {
+          "type": "Causal",
+          "template": "La [Variable Independiente] provoca/genera un cambio en [Variable Dependiente].",
+          "logic": "Predicts cause-and-effect (requires experimental design or strong theory)."
+        },
+        {
+          "type": "Null",
+          "template": "No existe relación significativa entre [Variable Independiente] y [Variable Dependiente].",
+          "logic": "The default assumption to be rejected."
+        },
+        {
+          "type": "Directional",
+          "template": "A mayor [Variable X], [mayor/menor] [Variable Y].",
+          "logic": "Predicts the specific direction of the relationship."
+        },
+        {
+          "type": "Qualitative",
+          "template": "Se anticipa que [Fenómeno Central] varía en función de [Contexto/Experiencia].",
+          "logic": "Working hypothesis (Hipótesis de Trabajo) or anticipation of meaning for qualitative inquiry."
+        }
+      ]
+    },
+    "module_4_validation_checklist": {
+      "description": "Filters candidates based on scientific rigor (Module 5).",
+      "checks": [
+        "Is Testable? (Can it be proven false?)",
+        "Has Variables? (At least 1 IV and 1 DV unless descriptive)",
+        "Clarity Score (Is it free of ambiguity?)",
+        "Relevance (Does it answer the Research Question?)",
+        "Ethical Compliance (Does testing it harm subjects?)"
+      ],
+      "scoring_threshold": "Must pass 5/5 checks to be accepted."
+    },
+    "module_5_simulation_projection": {
+      "description": "Anticipates requirements for testing the hypothesis (Module 7).",
+      "projections": [
+        "Statistical Test Required (e.g., T-Test, ANOVA, Pearson Correlation)",
+        "Sample Size Estimation (Low/Medium/High power)",
+        "Data Collection Strategy (Survey, Experiment, Observation)"
+      ]
+    }
+  }
+}

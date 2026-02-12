@@ -1,0 +1,104 @@
+{
+  "metadata": {
+    "component": "Academic Drafting & Structure Engine",
+    "context": "Thesis / Scientific Articles (IMRyD) / Essays",
+    "purpose": "Provide specific blueprints for writing each section of an academic document.",
+    "version": "2.0 - Advanced Guidelines"
+  },
+  "drafting_engine": {
+    "0_process_workflow": {
+      "description": "Fases macro para una escritura exitosa.",
+      "phases": [
+        {
+          "phase": "1. Planificar",
+          "action": "Determinar la idea principal, el flujo narrativo y la audiencia antes de escribir una palabra."
+        },
+        {
+          "phase": "2. Escribir (Drafting)",
+          "action": "Redactar de forma clara. Recomendación: Escribir 'al revés' (empezar por Resultados/Métodos, dejar Introducción/Resumen para el final)."
+        },
+        {
+          "phase": "3. Editar",
+          "action": "Revisar gramática, estilo y cumplimiento de normas (APA). Verificar que lo entiendan colegas y legos."
+        }
+      ]
+    },
+    "1_core_sections_blueprints": {
+      "description": "Plantillas lógicas para redactar las secciones nucleares del documento.",
+      "abstract_resumen": {
+        "definition": "Versión en miniatura del artículo. Debe tener 4-5 frases potentes.",
+        "structure_template": [
+          "1. Introducción/Contexto (1 frase): El problema y su relevancia.",
+          "2. Objetivo (1 frase): Qué pretende el estudio.",
+          "3. Método (1-2 frases): Naturaleza del estudio, muestra e instrumentos.",
+          "4. Resultados (1-2 frases): El hallazgo principal.",
+          "5. Conclusión (1 frase): El impacto o implicación estratégica."
+        ]
+      },
+      "introduction": {
+        "definition": "Carta de presentación. Debe motivar la lectura y trazar el mapa.",
+        "required_elements": [
+          { "element": "El QUÉ", "prompt": "Describe el tema y la problemática (ej: Situación del alumnado inmigrante)." },
+          { "element": "El POR QUÉ (Relevancia)", "prompt": "Justificación social, profesional o científica (ej: Nuevos desafíos para la educación)." },
+          { "element": "El PARA QUÉ (Propósito)", "prompt": "Qué aporta este trabajo específico (ej: Analizar el grado de preparación del sistema)." },
+          { "element": "Estructura (Preview)", "prompt": "Breve avance de los contenidos (Panorámica general)." }
+        ]
+      },
+      "methodology": {
+        "definition": "La hoja de ruta técnica. Debe permitir la replicabilidad.",
+        "required_elements": [
+          { "element": "Diseño", "prompt": "Explicita si es cuali/cuanti/mixto, experimental/no-experimental, transversal/longitudinal." },
+          { "element": "Muestra", "prompt": "Describe participantes (N), criterios de inclusión/exclusión y muestreo." },
+          { "element": "Instrumentos", "prompt": "Detalla qué se usó para medir (escalas, encuestas) y su validez." },
+          { "element": "Procedimiento", "prompt": "Narra paso a paso cómo se recogieron los datos (usar conectores temporales)." }
+        ],
+        "tips": "Usar tiempo pasado ('se midió', 'se evaluó') y voz pasiva impersonal."
+      },
+      "results": {
+        "definition": "Presentación objetiva de los hallazgos.",
+        "structure_template": [
+          "1. Orden Lógico: Presentar hallazgos de forma deductiva (General -> Específico) o respondiendo a cada objetivo.",
+          "2. Elementos Visuales: Usar Tablas y Figuras rotuladas (Tabla 1, Gráfico 3) para resumir datos complejos.",
+          "3. Objetividad: Evitar adjetivos calificativos ('preocupante', 'lamentable'). Solo describir el dato."
+        ],
+        "tips": "No interpretar aquí. Solo decir 'La tabla 1 muestra que el 50%...'."
+      },
+      "discussion": {
+        "definition": "El 'cerebro' del artículo. Interpreta, no solo describe.",
+        "flow_logic": [
+          "1. Contraste: ¿Concuerdan tus datos con la literatura previa? (Citar autores del Marco Teórico).",
+          "2. Evaluación del Método: ¿Hubo limitaciones que expliquen los resultados? (Critica tu propia precisión).",
+          "3. Verificación de Hipótesis: ¿Se cumplieron las predicciones? Si no, ¿por qué?",
+          "4. Respuesta a Preguntas: Contestar explícitamente las preguntas de investigación iniciales.",
+          "5. Proyecciones: ¿Qué nuevas preguntas surgen? ¿Es generalizable?"
+        ],
+        "example_connector": "Estos resultados difieren de lo reportado por [Autor], posiblemente debido a..."
+      },
+      "conclusions": {
+        "definition": "Cierre estratégico. No es un resumen del capítulo anterior, es una síntesis de alto nivel.",
+        "structure_template": [
+          "1. Síntesis del desarrollo: Recapitulación breve de lo más relevante (Cierre del tema).",
+          "2. Evaluación de Objetivos: Declarar explícitamente si se cumplieron (General y Específicos).",
+          "3. Proyecciones/Recomendaciones: Nuevos desafíos, líneas futuras de investigación o limitaciones detectadas."
+        ]
+      }
+    },
+    "2_structural_coherence_rules": {
+      "description": "Reglas para asegurar que todas las secciones conversen entre sí.",
+      "golden_threads": [
+        {
+          "thread": "Objetivo -> Conclusión",
+          "rule": "La conclusión debe responder directamente al Objetivo General planteado."
+        },
+        {
+          "thread": "Marco Teórico -> Discusión",
+          "rule": "Los autores citados en el Marco Teórico deben reaparecer en la Discusión para contrastar hallazgos."
+        },
+        {
+          "thread": "Metodología -> Resumen",
+          "rule": "El diseño metodológico declarado en el resumen debe coincidir exactamente con el capítulo de metodología."
+        }
+      ]
+    }
+  }
+}

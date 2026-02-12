@@ -1,0 +1,156 @@
+{
+  "metadata": {
+    "component": "NotebookLM MCP Integration Tool",
+    "context": "Literature Review & Source Management via Google NotebookLM",
+    "purpose": "Enable the LLM to query the user's NotebookLM notebooks for zero-hallucination, citation-backed answers from their own research sources.",
+    "technology": "MCP Server (notebooklm-mcp) — Browser automation with Google NotebookLM + Gemini",
+    "installation": "claude mcp add notebooklm npx notebooklm-mcp@latest",
+    "version": "1.0"
+  },
+  "notebooklm_tool": {
+    "0_when_to_use": {
+      "description": "Condiciones para invocar NotebookLM durante el proceso de investigación.",
+      "trigger_conditions": [
+        "El usuario menciona que tiene fuentes en NotebookLM.",
+        "Se necesita consultar documentación específica del usuario (PDFs, artículos, libros).",
+        "Se requiere verificar información contra las fuentes originales del usuario.",
+        "Durante la construcción del Marco Teórico (Paso 3) para extraer teorías y antecedentes.",
+        "Durante el Cribado PRISMA (Fase 2-3) para evaluar elegibilidad de fuentes.",
+        "Para triangular información entre múltiples fuentes del usuario."
+      ],
+      "do_not_use_when": [
+        "El usuario no ha configurado el MCP server de NotebookLM.",
+        "La consulta es sobre conocimiento general que no requiere fuentes específicas.",
+        "El usuario no tiene cuadernos relevantes al tema de investigación."
+      ]
+    },
+    "1_core_capabilities": {
+      "description": "Funciones principales disponibles a través del MCP server.",
+      "capabilities": [
+        {
+          "name": "Consulta de fuentes (ask_question)",
+          "action": "Hacer preguntas directas a los cuadernos del usuario y obtener respuestas basadas exclusivamente en sus documentos.",
+          "benefit": "Cero alucinaciones: NotebookLM RECHAZA responder si la información no está en los documentos.",
+          "research_use": "Extraer definiciones teóricas, datos empíricos, metodologías de estudios previos."
+        },
+        {
+          "name": "Investigación autónoma iterativa",
+          "action": "El LLM hace preguntas de seguimiento automáticamente, construyendo comprensión profunda.",
+          "benefit": "Cada respuesta genera preguntas más específicas hasta obtener todos los detalles.",
+          "research_use": "Explorar exhaustivamente un concepto teórico o los resultados de un antecedente."
+        },
+        {
+          "name": "Gestión de biblioteca (add_notebook / list_notebooks)",
+          "action": "Guardar enlaces a cuadernos con tags y descripciones. Selección automática según el tema.",
+          "benefit": "Organización persistente de cuadernos por área temática.",
+          "research_use": "Mantener cuadernos separados por variable, capítulo o área del marco teórico."
+        },
+        {
+          "name": "Correlación multi-fuente",
+          "action": "NotebookLM conecta información entre hasta 50+ documentos dentro de un cuaderno.",
+          "benefit": "Síntesis inteligente que identifica relaciones entre fuentes distintas.",
+          "research_use": "Identificar convergencias y divergencias entre autores para la Discusión."
+        },
+        {
+          "name": "Respuestas con citas",
+          "action": "Cada respuesta incluye referencias a los documentos fuente específicos.",
+          "benefit": "Trazabilidad completa: se puede verificar cada afirmación contra la fuente original.",
+          "research_use": "Facilitar la citación APA al redactar, manteniendo atribución precisa."
+        }
+      ]
+    },
+    "2_research_workflow_integration": {
+      "description": "Cómo se integra NotebookLM en cada paso del proceso de investigación.",
+      "integration_points": {
+        "step_3_literature_and_theory": {
+          "role": "Fuente primaria de consulta para construir el Marco Teórico.",
+          "workflow": [
+            "1. El usuario sube sus PDFs, artículos y libros a un cuaderno de NotebookLM.",
+            "2. El LLM consulta el cuaderno para extraer: definiciones de variables, teorías relevantes, antecedentes.",
+            "3. Las respuestas de NotebookLM alimentan directamente la redacción del marco teórico.",
+            "4. Se usa investigación iterativa para profundizar en conceptos clave."
+          ],
+          "example_queries": [
+            "¿Cómo define [Autor] la variable [X] en sus trabajos?",
+            "¿Qué metodología usaron los estudios previos sobre [tema]?",
+            "¿Qué resultados encontraron los antecedentes sobre la relación entre [Variable 1] y [Variable 2]?",
+            "¿Qué vacíos teóricos identifican los autores en este campo?"
+          ]
+        },
+        "prisma_support": {
+          "role": "Herramienta complementaria durante la revisión sistemática PRISMA.",
+          "workflow": [
+            "1. Subir los artículos identificados en la Fase 1 (Identificación) a un cuaderno.",
+            "2. Durante el Cribado (Fase 2), consultar NotebookLM para evaluar relevancia rápidamente.",
+            "3. Durante Elegibilidad (Fase 3), hacer preguntas específicas sobre objetivos, variables y metodología de cada estudio.",
+            "4. Para la Inclusión (Fase 4), extraer datos clave de los estudios seleccionados."
+          ],
+          "example_queries": [
+            "¿Cuál es el objetivo principal y la metodología de [estudio X]?",
+            "¿Este estudio mide la variable [Y]? ¿Con qué instrumento?",
+            "¿Cuáles son las principales limitaciones reportadas por [Autor]?",
+            "Compara los resultados de [Estudio A] y [Estudio B] sobre [variable]."
+          ]
+        },
+        "step_5_qualitative_questions": {
+          "role": "Apoyo para la sensibilización teórica en investigación cualitativa.",
+          "workflow": [
+            "Consultar fuentes para identificar conceptos sensibilizadores.",
+            "Explorar cómo otros investigadores cualitativos han abordado fenómenos similares."
+          ]
+        },
+        "step_10_reporting": {
+          "role": "Verificación de citas y datos durante la redacción final.",
+          "workflow": [
+            "Confirmar datos, cifras y citas exactas contra las fuentes originales.",
+            "Verificar coherencia entre lo reportado y las fuentes del marco teórico."
+          ]
+        }
+      }
+    },
+    "3_notebook_organization_strategy": {
+      "description": "Estrategia recomendada para organizar cuadernos de NotebookLM por proyecto de investigación.",
+      "recommended_structure": [
+        {
+          "notebook": "Marco Teórico - [Tema]",
+          "content": "Artículos, libros y tesis que fundamentan las bases teóricas.",
+          "tags": ["teoria", "antecedentes", "bases_teoricas"]
+        },
+        {
+          "notebook": "Antecedentes - [Tema]",
+          "content": "Investigaciones previas directamente relacionadas con el problema.",
+          "tags": ["antecedentes", "estudios_previos"]
+        },
+        {
+          "notebook": "Metodología - [Tema]",
+          "content": "Fuentes sobre diseños de investigación, instrumentos y técnicas de análisis.",
+          "tags": ["metodologia", "instrumentos", "analisis"]
+        },
+        {
+          "notebook": "PRISMA - [Tema]",
+          "content": "Artículos en evaluación durante la revisión sistemática.",
+          "tags": ["prisma", "revision_sistematica", "cribado"]
+        }
+      ],
+      "naming_convention": "Usar tags descriptivos para que el LLM seleccione automáticamente el cuaderno correcto según la fase del proceso."
+    },
+    "4_mcp_tools_reference": {
+      "description": "Herramientas MCP disponibles según el perfil configurado.",
+      "profiles": {
+        "minimal": {
+          "tools": ["ask_question", "get_health", "list_notebooks", "select_notebook", "get_notebook"],
+          "recommended_for": "Uso básico: solo consultar fuentes."
+        },
+        "standard": {
+          "tools": ["ask_question", "get_health", "list_notebooks", "select_notebook", "get_notebook", "setup_auth", "list_sessions", "add_notebook", "update_notebook", "search_notebooks"],
+          "recommended_for": "Uso completo en investigación: consultar + gestionar biblioteca."
+        },
+        "full": {
+          "tools": ["ask_question", "get_health", "list_notebooks", "select_notebook", "get_notebook", "setup_auth", "list_sessions", "add_notebook", "update_notebook", "search_notebooks", "cleanup_data", "re_auth", "remove_notebook", "reset_session", "close_session", "get_library_stats"],
+          "recommended_for": "Administración avanzada."
+        }
+      },
+      "recommended_profile": "standard"
+    }
+  }
+}

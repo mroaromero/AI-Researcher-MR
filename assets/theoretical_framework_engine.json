@@ -1,0 +1,119 @@
+{
+  "metadata": {
+    "component": "Marco Teórico (Theoretical Framework)",
+    "context": "Academic Research / Thesis",
+    "purpose": "Structure, definition, workflow, and drafting logic."
+  },
+  "theoretical_framework_engine": {
+    "0_construction_workflow": {
+      "description": "Proceso paso a paso para construir el marco teórico desde cero.",
+      "steps": [
+        {
+          "phase": "1. Identificación",
+          "action": "Identificar y seleccionar los conceptos clave que definen el problema de investigación.",
+          "instruction": "Extrae las variables del título o pregunta de investigación antes de buscar nada."
+        },
+        {
+          "phase": "2. Búsqueda",
+          "action": "Realizar una búsqueda de información profunda para dar sustento a cada concepto.",
+          "instruction": "Busca fuentes primarias y secundarias que definan teóricamente tus variables."
+        },
+        {
+          "phase": "3. Selección",
+          "action": "Filtrar fuentes: selecciona solo aquellas que aborden los mismos tópicos de la investigación.",
+          "instruction": "Descarta información tangencial. Si no responde al problema, no sirve."
+        },
+        {
+          "phase": "4. Escritura",
+          "action": "Estructurar y enunciar las teorías y conceptos.",
+          "instruction": "Redacta siguiendo un orden lógico (General -> Específico) usando las plantillas de redacción."
+        },
+        {
+          "phase": "5. Revisión (Quality Control)",
+          "action": "Verificar relación y coherencia.",
+          "critical_rule": "El marco teórico no es tener muchas cuartillas (cantidad), sino lograr coherencia entre los conceptos y el problema (calidad)."
+        }
+      ]
+    },
+    "1_definitions_and_distinctions": {
+      "description": "Reglas para evitar la confusión conceptual entre secciones similares.",
+      "concepts": [
+        {
+          "term": "Marco Teórico",
+          "definition": "Columna vertebral de la investigación. Reúne teorías, conceptos y enfoques para explicar el fenómeno.",
+          "function": "Explicar y predecir el fenómeno, sistematizar el conocimiento."
+        },
+        {
+          "term": "Antecedentes",
+          "definition": "Investigaciones previas (tesis/artículos) directas sobre el problema.",
+          "function": "Prevenir errores y ampliar el horizonte de estudio."
+        },
+        {
+          "term": "Estado del Arte",
+          "definition": "Mirada panorámica del saber actual (revisiones sistemáticas).",
+          "function": "Posicionar el estudio en el contexto actual y detectar vacíos."
+        }
+      ]
+    },
+    "2_structural_components": {
+      "description": "Las secciones obligatorias para una estructura robusta.",
+      "sections": [
+        {
+          "name": "Antecedentes (Investigativos)",
+          "content": "Rastreo de tesis y artículos previos (Nacionales e Internacionales).",
+          "focus": "Cómo se abordó el tema, población y conclusiones previas."
+        },
+        {
+          "name": "Bases Teóricas",
+          "content": "Adopción de una teoría o desarrollo de una perspectiva teórica.",
+          "focus": "Explicación profunda de las variables, dimensiones y conceptos."
+        },
+        {
+          "name": "Bases Legales",
+          "content": "Normatividad, leyes, reglamentos y jurisprudencia.",
+          "focus": "Contexto normativo que regula o afecta el fenómeno estudiado."
+        },
+        {
+          "name": "Definición de Variables / Términos Básicos",
+          "content": "Glosario técnico y conceptualización operativa.",
+          "focus": "Definir con exactitud qué significa cada término en ESTA investigación."
+        }
+      ]
+    },
+    "3_drafting_templates": {
+      "description": "Plantillas lógicas para redactar párrafos específicos.",
+      "antecedente_structure": {
+        "instruction": "Narrar cada antecedente en un párrafo cohesivo (No lista).",
+        "sequence": [
+          "1. Conector de apertura (En primer lugar...)",
+          "2. Autor + Año",
+          "3. Título / Propósito de la investigación",
+          "4. Metodología (Enfoque, diseño, muestra)",
+          "5. Resultados principales",
+          "6. Aporte (¿Por qué es útil para TU estudio?)"
+        ],
+        "timeframe": "Rango recomendado: Últimos 5 años."
+      },
+      "theoretical_basis_structure": {
+        "flow": [
+          "Introducción a la teoría principal.",
+          "Cita al autor seminal (Fundador de la teoría).",
+          "Explicación de postulados clave.",
+          "Conexión explícita: 'Este enfoque permite comprender [Variable] porque...'."
+        ]
+      }
+    },
+    "4_writing_style": {
+      "description": "Normas de estilo y parafraseo.",
+      "paraphrasing": {
+        "preferred_type": "Constructivo",
+        "definition": "Cambios profundos en estructura y vocabulario, manteniendo el sentido.",
+        "rule": "Integrar la idea en el flujo del texto, evitando el 'copy-paste' disfrazado."
+      },
+      "connectors": {
+        "sequence": ["En primer lugar", "Por otra parte", "Asimismo", "Finalmente"],
+        "attribution": ["Sostiene", "Plantea", "Refiere", "Demostró", "Concluye"]
+      }
+    }
+  }
+}

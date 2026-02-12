@@ -1,0 +1,136 @@
+{
+  "metadata": {
+    "component": "Marco Metodológico (Methodological Framework)",
+    "context": "Investigación Científica / Tesis",
+    "purpose": "Definir la hoja de ruta, lógica y herramientas para responder la pregunta de investigación.",
+    "version": "1.0 - Production Ready"
+  },
+  "methodology_engine": {
+    "0_golden_rule_consistency": {
+      "description": "Principio rector de validación lógica (Hard Constraint).",
+      "rule": "La coherencia interna es obligatoria. El Enfoque, el Paradigma y el Diseño deben alinearse bajo la misma lógica epistemológica.",
+      "validation_check": "Si el usuario mezcla conceptos (ej: Diseño Experimental con Enfoque Fenomenológico), se debe marcar como error metodológico y sugerir la corrección."
+    },
+    "1_paradigm_and_approach": {
+      "description": "Definición del punto de partida filosófico y operativo.",
+      "approaches": [
+        {
+          "type": "Cuantitativo",
+          "logic": "Deductiva / Positivista",
+          "focus": "Medición numérica, prueba de hipótesis y generalización estadística de resultados."
+        },
+        {
+          "type": "Cualitativo",
+          "logic": "Inductiva / Interpretativa",
+          "focus": "Comprensión profunda, holística, exploración de significados y experiencias en contextos naturales."
+        },
+        {
+          "type": "Mixto",
+          "logic": "Pragmática / Integradora",
+          "focus": "Combinación secuencial o concurrente de ambos enfoques para mayor amplitud."
+        }
+      ]
+    },
+    "2_research_levels_scope": {
+      "description": "Clasificación según la profundidad y el objetivo del conocimiento.",
+      "types": [
+        {
+          "level": "Exploratoria",
+          "definition": "Primer acercamiento a fenómenos desconocidos o poco estudiados. No prueba hipótesis causales."
+        },
+        {
+          "level": "Descriptiva",
+          "definition": "Especifica propiedades y características importantes de personas, grupos o fenómenos."
+        },
+        {
+          "level": "Correlacional",
+          "definition": "Evalúa la relación estadística y grado de asociación entre dos o más variables."
+        },
+        {
+          "level": "Explicativa",
+          "definition": "Nivel más profundo. Busca las causas y razones de los eventos (el 'porqué')."
+        }
+      ]
+    },
+    "3_research_designs": {
+      "description": "Estrategias operativas para la recolección de datos.",
+      "quantitative_designs": {
+        "experimental": [
+          "Pre-experimental (Grado de control mínimo)",
+          "Cuasi-experimental (Grupos intactos, sin asignación aleatoria)",
+          "Experimental puro (Control total, manipulación de variables y aleatorización)"
+        ],
+        "non_experimental": [
+          "Transversal (Recolección en un único momento)",
+          "Longitudinal (Análisis de cambios a través del tiempo)"
+        ]
+      },
+      "qualitative_designs": {
+        "types": [
+          {
+            "name": "Etnográfico",
+            "focus": "Estudio de sistemas culturales, creencias y prácticas de un grupo social."
+          },
+          {
+            "name": "Fenomenológico",
+            "focus": "Exploración de la esencia de las experiencias vividas desde la perspectiva de los participantes."
+          },
+          {
+            "name": "Teoría Fundamentada",
+            "focus": "Desarrollo de teoría basada directamente en los datos empíricos recolectados."
+          },
+          {
+            "name": "Investigación Acción",
+            "focus": "Resolución de problemas prácticos inmediatos y transformación de la realidad."
+          },
+          {
+            "name": "Estudio de Caso",
+            "focus": "Análisis intensivo y profundo de una entidad o suceso único."
+          }
+        ]
+      }
+    },
+    "4_logical_methods": {
+      "description": "Procesos de razonamiento transversal.",
+      "methods": [
+        { "name": "Inductivo", "action": "Generar conclusiones generales a partir de premisas particulares." },
+        { "name": "Deductivo", "action": "Aplicar principios generales a casos específicos para obtener conclusiones verídicas." },
+        { "name": "Hipotético-Deductivo", "action": "Proponer hipótesis y testearlas empíricamente (Estándar en ciencia cuantitativa)." },
+        { "name": "Analítico-Sintético", "action": "Descomponer el todo en partes (análisis) y reconstruirlo para comprenderlo (síntesis)." }
+      ]
+    },
+    "5_population_and_sampling": {
+      "description": "Protocolos para la selección de unidades de análisis.",
+      "sampling_logic": {
+        "quantitative_requirement": "Debe ser representativo y preferiblemente probabilístico si se busca generalizar.",
+        "formulas_simple_random": {
+          "infinite_population": "n = (Z² * p * q) / e² (Usar cuando N es desconocido)",
+          "finite_population": "n = (Z² * p * q * N) / (e² * (N-1) + Z² * p * q) (Usar cuando N es conocido)"
+        },
+        "parameters": {
+          "Z": "Nivel de confianza (Valor estándar 95% = 1.96)",
+          "e": "Margen de error (Estándar aceptable: 0.05 o 5%)",
+          "p": "Probabilidad de éxito (0.5 por defecto)",
+          "q": "Probabilidad de fracaso (0.5 por defecto)"
+        }
+      }
+    },
+    "6_report_structure_guide": {
+      "description": "Esquema de redacción según la naturaleza del estudio.",
+      "quantitative_flow": [
+        "1. Introducción (Planteamiento, Objetivos, Justificación, Hipótesis)",
+        "2. Revisión de Literatura (Estado del arte)",
+        "3. Metodología (Diseño, Población, Instrumentos, Procedimiento)",
+        "4. Resultados (Estadística descriptiva e inferencial)",
+        "5. Discusión y Conclusiones"
+      ],
+      "qualitative_flow": [
+        "1. Introducción (Propósito central, Preguntas de investigación)",
+        "2. Revisión de Literatura (Sensibilización teórica)",
+        "3. Abordaje Metodológico (Rol del investigador, Participantes, Inmersión)",
+        "4. Resultados (Categorías emergentes, Narrativa, Citas)",
+        "5. Discusión y Reflexiones finales"
+      ]
+    }
+  }
+}

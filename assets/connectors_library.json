@@ -1,0 +1,125 @@
+{
+  "metadata": {
+    "component": "Discourse Connectors Engine",
+    "language": "es",
+    "purpose": "Enhance text cohesion, flow, and logical structure.",
+    "source_integration": "Consolidated from 10 didactic guides (including 'resumir.jpg')."
+  },
+  "connectors_library": {
+    "1_structuring_and_ordering": {
+      "description": "Herramientas para organizar la arquitectura del texto y guiar al lector.",
+      "categories": [
+        {
+          "intention": "Iniciar el discurso (Opening)",
+          "connectors": [
+            "Para empezar", "En primer lugar", "Ante todo", "Antes que nada", "Inicialmente", "Para comenzar", "El objetivo de este texto es", "A propósito de"
+          ]
+        },
+        {
+          "intention": "Ordenar secuencia / Enumerar (Sequencing)",
+          "connectors": [
+            "A continuación", "Luego", "Después", "En segundo lugar", "Por otra parte", "Por último", "Finalmente", "Seguidamente", "Un primer aspecto", "Otro elemento"
+          ]
+        },
+        {
+          "intention": "Relaciones Temporales (Time)",
+          "connectors": [
+            "A medida que", "Actualmente", "Ahora", "Antes de", "Antiguamente", "Cuando", "Desde ese momento", "Mientras que", "Más tarde", "Posteriormente", "Al mismo tiempo"
+          ]
+        },
+        {
+          "intention": "Relaciones Espaciales (Spatial)",
+          "source_ref": "Specific image: relaciones espaciales.jpg",
+          "connectors": [
+            "A la izquierda de", "A la derecha de", "Al lado de", "Junto a", "Debajo de", "Delante de", "Detrás de", "Encima de", "En el fondo", "Alrededor de", "Lejos de", "Cerca de", "Más allá", "Sobre"
+          ]
+        }
+      ]
+    },
+    "2_logic_and_argumentation": {
+      "description": "Conectores críticos para construir argumentos sólidos y relaciones de ideas.",
+      "categories": [
+        {
+          "intention": "Adición / Añadir ideas (Addition)",
+          "connectors": [
+            "Además", "Asimismo", "También", "Igualmente", "De igual manera", "Incluso", "Es más", "Sumado a esto", "Por otra parte", "Paralelamente", "Análogamente", "Encima"
+          ]
+        },
+        {
+          "intention": "Contraste / Oposición (Contrast)",
+          "connectors": [
+            "Sin embargo", "No obstante", "En cambio", "Por el contrario", "A pesar de ello", "Aunque", "Pero", "A diferencia de", "Mientras que", "Si bien", "Por más que", "Pese a que"
+          ]
+        },
+        {
+          "intention": "Causa (Causality - The 'Why')",
+          "connectors": [
+            "Porque", "Debido a", "A causa de", "Gracias a", "Puesto que", "Ya que", "Dado que", "En vista de", "Pues", "Por razón de"
+          ]
+        },
+        {
+          "intention": "Consecuencia / Efecto (Result - The 'What happens')",
+          "connectors": [
+            "Por tanto", "Por consiguiente", "En consecuencia", "Por ende", "De ahí que", "Así que", "Entonces", "Como resultado", "Por esta razón", "De modo que", "De suerte que"
+          ]
+        },
+        {
+          "intention": "Finalidad / Propósito (Purpose)",
+          "source_ref": "Specific image: finalidad.jpg",
+          "connectors": [
+            "Con el fin de", "Con el objetivo de", "Con el propósito de", "Para que", "A fin de que", "Con miras a", "Con la intención de", "Con el objeto de"
+          ]
+        },
+        {
+          "intention": "Condición (Condition)",
+          "connectors": [
+            "Si", "Siempre que", "Con tal de que", "A menos que", "Salvo que", "En caso de que", "A condición de que", "Siempre y cuando"
+          ]
+        }
+      ]
+    },
+    "3_elaboration_and_clarity": {
+      "description": "Recursos para explicar, detallar o dar fuerza a las ideas.",
+      "categories": [
+        {
+          "intention": "Ejemplificación (Exemplification)",
+          "connectors": [
+            "Por ejemplo", "Tal como", "Verbigracia", "Es el caso de", "Como muestra", "Pongamos por caso", "Prueba de ello", "Específicamente", "Particularmente"
+          ]
+        },
+        {
+          "intention": "Aclaración / Explicación (Clarification)",
+          "connectors": [
+            "Es decir", "O sea", "Esto es", "En otras palabras", "Dicho de otra manera", "A saber", "En el fondo", "Vale decir"
+          ]
+        },
+        {
+          "intention": "Énfasis (Emphasis)",
+          "source_ref": "Specific image: hacer enfasis.jpg",
+          "connectors": [
+            "Sobre todo", "Lo más importante", "Cabe resaltar", "Es importante destacar", "Definitivamente", "En efecto", "Indiscutiblemente", "Precisamente", "En particular", "Por supuesto que", "Conviene subrayar"
+          ]
+        },
+        {
+          "intention": "Comparación (Comparison)",
+          "connectors": [
+            "Del mismo modo", "De manera similar", "Igualmente", "Análogamente", "Así como", "Tal cual", "Tanto como", "Menos que", "Más que"
+          ]
+        }
+      ]
+    },
+    "4_closing_and_synthesis": {
+      "description": "Fórmulas de cierre y recapitulación.",
+      "categories": [
+        {
+          "intention": "Resumen / Conclusión (Synthesis)",
+          "source_ref": "Updated with: resumir.jpg",
+          "connectors": [
+            "En conclusión", "En resumen", "En síntesis", "Para concluir", "En suma", "Finalmente", "Para terminar", "En definitiva", "A modo de conclusión", "Total que", "Al fin y al cabo", 
+            "Dicho brevemente", "En pocas palabras", "Resumiendo", "Para resumir", "Para simplificar", "Se resume ahora la tesis de este escrito"
+          ]
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "metadata": {
+    "component": "PRISMA Protocol Engine",
+    "context": "Systematic Literature Reviews & Meta-Analyses",
+    "standard": "PRISMA 2020 Statement",
+    "purpose": "Guide the selection, filtering, and reporting of scientific sources transparently.",
+    "source_image": "Diagrama de flujo PRISMA del proceso de exclusión e inclusión"
+  },
+  "prisma_engine": {
+    "0_protocol_definition": {
+      "description": "Configuración inicial antes de iniciar el flujo.",
+      "required_inputs": [
+        "Keywords (Palabras clave / Tesauros)",
+        "Search Strings (Ecuaciones de búsqueda con operadores booleanos AND/OR)",
+        "Databases (e.g., Scopus, WoS, PubMed, ERIC)",
+        "Timeframe (Ventana de tiempo, ej: Últimos 5 años)"
+      ]
+    },
+    "1_identification_phase": {
+      "stage_name": "Identificación",
+      "action": "Recopilación masiva de registros desde bases de datos.",
+      "process_steps": [
+        {
+          "step": "Database Search",
+          "instruction": "Ejecutar la búsqueda en las fuentes seleccionadas (n = Total bruto)."
+        },
+        {
+          "step": "Deduplication",
+          "instruction": "Eliminar registros duplicados (Duplicate records removed).",
+          "automated_action": "Si se usan herramientas automatizadas (EndNote, Rayyan), registrar cuántos fueron marcados como inelegibles por la automatización."
+        }
+      ],
+      "output_metric": "Registros únicos listos para cribado."
+    },
+    "2_screening_phase": {
+      "stage_name": "Cribado (Screening)",
+      "action": "Filtrado rápido basado en Título y Resumen (Abstract).",
+      "tool_support": "notebooklm_tool (Si los artículos están en un cuaderno de NotebookLM, usar ask_question para evaluar relevancia de cada estudio rápidamente sin leer textos completos.)",
+      "process_steps": [
+        {
+          "step": "Title/Abstract Review",
+          "instruction": "Leer título y resumen. ¿Es relevante para el tema?",
+          "decision": "Si NO es relevante -> Excluir (Records excluded). Si ES relevante -> Pasar a recuperación."
+        },
+        {
+          "step": "Retrieval",
+          "instruction": "Intentar recuperar el texto completo. Registrar si no se pudo acceder (Reports not retrieved)."
+        }
+      ],
+      "output_metric": "Informes buscados para recuperación y evaluados."
+    },
+    "3_eligibility_phase": {
+      "stage_name": "Elegibilidad (Full-text Assessment)",
+      "action": "Lectura profunda del texto completo para aplicar criterios de inclusión/exclusión.",
+      "tool_support": "notebooklm_tool (Consultar NotebookLM con preguntas específicas: '¿Cuál es el objetivo de este estudio?', '¿Mide la variable X?', '¿Qué metodología usa?' para aplicar criterios de exclusión sistemáticamente.)",
+      "exclusion_criteria_examples": {
+        "source": "Basado en las razones de exclusión de la imagen.",
+        "reasons": [
+          "Wrong Objective (El objetivo no coincide)",
+          "Wrong Information Unit (La unidad de análisis no es la correcta)",
+          "Wrong Variable/Outcome (No mide la variable de interés)",
+          "Wrong Conclusion/Method (Metodología o conclusión insuficiente)"
+        ]
+      },
+      "instruction": "Cada documento excluido en esta fase DEBE tener una razón justificada."
+    },
+    "4_inclusion_phase": {
+      "stage_name": "Inclusión",
+      "action": "Selección final para la síntesis cualitativa o cuantitativa (Meta-análisis).",
+      "output_metric": "Studies included in review (n = Final)."
+    },
+    "5_reporting_template": {
+      "description": "Cómo narrar este proceso en la sección de Metodología del artículo.",
+      "narrative_structure": "La búsqueda se realizó en [Bases de Datos]. Se identificaron inicialmente [n] registros. Tras eliminar duplicados, se cribaron [n] documentos, de los cuales se excluyeron [n] por no cumplir criterios de título/resumen. Se evaluaron [n] textos completos, excluyendo [n] por razones como [Listar Razones]. Finalmente, se incluyeron [n] estudios para la revisión."
+    }
+  }
+}
