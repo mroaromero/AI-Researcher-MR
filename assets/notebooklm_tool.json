@@ -29,7 +29,7 @@
       "capabilities": [
         {
           "name": "Consulta de fuentes (ask_question)",
-          "action": "Hacer preguntas directas a los cuadernos del usuario y obtener respuestas basadas exclusivamente en sus documentos.",
+          "action": "Hacer preguntas directas a los cuadernos. RECOMENDADO: Usar `session_id` para mantener el hilo de la conversación.",
           "benefit": "Cero alucinaciones: NotebookLM RECHAZA responder si la información no está en los documentos.",
           "research_use": "Extraer definiciones teóricas, datos empíricos, metodologías de estudios previos."
         },
@@ -151,6 +151,55 @@
         }
       },
       "recommended_profile": "standard"
+    },
+    "5_troubleshooting_and_recovery": {
+      "description": "Strategies for handling common failures or empty responses.",
+      "strategies": [
+        {
+          "issue": "Empty Response / 'I don't know'",
+          "action": "Broaden the query. Instead of specific data, ask for general context.",
+          "example": "Failed: 'What is the sample size of Smith 2020?' -> Try: 'Summarize the methodology of Smith 2020.'"
+        },
+        {
+          "issue": "Connection Failed / Browser Stuck",
+          "action": "Run `cleanup_data(confirm=true)` to wipe browser state, then `setup_auth`.",
+          "instruction": "Inform user: 'Browser state was corrupted. I have performed a deep cleanup. Please authenticate again.'"
+        },
+        {
+          "issue": "Conflicting Information (Triangulation)",
+          "action": "Explicitly ask NotebookLM to resolve the conflict.",
+          "prompt_template": "Source A says [X] and Source B says [Y]. Explain this discrepancy based on the documents."
+        }
+      ]
+    },
+    "6_smart_indexing_workflow": {
+      "description": "Protocol to 'learn' a new notebook immediately upon addition.",
+      "trigger": "After 'add_notebook' tool success.",
+      "immediate_action": "Run 'ask_question' with the 'Summary Prompt'.",
+      "summary_prompt": "Summarize the key themes, main variables defined, and the type of documents (articles, books, etc.) present in this notebook.",
+      "goal": "Cache this summary in the conversation context to know WHAT to ask this notebook later."
+    },
+    "7_session_management_strategy": {
+      "description": "Protocol for maintaining conversational context with NotebookLM using session_id.",
+      "rules": [
+        "ALWAYS check 'list_sessions' before asking a new question specifically about a topic discussed previously.",
+        "If a relevant session exists, reuse its 'session_id' in the 'ask_question' call.",
+        "Use explicit follow-up phrasing: 'Based on your previous answer about [Topic], can you expand on...'",
+        "Only start a new session (omit session_id) if changing topics completely or if the previous session is stale (>1 hour)."
+      ],
+      "benefit": "Enables 'Deep Dive' research where the agent builds upon previous answers rather than asking isolated questions."
+    },
+    "8_authentication_protocol": {
+      "description": "How the system handles Google validity.",
+      "mechanism": "Local Browser Automation (Puppeteer/Playwright).",
+      "flow": [
+        "1. Agent calls 'setup_auth'.",
+        "2. A VISIBLE Chrome window opens on the User's machine.",
+        "3. User manually logs in to Google.",
+        "4. System saves citations/cookies locally.",
+        "5. Future requests run headless (invisible)."
+      ],
+      "agent_instruction": "When calling 'setup_auth', ALWAYS warn the user: 'A browser window will open for you to log in to Google. Please authenticate manually and then I will continue.'"
     }
   }
 }
