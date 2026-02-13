@@ -8,10 +8,9 @@ export class ResourceManager {
     private cache: Map<string, BaseEngine> = new Map();
 
     constructor() {
-        // Adjust path based on whether we are in src (TS) or build (JS)
-        // Assuming assets is at the project root: project/assets
-        // And this file is at: project/src/managers/ResourceManager.ts or project/build/managers/ResourceManager.js
-        this.assetsPath = path.resolve(process.cwd(), 'assets');
+        // However, we are writing in TS. 
+        // In the build output (JS), __dirname will be available.
+        this.assetsPath = path.resolve(__dirname, '..', '..', 'assets');
     }
 
     async getEngine<T extends BaseEngine>(name: string): Promise<T> {

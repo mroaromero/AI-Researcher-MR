@@ -8,6 +8,12 @@ export interface ResearchStep {
     critical_decision?: string;
     options?: string[];
     routing_logic?: Record<string, string>;
+    recommended_actions?: {
+        agent: string;
+        tool: string;
+        description: string;
+        arguments_hint?: string;
+    }[];
 }
 
 export interface MasterEngine {
@@ -37,8 +43,21 @@ export interface ResearchState {
         objectives?: string[];
         hypothesis?: string;
         design?: string;
+        methodology_design?: string;
         population?: string;
+        sample_size?: number;
+        variables?: {
+            independent: string;
+            dependent: string;
+            extras?: string;
+        };
+        specs?: {
+            target_audience?: string;
+            word_count_limit?: number;
+            formatting_style?: string;
+        };
     };
+    drafts?: Record<string, string>; // Section name -> Content
     accumulated_data: Record<string, any>;
     logs: {
         timestamp: string;

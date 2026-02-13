@@ -114,6 +114,51 @@
         "sequence": ["En primer lugar", "Por otra parte", "Asimismo", "Finalmente"],
         "attribution": ["Sostiene", "Plantea", "Refiere", "Demostró", "Concluye"]
       }
+    },
+    "5_expert_citation_logic": {
+      "description": "Decision matrix for citation types and frequencies based on academic impact.",
+      "decision_rules": {
+        "narrative_vs_parenthetical": {
+          "rule": "Prioritize Author (Narrative) for theories; Prioritize Data (Parenthetical) for results.",
+          "conditions": [
+            {
+              "context": "Introducing a Seminal Theory",
+              "action": "Use Narrative Citation",
+              "reason": "The author IS the concept (e.g., 'Piaget planteó que...')."
+            },
+            {
+              "context": "Listing empirical evidence or consensus",
+              "action": "Use Parenthetical Citation",
+              "reason": "The finding matters more than who found it (e.g., '...affects 40% of users (Smith, 2020; Doe, 2021).')."
+            },
+            {
+              "context": "Chronological evolution",
+              "action": "Use Narrative Citation",
+              "reason": "To show the timeline of thought (e.g., 'First Doe (2010), then Smith (2015)...')."
+            }
+          ]
+        },
+        "direct_vs_paraphrase": {
+          "default_mode": "Paraphrase (Constructive)",
+          "direct_quote_exceptions": [
+            "Exact definitions of variables (to avoid ambiguity).",
+            "Laws, statutes, or regulations.",
+            "Specific phrases that are historically significant.",
+            "When analyzing a specific author's wording."
+          ],
+          "ratio_guideline": "Aim for >85% Paraphrasing vs <15% Direct Quotes."
+        },
+        "citation_density": {
+          "antecedents": "High density. Every claim about 'previous findings' MUST have a citation.",
+          "theoretical_basis": "Medium density. One citation per paragraph minimum to ground definitions.",
+          "guideline": "Avoid 'orphan paragraphs' (paragraphs with zero citations) in the Theoretical Framework."
+        }
+      },
+      "recency_filter": {
+        "empirical_studies": "Last 5 years (Standard) / Last 3 years (Fast-moving fields like AI).",
+        "theoretical_seminal_works": "No limit (Classics are timeless).",
+        "instruction": "If checking 'State of the Art', filter strict recency. If 'Theoretical Basis', allow older seminal works."
+      }
     }
   }
 }

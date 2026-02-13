@@ -1,0 +1,25 @@
+{
+  "manifest_version": "0.3",
+  "name": "ai-research-mr",
+  "version": "1.0.0",
+  "description": "Multi-Agent System for Academic Research (Thesis, Papers, Essays)",
+  "author": {
+    "name": "mroaromero",
+    "url": "https://github.com/mroaromero/AI-Researcher-MR"
+  },
+  "server": {
+    "type": "node",
+    "entry_point": "build/index.js",
+    "mcp_config": {
+      "command": "node",
+      "args": [
+        "${__dirname}/build/index.js"
+      ]
+    }
+  },
+  "compatibility": {
+    "runtimes": {
+      "node": ">=18.0.0"
+    }
+  }
+}

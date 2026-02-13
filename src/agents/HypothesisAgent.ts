@@ -57,6 +57,7 @@ export class HypothesisAgent extends BaseAgent {
     }
 
     async handleToolCall(name: string, args: any): Promise<any> {
+        const state = await this.stateManager.loadState();
         const engine = await this.resourceManager.getEngine<any>("hypothesis_engine");
         
         switch (name) {
@@ -67,12 +68,25 @@ export class HypothesisAgent extends BaseAgent {
                 };
 
             case "hypothesis_map_variables":
+                const mappedVariables = {
+                    independent: args.independent,
+                    dependent: args.dependent,
+                    extras: args.extras
+                };
+
+                // Save to State (Organic Flow)
+                await this.stateManager.updateState({
+                    project_info: {
+                        ...state.project_info, // Preserve existing info
+                        variables: mappedVariables
+                    }
+                });
+
                 return {
                     definitions: engine.hypothesis_engine.module_2_variable_mapping,
                     mapping_result: {
-                        independent: args.independent,
-                        dependent: args.dependent,
-                        note: "Ensure these are operationalized (measurable)."
+                        ...mappedVariables,
+                        note: "Ensure these are operationalized (measurable). Saved to project state."
                     }
                 };
 
@@ -93,10 +107,27 @@ export class HypothesisAgent extends BaseAgent {
                 draft = draft.replace("[Fenómeno Central]", args.iv);
                 draft = draft.replace("[Contexto/Experiencia]", args.dv);
 
+                const generatedHypothesis = draft;
+
+                // Save to State (Organic Flow)
+                await this.stateManager.updateState({
+                    project_info: {
+                        ...state.project_info,
+                        hypothesis: generatedHypothesis,
+                        // Update variables if provided here too, to be safe
+                        variables: {
+                            independent: args.iv,
+                            dependent: args.dv,
+                            extras: state.project_info?.variables?.extras // Preserve if existing
+                        }
+                    }
+                });
+
                 return {
                     type: args.type,
-                    template: draft,
-                    logic: selected.logic
+                    template: generatedHypothesis,
+                    logic: selected.logic,
+                    state_update: "Hypothesis saved to project."
                 };
 
             case "hypothesis_validate_checklist":

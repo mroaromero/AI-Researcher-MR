@@ -30,6 +30,17 @@ export class OrchestratorAgent extends BaseAgent {
                 }
             },
             {
+                name: "orchestrator_reset_project",
+                description: "Resets the entire project state to start a new research from scratch. WARNING: Deletes all data.",
+                inputSchema: {
+                    type: "object",
+                    properties: {
+                         confirm: { type: "boolean", description: "Must be true to proceed." }
+                    },
+                    required: ["confirm"]
+                }
+            },
+            {
                 name: "orchestrator_update_project_info",
                 description: "Update the project information (topic, research question, etc.).",
                 inputSchema: {
@@ -38,7 +49,10 @@ export class OrchestratorAgent extends BaseAgent {
                         topic: { type: "string" },
                         research_question: { type: "string" },
                         approach: { type: "string", enum: ["Cuantitativo", "Cualitativo", "Mixto"] },
-                        scope: { type: "string", enum: ["Exploratorio", "Descriptivo", "Correlacional", "Explicativo"] }
+                        scope: { type: "string", enum: ["Exploratorio", "Descriptivo", "Correlacional", "Explicativo"] },
+                        target_audience: { type: "string" },
+                        word_count_limit: { type: "number" },
+                        formatting_style: { type: "string" }
                     }
                 }
             }
@@ -59,7 +73,8 @@ export class OrchestratorAgent extends BaseAgent {
                 return {
                     current_step_id: currentStepId,
                     project_info: state.project_info,
-                    instructions: stepData
+                    instructions: stepData,
+                    recommended_actions: stepData?.recommended_actions || []
                 };
 
             case "orchestrator_complete_step":
@@ -98,25 +113,62 @@ export class OrchestratorAgent extends BaseAgent {
                     current_step: nextStepId
                 });
                 
+                // Get data for the NEW step to provide immediate recommendations
+                const nextStepData = steps[nextStepId];
+
                 // Save accumulated data if any
                 return {
                     status: "success",
                     previous_step: state.current_step,
                     new_step: nextStepId,
                     message: `Advanced to ${nextStepId}`,
-                    auto_routed: !!currentStepData?.routing_logic
+                    auto_routed: !!currentStepData?.routing_logic,
+                    recommended_actions: nextStepData?.recommended_actions || []
                 };
 
             case "orchestrator_update_project_info":
-                this.stateManager.updateState({
+                const updates = { ...args };
+                // Extract specs
+                const specs = {
+                    target_audience: args.target_audience,
+                    word_count_limit: args.word_count_limit,
+                    formatting_style: args.formatting_style
+                };
+
+                // Remove specs from top-level updates (optional, but keeps object clean)
+                delete updates.target_audience;
+                delete updates.word_count_limit;
+                delete updates.formatting_style;
+
+                await this.stateManager.updateState({
                     project_info: {
                         ...state.project_info,
-                        ...args
+                        ...updates,
+                        specs: { ...state.project_info?.specs, ...specs }
                     }
                 });
                 return {
                     status: "success",
-                    updated_info: args
+                    updated_info: { ...updates, specs }
+                };
+
+            case "orchestrator_reset_project":
+                if (!args.confirm) return { error: "Please confirm reset with 'confirm: true'." };
+                
+                // Hard Reset
+                const emptyState = {
+                    current_step: "step_1_conception",
+                    project_info: { topic: "" },
+                    accumulated_data: {},
+                    drafts: {},
+                    logs: []
+                };
+                
+                await this.stateManager.updateState(emptyState);
+                
+                return {
+                    message: "Project reset successful. Ready for a new research.",
+                    current_step: "step_1_conception"
                 };
 
             default:

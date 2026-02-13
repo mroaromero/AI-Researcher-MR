@@ -49,11 +49,15 @@ export class MethodologistAgent extends BaseAgent {
     }
 
     async handleToolCall(name: string, args: any): Promise<any> {
+        const state = await this.stateManager.loadState();
         const engine = await this.resourceManager.getEngine<any>("methodology_engine");
         
         if (name === "methodologist_recommend_design") {
             const designs = engine.methodology_engine["3_research_designs"];
-            const approach = args.approach.toLowerCase();
+            // Intelligent Fallback: Use arg OR state
+            const approach = (args.approach || state.project_info?.approach || "").toLowerCase();
+            
+            if (!approach) return { error: "Approach not specified and not found in state." };
             
             if (approach === "cuantitativo") {
                  return {
@@ -79,7 +83,19 @@ export class MethodologistAgent extends BaseAgent {
         }
 
         if (name === "methodologist_calculate_sample") {
-            const N = args.population_size || 0;
+            // Organic Data Flow: Read from State if arg is missing
+            let N = args.population_size;
+            if (N === undefined || N === null) {
+                // Try to parse from state.population (which might be a string description)
+                // If it's a number-like string "1500", use it.
+                const popState = state.project_info?.population;
+                if (popState && !isNaN(Number(popState))) {
+                    N = Number(popState);
+                } else {
+                    N = 0; // Default to infinite if unknown
+                }
+            }
+
             const confidence = args.confidence_level || 0.95;
             
             // Z-score lookup table
@@ -107,8 +123,18 @@ export class MethodologistAgent extends BaseAgent {
                 n = (Math.pow(Z, 2) * p * q) / Math.pow(e, 2);
             }
 
+            const finalSampleSize = Math.ceil(n);
+            
+            // Save to State
+            await this.stateManager.updateState({
+                project_info: {
+                    ...state.project_info,
+                    sample_size: finalSampleSize
+                }
+            });
+
             return {
-                sample_size: Math.ceil(n),
+                sample_size: finalSampleSize,
                 parameters_used: { N, confidence_level: confidence, Z_score: Z, e, p }
             };
         }
