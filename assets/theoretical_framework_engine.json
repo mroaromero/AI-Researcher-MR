@@ -159,6 +159,100 @@
         "theoretical_seminal_works": "No limit (Classics are timeless).",
         "instruction": "If checking 'State of the Art', filter strict recency. If 'Theoretical Basis', allow older seminal works."
       }
+    },
+    "6_synthesis_and_gap_analysis": {
+      "description": "Técnicas para sintetizar perspectivas teóricas conflictivas e identificar vacíos en la literatura.",
+      "synthesizing_conflicting_perspectives": {
+        "description": "Cuando dos o más autores ofrecen perspectivas contradictorias sobre un fenómeno.",
+        "strategies": [
+          {
+            "strategy": "Integración dialéctica",
+            "technique": "Presentar tesis (Autor A) → antítesis (Autor B) → síntesis propia del investigador.",
+            "template": "Mientras que {Autor A} ({Año}) sostiene que {posición A}, {Autor B} ({Año}) argumenta que {posición B}. Esta aparente contradicción puede reconciliarse considerando que {síntesis del investigador}."
+          },
+          {
+            "strategy": "Contextualización diferencial",
+            "technique": "Explicar que las diferencias se deben al contexto (población, época, metodología).",
+            "template": "La discrepancia entre los hallazgos de {Autor A} y {Autor B} puede explicarse por diferencias en {contexto}: mientras el primero estudió {contexto A}, el segundo se centró en {contexto B}."
+          },
+          {
+            "strategy": "Complementariedad",
+            "technique": "Mostrar que ambas perspectivas iluminan diferentes dimensiones del mismo fenómeno.",
+            "template": "{Autor A} aborda la dimensión {X} del fenómeno, en tanto que {Autor B} se enfoca en la dimensión {Y}. Ambas perspectivas son complementarias y permiten una comprensión integral."
+          }
+        ]
+      },
+      "gap_identification": {
+        "description": "Cómo identificar y articular vacíos en la literatura que justifican tu investigación.",
+        "types_of_gaps": [
+          {
+            "type": "Vacío empírico",
+            "definition": "No hay estudios previos sobre este tema en este contexto específico.",
+            "template": "A pesar de la abundante literatura sobre {tema} en contextos {X}, no se encontraron estudios que aborden esta problemática en {tu contexto}."
+          },
+          {
+            "type": "Vacío metodológico",
+            "definition": "Estudios previos usan metodologías limitadas; tu estudio propone un enfoque diferente.",
+            "template": "Los estudios previos han abordado {tema} predominantemente desde enfoques {enfoque anterior}. Se requiere un abordaje {tu enfoque} para captar aspectos no explorados."
+          },
+          {
+            "type": "Vacío teórico",
+            "definition": "Las teorías existentes no explican adecuadamente el fenómeno observado.",
+            "template": "Las teorías de {teoría A} y {teoría B} ofrecen explicaciones parciales, pero no logran dar cuenta de {fenómeno no explicado}."
+          },
+          {
+            "type": "Vacío poblacional",
+            "definition": "El fenómeno ha sido estudiado en otras poblaciones pero no en la tuya.",
+            "template": "Aunque {tema} ha sido ampliamente estudiado en {población A}, existe escasa evidencia sobre su manifestación en {tu población}."
+          },
+          {
+            "type": "Vacío temporal",
+            "definition": "Los estudios disponibles son antiguos y las condiciones han cambiado.",
+            "template": "Los estudios más recientes datan de {año}, y dado que {cambio contextual}, es necesario actualizar el conocimiento sobre {tema}."
+          }
+        ],
+        "positioning_statement": {
+          "description": "Frase que posiciona tu estudio en el vacío identificado.",
+          "template": "En función de los vacíos identificados, el presente estudio se propone {acción} con el fin de {contribución esperada}."
+        }
+      },
+      "source_quantity_guidelines": {
+        "description": "Cantidad mínima recomendada de fuentes por sección del marco teórico.",
+        "antecedentes": {
+          "minimum": "8-12 fuentes (tesis y artículos directamente relacionados)",
+          "ideal": "15-20 fuentes",
+          "recency": "Últimos 5 años obligatorio, excepto clásicos fundamentales."
+        },
+        "bases_teoricas": {
+          "minimum": "5-8 fuentes por variable principal",
+          "ideal": "10-15 fuentes por variable",
+          "includes": "Autores seminales + estudios recientes que amplíen la teoría."
+        },
+        "bases_legales": {
+          "minimum": "Todas las normas directamente aplicables (no hay máximo)",
+          "recency": "Legislación vigente al momento de escribir."
+        }
+      },
+      "visual_organization_tools": {
+        "description": "Herramientas visuales recomendadas para organizar el marco teórico.",
+        "tools": [
+          {
+            "name": "Mapa conceptual",
+            "use": "Visualizar relaciones entre conceptos, variables y teorías.",
+            "when": "Al inicio de la construcción del marco para planificar la estructura."
+          },
+          {
+            "name": "Matriz de antecedentes",
+            "use": "Tabla comparativa (Autor | Año | Objetivo | Método | Resultados | Relación con tu estudio).",
+            "when": "Durante la revisión de antecedentes para sintetizar y comparar."
+          },
+          {
+            "name": "Diagrama de variables",
+            "use": "Visualizar la relación causal/correlacional entre variables (IV → DV, mediadora, moderadora).",
+            "when": "Al definir el modelo teórico propuesto."
+          }
+        ]
+      }
     }
   }
 }

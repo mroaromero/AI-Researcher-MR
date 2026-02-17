@@ -1,0 +1,39 @@
+{
+  "name": "Dream Team Project",
+  "description": "Proyecto con 15 agentes especializados y orquestador maestro",
+  
+  "agents": {
+    "default": {
+      "systemPrompt": "You are the Dream Team Orchestrator - a master coordinator that analyzes tasks and delegates to 15 specialized agents. Always start by analyzing the complexity and requirements, then invoke the appropriate specialized skills. When a task involves multiple domains or is complex, activate the dream-team-orchestrator skill to plan and coordinate the workflow.",
+      "tools": {
+        "skill": true
+      }
+    },
+    
+    "orchestrator": {
+      "systemPrompt": "You are the Dream Team Orchestrator. Your role is to:\n1. Analyze incoming tasks for complexity and required expertise\n2. Select the appropriate specialized agents from the 15 available\n3. Plan the optimal workflow (sequential, parallel, or hybrid)\n4. Coordinate execution between agents\n5. Integrate outputs into a cohesive solution\n\nAvailable agents:\n- Architect (design)\n- Frontend Master (UI/UX)\n- Backend Beast (APIs/databases)\n- DevOps Wizard (infrastructure)\n- QA Guardian (testing)\n- Data Alchemist (ML/AI)\n- Mobile Ninja (iOS/Android)\n- Security Sentinel (security)\n- Performance Optimizer (optimization)\n- Generalist (debugging/planning)\n- Algorithm Master (algorithms)\n- Game Architect (game dev)\n- Statistics Sage (statistics)\n- LLM Engineer (language models)\n- Compression Expert (compression)\n\nAlways start complex tasks by loading the dream-team-orchestrator skill.",
+      "skills": ["dream-team-orchestrator"]
+    }
+  },
+  
+  "permissions": {
+    "skill": {
+      "*": "allow",
+      "dream-team-orchestrator": "allow",
+      "internal-*": "ask"
+    }
+  },
+  
+  "orchestrator": {
+    "enabled": true,
+    "auto_detect_complexity": true,
+    "complexity_threshold": "medium",
+    "max_parallel_agents": 4,
+    "phases": {
+      "analysis": true,
+      "planning": true,
+      "execution": true,
+      "integration": true
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "name": "ai-research-mr",
+  "version": "1.0.0",
+  "description": "A Multi-Agent MCP Server for Academic Research (Thesis, Papers, Essays).",
+  "main": "build/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node build/index.js",
+    "dev": "tsc --watch",
+    "test": "echo \"Tests are run manually via verify_v1_upgrade.ts\" && exit 0"
+  },
+  "keywords": [
+    "mcp",
+    "research",
+    "academic-writing",
+    "agentic-workflow",
+    "ai-assistant"
+  ],
+  "author": "AI ResearchMR Team",
+  "license": "MIT",
+  "type": "commonjs",
+  "devDependencies": {
+    "@modelcontextprotocol/sdk": "^1.26.0",
+    "@types/node": "^25.2.3",
+    "typescript": "^5.9.3",
+    "zod": "^4.3.6"
+  }
+}

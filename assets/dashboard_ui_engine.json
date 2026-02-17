@@ -1,0 +1,169 @@
+{
+  "metadata": {
+    "component": "Dashboard UI Configuration Engine",
+    "context": "Web Application Frontend — Reasoning Visualization & Agent Status",
+    "purpose": "Configuration data for rendering Chain-of-Thought visualization, agent status panels, and research progress in the dashboard UI.",
+    "version": "1.0",
+    "used_by": "Frontend (Next.js) components only"
+  },
+  "dashboard_ui_engine": {
+    "0_theme": {
+      "description": "Dark mode theme configuration.",
+      "colors": {
+        "background": {"primary": "#0A0A0B", "secondary": "#111113", "tertiary": "#1A1A1D"},
+        "surface": {"card": "#16161A", "elevated": "#1E1E22", "overlay": "rgba(0,0,0,0.6)"},
+        "text": {"primary": "#EDEDEF", "secondary": "#A0A0A6", "muted": "#6B6B73"},
+        "border": {"default": "#2A2A2E", "hover": "#3A3A3E", "active": "#4A4A4E"},
+        "accent": {"primary": "#8B5CF6", "secondary": "#3B82F6", "success": "#10B981", "warning": "#F59E0B", "error": "#EF4444"}
+      },
+      "typography": {
+        "font_family_mono": "'JetBrains Mono', 'Fira Code', monospace",
+        "font_family_sans": "'Inter', 'SF Pro', system-ui, sans-serif",
+        "sizes": {"xs": "0.75rem", "sm": "0.875rem", "base": "1rem", "lg": "1.125rem", "xl": "1.25rem"}
+      }
+    },
+    "1_cot_visualization": {
+      "description": "Configuración para renderizar la cadena de razonamiento (Chain of Thought) del agente.",
+      "step_types": [
+        {"type": "thinking", "icon": "brain", "color": "#8B5CF6", "label": "Razonando", "description": "El agente está procesando internamente."},
+        {"type": "tool_call", "icon": "wrench", "color": "#3B82F6", "label": "Herramienta", "description": "El agente invocó una herramienta/engine."},
+        {"type": "tool_result", "icon": "check-circle", "color": "#10B981", "label": "Resultado", "description": "La herramienta retornó un resultado."},
+        {"type": "error", "icon": "x-circle", "color": "#EF4444", "label": "Error", "description": "Se produjo un error en el proceso."},
+        {"type": "decision", "icon": "git-branch", "color": "#F59E0B", "label": "Decisión", "description": "El agente tomó una decisión de enrutamiento."},
+        {"type": "user_input", "icon": "message-circle", "color": "#06B6D4", "label": "Usuario", "description": "Input del usuario."},
+        {"type": "citation", "icon": "book-open", "color": "#EC4899", "label": "Cita", "description": "El agente generó una referencia académica."},
+        {"type": "quality_gate", "icon": "shield-check", "color": "#14B8A6", "label": "Quality Gate", "description": "Checkpoint de calidad superado."}
+      ],
+      "streaming_config": {
+        "method": "SSE (Server-Sent Events)",
+        "endpoint": "/api/chat/stream",
+        "chunk_format": {
+          "type": "string (thinking|tool_call|tool_result|text|error|decision)",
+          "content": "string (texto del chunk)",
+          "agent": "string (nombre del agente activo)",
+          "tool_name": "string|null (nombre de la herramienta si aplica)",
+          "timestamp": "number (Unix ms)",
+          "step_number": "number (orden en la cadena)"
+        },
+        "reconnect_strategy": {
+          "max_retries": 3,
+          "base_delay_ms": 1000,
+          "backoff_multiplier": 2
+        }
+      },
+      "display_modes": {
+        "compact": {
+          "description": "Solo muestra el paso actual y el resultado final. Para usuarios que no necesitan ver el proceso.",
+          "shows": ["user_input", "final_response"]
+        },
+        "standard": {
+          "description": "Muestra pasos principales colapsados. Se expanden al hacer click.",
+          "shows": ["user_input", "thinking_summary", "tool_calls_collapsed", "final_response"]
+        },
+        "verbose": {
+          "description": "Muestra todo el Chain of Thought expandido en tiempo real.",
+          "shows": ["user_input", "thinking_full", "tool_calls_expanded", "tool_results", "decisions", "final_response"]
+        }
+      }
+    },
+    "2_agent_status_panel": {
+      "description": "Configuración visual para el panel de estado de agentes.",
+      "agents": [
+        {
+          "id": "orchestrator",
+          "label": "Director de Investigación",
+          "short_label": "Director",
+          "color": "#8B5CF6",
+          "icon": "compass",
+          "description": "Coordina el workflow y enruta entre pasos."
+        },
+        {
+          "id": "methodologist",
+          "label": "Experto Metodológico",
+          "short_label": "Metodólogo",
+          "color": "#3B82F6",
+          "icon": "beaker",
+          "description": "Diseño de investigación, muestreo y consistencia."
+        },
+        {
+          "id": "hypothesis_expert",
+          "label": "Ingeniero de Hipótesis",
+          "short_label": "Hipótesis",
+          "color": "#10B981",
+          "icon": "lightbulb",
+          "description": "Formulación, validación y refinamiento de hipótesis."
+        },
+        {
+          "id": "reviewer",
+          "label": "Revisor de Literatura",
+          "short_label": "Revisor",
+          "color": "#F59E0B",
+          "icon": "search",
+          "description": "Búsqueda, evaluación y protocolo PRISMA."
+        },
+        {
+          "id": "writer",
+          "label": "Redactor Académico",
+          "short_label": "Escritor",
+          "color": "#EC4899",
+          "icon": "pen-tool",
+          "description": "Plantillas, APA 7 y ensamblaje del documento."
+        }
+      ],
+      "status_indicators": {
+        "idle": {"color": "#6B6B73", "pulse": false, "label": "Inactivo"},
+        "thinking": {"color": "#8B5CF6", "pulse": true, "label": "Pensando..."},
+        "executing": {"color": "#3B82F6", "pulse": true, "label": "Ejecutando"},
+        "waiting": {"color": "#F59E0B", "pulse": false, "label": "Esperando input"},
+        "completed": {"color": "#10B981", "pulse": false, "label": "Completado"},
+        "error": {"color": "#EF4444", "pulse": false, "label": "Error"}
+      }
+    },
+    "3_research_progress": {
+      "description": "Configuración para visualizar el progreso del proceso de investigación (10 pasos).",
+      "steps_display": [
+        {"step_id": "step_1", "label": "Concepción", "short": "Idea", "icon": "sparkles"},
+        {"step_id": "step_2", "label": "Problema", "short": "Problema", "icon": "target"},
+        {"step_id": "step_3", "label": "Marco Teórico", "short": "Teoría", "icon": "book"},
+        {"step_id": "step_4", "label": "Alcance", "short": "Alcance", "icon": "layers"},
+        {"step_id": "step_4b", "label": "Enfoque", "short": "Enfoque", "icon": "git-branch"},
+        {"step_id": "step_5", "label": "Hipótesis", "short": "Hipótesis", "icon": "lightbulb"},
+        {"step_id": "step_6", "label": "Diseño", "short": "Diseño", "icon": "layout"},
+        {"step_id": "step_7", "label": "Muestra", "short": "Muestra", "icon": "users"},
+        {"step_id": "step_8", "label": "Recolección", "short": "Datos", "icon": "database"},
+        {"step_id": "step_9", "label": "Análisis", "short": "Análisis", "icon": "bar-chart"},
+        {"step_id": "step_10", "label": "Reporte", "short": "Reporte", "icon": "file-text"}
+      ],
+      "step_states": {
+        "locked": {"color": "#3A3A3E", "opacity": 0.4, "description": "No disponible aún."},
+        "available": {"color": "#6B6B73", "opacity": 0.7, "description": "Disponible pero no iniciado."},
+        "in_progress": {"color": "#8B5CF6", "opacity": 1.0, "description": "Paso actual activo."},
+        "completed": {"color": "#10B981", "opacity": 1.0, "description": "Paso completado con éxito."},
+        "needs_revision": {"color": "#F59E0B", "opacity": 1.0, "description": "Quality gate falló, necesita revisión."}
+      }
+    },
+    "4_metrics_panel": {
+      "description": "Métricas en tiempo real mostradas en la barra inferior o panel lateral.",
+      "metrics": [
+        {"id": "tokens_used", "label": "Tokens", "format": "number", "icon": "hash"},
+        {"id": "latency_ms", "label": "Latencia", "format": "duration_ms", "icon": "clock"},
+        {"id": "cost_estimate", "label": "Costo", "format": "currency_usd", "icon": "dollar-sign"},
+        {"id": "model_name", "label": "Modelo", "format": "string", "icon": "cpu"},
+        {"id": "current_step", "label": "Paso", "format": "string", "icon": "map-pin"},
+        {"id": "agent_active", "label": "Agente", "format": "string", "icon": "user"},
+        {"id": "engine_consulted", "label": "Engine", "format": "string", "icon": "database"}
+      ]
+    },
+    "5_parameter_controls": {
+      "description": "Controles de parámetros técnicos del LLM disponibles para el usuario.",
+      "controls": [
+        {"id": "temperature", "label": "Temperatura", "type": "slider", "min": 0, "max": 2, "step": 0.1, "default": 0.7, "description": "Creatividad de las respuestas. Bajo = determinista, Alto = creativo."},
+        {"id": "top_p", "label": "Top P", "type": "slider", "min": 0, "max": 1, "step": 0.05, "default": 0.9, "description": "Nucleus sampling. Controla diversidad del vocabulario."},
+        {"id": "max_tokens", "label": "Max Tokens", "type": "number_input", "min": 100, "max": 128000, "default": 4096, "description": "Longitud máxima de la respuesta."},
+        {"id": "model_selector", "label": "Modelo", "type": "dropdown", "description": "Seleccionar el modelo LLM a utilizar."},
+        {"id": "system_prompt_toggle", "label": "System Prompt", "type": "toggle", "default": true, "description": "Activar/desactivar el prompt de sistema del agente."},
+        {"id": "cot_display_mode", "label": "Modo CoT", "type": "dropdown", "options": ["compact", "standard", "verbose"], "default": "standard", "description": "Nivel de detalle del razonamiento visible."}
+      ]
+    }
+  }
+}

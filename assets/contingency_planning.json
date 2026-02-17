@@ -1,0 +1,229 @@
+{
+  "metadata": {
+    "component": "Contingency Planning Engine",
+    "context": "Research Problem-Solving — Common Obstacles and Recovery Strategies",
+    "purpose": "Provide solutions for common research problems: low response rates, hypothesis rejection, scope creep, ethical issues, and data quality problems.",
+    "version": "1.0",
+    "linked_from": ["research_process_master_engine > quality_gates", "research_process_master_engine > new_engine_references"]
+  },
+  "contingency_planning": {
+    "0_usage_guide": {
+      "description": "Consultar este engine cuando el investigador enfrenta un obstáculo en cualquier paso del proceso.",
+      "trigger": "Cuando un quality gate falla, cuando el investigador reporta un problema, o cuando los resultados no son los esperados."
+    },
+    "1_hypothesis_rejection": {
+      "problem": "La hipótesis fue rechazada (los resultados no son estadísticamente significativos).",
+      "severity": "Alta — Puede afectar la viabilidad del estudio completo.",
+      "solutions": [
+        {
+          "strategy": "Re-evaluar el tamaño de muestra",
+          "description": "Muestra insuficiente puede causar error Tipo II (falso negativo). Recalcular con power analysis.",
+          "action": "Usar hypothesis_engine > module_6 > power_analysis para verificar si n fue adecuado."
+        },
+        {
+          "strategy": "Revisar los instrumentos",
+          "description": "Baja confiabilidad del instrumento puede enmascarar efectos reales.",
+          "action": "Verificar Alpha de Cronbach (debe ser ≥ .70). Si es bajo, considerar depuración de ítems."
+        },
+        {
+          "strategy": "Explorar efectos moderadores",
+          "description": "La relación puede existir solo en subgrupos (ej: solo en mujeres, solo en mayores de 30).",
+          "action": "Realizar análisis de subgrupos o incluir variables moderadoras en un modelo de regresión."
+        },
+        {
+          "strategy": "Reportar honestamente",
+          "description": "Un resultado nulo es un resultado válido. NO manipular datos para obtener significancia (p-hacking).",
+          "action": "Discutir posibles razones teóricas y metodológicas del resultado nulo. Sugerir estudios futuros."
+        },
+        {
+          "strategy": "Reorientar a estudio exploratorio",
+          "description": "Si las hipótesis predefinidas fallan, los datos aún pueden revelar patrones interesantes.",
+          "action": "Realizar análisis exploratorio de datos (EDA) y reportar hallazgos como 'generadores de hipótesis'."
+        }
+      ]
+    },
+    "2_low_response_rate": {
+      "problem": "Tasa de respuesta baja en encuestas o cuestionarios (< 30% típicamente considerada baja).",
+      "severity": "Alta — Compromete la representatividad de la muestra.",
+      "solutions": [
+        {
+          "strategy": "Recordatorios escalonados",
+          "description": "Enviar 2-3 recordatorios con intervalos de 1 semana.",
+          "action": "Email recordatorio 1 (1 semana), recordatorio 2 (2 semanas), último aviso (3 semanas)."
+        },
+        {
+          "strategy": "Simplificar el instrumento",
+          "description": "Cuestionarios largos tienen peor tasa de respuesta.",
+          "action": "Reducir a <20 minutos de aplicación. Eliminar ítems redundantes."
+        },
+        {
+          "strategy": "Ofrecer incentivos",
+          "description": "Incentivos modestos aumentan significativamente la participación.",
+          "action": "Sorteo entre participantes, tarjeta de regalo, acceso a resultados del estudio."
+        },
+        {
+          "strategy": "Cambiar modo de aplicación",
+          "description": "Online puede tener peor tasa que presencial (o viceversa según población).",
+          "action": "Considerar aplicación mixta: presencial en grupos cautivos + online para el resto."
+        },
+        {
+          "strategy": "Análisis de no-respuesta",
+          "description": "Si la tasa sigue baja, documentar y analizar si hay sesgo de no-respuesta.",
+          "action": "Comparar características demográficas de respondientes vs. no-respondientes (si hay datos disponibles)."
+        }
+      ]
+    },
+    "3_data_quality_issues": {
+      "problem": "Datos recolectados con problemas de calidad (valores faltantes, outliers, inconsistencias).",
+      "severity": "Media-Alta — Puede invalidar resultados si no se maneja.",
+      "solutions": {
+        "missing_data": {
+          "description": "Datos faltantes (missing values) en variables clave.",
+          "strategies": [
+            {"if_less_than_5_percent": "Eliminación por lista (listwise deletion). Impacto mínimo."},
+            {"if_5_to_20_percent": "Imputación múltiple (mice en R, FIML en Mplus). Preserva tamaño de muestra."},
+            {"if_more_than_20_percent": "Investigar el patrón (MCAR, MAR, MNAR). Considerar si la variable es viable."},
+            {"always": "Reportar en la sección de Metodología cuántos datos faltaban y cómo se manejaron."}
+          ]
+        },
+        "outliers": {
+          "description": "Valores extremos que distorsionan las estadísticas.",
+          "strategies": [
+            "Identificar con z-scores (|z| > 3) o IQR (1.5 × IQR fuera de Q1/Q3).",
+            "Verificar si son errores de registro (corregir si es posible).",
+            "Si son valores legítimos: reportar análisis con y sin outliers.",
+            "Considerar transformaciones (log, raíz cuadrada) o pruebas robustas."
+          ]
+        },
+        "inconsistent_responses": {
+          "description": "Patrones sospechosos (todas las respuestas iguales, contradicciones internas).",
+          "strategies": [
+            "Incluir ítems de control/atención en el cuestionario (ej: 'Seleccione Muy de acuerdo').",
+            "Medir tiempo de respuesta: muy rápido (< 2 min para 50 ítems) sugiere respuesta aleatoria.",
+            "Eliminar casos con > 2 inconsistencias detectadas. Documentar criterios de exclusión."
+          ]
+        }
+      }
+    },
+    "4_scope_creep": {
+      "problem": "El alcance del estudio se expande durante la investigación (nuevas variables, nuevas preguntas).",
+      "severity": "Media — Retrasa el cronograma y diluye el enfoque.",
+      "solutions": [
+        {
+          "strategy": "Regresar a los objetivos originales",
+          "description": "Comparar el trabajo actual con los objetivos registrados en el Paso 2.",
+          "action": "Usar orchestrator_get_current_step para verificar alineación con objetivos."
+        },
+        {
+          "strategy": "Documentar para futuras investigaciones",
+          "description": "Las nuevas preguntas que surgen son valiosas — pero para otro estudio.",
+          "action": "Crear sección de 'Líneas futuras de investigación' en las Conclusiones."
+        },
+        {
+          "strategy": "Negociar con tutor/director",
+          "description": "Si el cambio es justificado, formalizar la modificación del alcance.",
+          "action": "Actualizar objectives y scope en orchestrator_update_project_info."
+        }
+      ]
+    },
+    "5_ethical_complications": {
+      "problem": "Surgen problemas éticos durante la recolección de datos.",
+      "severity": "Crítica — Puede requerir detener la investigación.",
+      "scenarios": [
+        {
+          "scenario": "Participante revela información de riesgo (abuso, suicidio, delito)",
+          "action": "Detener la entrevista si es necesario. Activar protocolo de referencia a profesionales (psicólogo, trabajador social, autoridades según corresponda).",
+          "prevention": "Tener protocolo de crisis definido ANTES de iniciar la recolección."
+        },
+        {
+          "scenario": "Participante se angustia durante la entrevista/encuesta",
+          "action": "Ofrecer pausa o retiro sin presión. Proporcionar contacto de apoyo psicológico.",
+          "prevention": "Incluir advertencia en consentimiento informado sobre temas sensibles."
+        },
+        {
+          "scenario": "Conflicto de interés descubierto durante el estudio",
+          "action": "Documentar, informar al comité de ética, declarar en la publicación.",
+          "prevention": "Completar declaración de conflictos de interés antes de iniciar."
+        },
+        {
+          "scenario": "Datos identificables filtrados accidentalmente",
+          "action": "Notificar al comité de ética y a los participantes afectados. Implementar medidas correctivas.",
+          "prevention": "Anonimizar/pseudonimizar datos INMEDIATAMENTE después de la recolección."
+        }
+      ]
+    },
+    "6_literature_insufficiency": {
+      "problem": "No se encuentran suficientes fuentes para construir el marco teórico.",
+      "severity": "Media — Puede debilitar la fundamentación del estudio.",
+      "solutions": [
+        {
+          "strategy": "Ampliar la búsqueda",
+          "description": "Usar sinónimos, términos en inglés, ampliar ventana temporal.",
+          "action": "Usar reviewer_generate_search_query con estrategia 'broad'. Consultar web_search_tool > 2_boolean_search_builder."
+        },
+        {
+          "strategy": "Incluir campos adyacentes",
+          "description": "Si no hay literatura directa, buscar en disciplinas relacionadas.",
+          "action": "Ejemplo: Si no hay estudios de 'burnout en docentes rurales', buscar 'burnout en docentes' + 'educación rural' por separado."
+        },
+        {
+          "strategy": "Buscar literatura gris",
+          "description": "Tesis, informes gubernamentales, documentos de trabajo, preprints.",
+          "action": "Buscar en repositorios de tesis (ProQuest, repositorios universitarios), informes de organismos internacionales."
+        },
+        {
+          "strategy": "Reposicionar como estudio exploratorio",
+          "description": "Si genuinamente hay poca literatura, esto JUSTIFICA tu investigación.",
+          "action": "Enfatizar en la Introducción que el vacío en la literatura es precisamente la razón de ser del estudio."
+        },
+        {
+          "strategy": "Contactar expertos",
+          "description": "Investigadores activos en el campo pueden conocer literatura no indexada o en prensa.",
+          "action": "Enviar email académico breve a autores clave identificados en la búsqueda."
+        }
+      ]
+    },
+    "7_technology_failures": {
+      "problem": "Problemas técnicos con software, herramientas de recolección o análisis.",
+      "severity": "Media — Retrasa el proceso pero rara vez invalida el estudio.",
+      "solutions": {
+        "survey_platform_issues": {
+          "problem": "Plataforma de encuestas pierde respuestas o falla.",
+          "prevention": "Usar plataformas confiables (Google Forms, Qualtrics, SurveyMonkey). Activar guardado parcial.",
+          "recovery": "Si hay pérdida parcial, documentar y reclutar participantes adicionales."
+        },
+        "statistical_software_errors": {
+          "problem": "Software estadístico produce errores o resultados inesperados.",
+          "prevention": "Verificar resultados con un segundo software (ej: SPSS + R, o JASP + Python).",
+          "recovery": "Limpiar datos, verificar tipos de variables, buscar errores de codificación."
+        },
+        "recording_failures": {
+          "problem": "Grabaciones de entrevistas corruptas o inaudibles.",
+          "prevention": "Usar dos dispositivos de grabación simultáneamente. Tomar notas de campo como respaldo.",
+          "recovery": "Reconstruir contenido desde notas de campo. Contactar participante para sesión complementaria."
+        }
+      }
+    },
+    "8_timeline_delays": {
+      "problem": "El cronograma del proyecto se retrasa significativamente.",
+      "severity": "Media — Afecta plazos institucionales (defensa, publicación).",
+      "solutions": [
+        {
+          "strategy": "Priorización de tareas críticas",
+          "description": "Identificar qué tareas están en la ruta crítica y enfocar recursos ahí.",
+          "action": "Las secciones de Metodología y Resultados son la ruta crítica. Introducción y Marco Teórico pueden refinarse al final."
+        },
+        {
+          "strategy": "Reducir el alcance sin invalidar el estudio",
+          "description": "Reducir número de variables, objetivos específicos o tamaño de muestra (con justificación).",
+          "action": "Documentar la decisión y su justificación en la sección de Limitaciones."
+        },
+        {
+          "strategy": "Solicitar extensión formal",
+          "description": "Comunicar al tutor/comité con anticipación y con un plan revisado.",
+          "action": "Presentar cronograma actualizado con hitos claros y fecha de entrega ajustada."
+        }
+      ]
+    }
+  }
+}

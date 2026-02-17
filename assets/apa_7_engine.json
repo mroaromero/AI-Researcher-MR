@@ -167,6 +167,73 @@
         "suffix": "[traducción propia]",
         "example": "\"{Texto traducido}\" [traducción propia]."
       }
+    },
+    "6_reference_list_formatting": {
+      "description": "Plantillas para la lista de referencias al final del documento (APA 7, Capítulos 9-11).",
+      "general_rules": {
+        "order": "Alfabético por apellido del primer autor.",
+        "hanging_indent": "Sangría francesa: Primera línea al margen, siguientes con sangría de 1.27 cm.",
+        "doi_format": "https://doi.org/xxxxx (como hipervínculo activo, sin 'Recuperado de').",
+        "no_doi_with_url": "Si no tiene DOI pero se accedió en línea: Recuperado de {URL}",
+        "no_doi_no_url": "Si es fuente impresa sin DOI ni URL: No se incluye localizador."
+      },
+      "templates": {
+        "journal_article": {
+          "with_doi": "{Apellido}, {Inicial}. ({Año}). {Título del artículo}. {Nombre de la Revista}, {Volumen}({Número}), {pp-pp}. https://doi.org/xxxxx",
+          "without_doi": "{Apellido}, {Inicial}. ({Año}). {Título del artículo}. {Nombre de la Revista}, {Volumen}({Número}), {pp-pp}.",
+          "example": "García, M. J. (2022). Factores de estrés en docentes universitarios. Revista de Psicología Educativa, 15(2), 45-62. https://doi.org/10.1234/rpe.2022.015"
+        },
+        "book": {
+          "single_author": "{Apellido}, {Inicial}. ({Año}). {Título del libro} ({Edición}). {Editorial}.",
+          "multiple_authors": "{Apellido1}, {Inicial1}., {Apellido2}, {Inicial2}., & {Apellido3}, {Inicial3}. ({Año}). {Título}. {Editorial}.",
+          "with_doi": "Agregar DOI al final si existe.",
+          "example": "Hernández-Sampieri, R., Fernández, C., & Baptista, P. (2014). Metodología de la investigación (6a ed.). McGraw-Hill."
+        },
+        "chapter_in_edited_book": {
+          "template": "{Apellido del autor del capítulo}, {Inicial}. ({Año}). {Título del capítulo}. En {Inicial}. {Apellido del editor} (Ed.), {Título del libro} (pp. {xx-xx}). {Editorial}.",
+          "example": "López, A. (2020). Metodologías mixtas en educación. En R. Torres (Ed.), Nuevas fronteras en investigación educativa (pp. 120-145). Ediciones Académicas."
+        },
+        "thesis_dissertation": {
+          "published": "{Apellido}, {Inicial}. ({Año}). {Título de la tesis} [Tesis doctoral, {Universidad}]. {Nombre del repositorio}. {URL}",
+          "unpublished": "{Apellido}, {Inicial}. ({Año}). {Título de la tesis} [Tesis de maestría no publicada]. {Universidad}.",
+          "example": "Martínez, C. (2021). Impacto del aprendizaje colaborativo en competencias digitales [Tesis doctoral, Universidad Nacional]. Repositorio Institucional. https://repositorio.unal.edu.co/xxxxx"
+        },
+        "website": {
+          "with_author": "{Apellido}, {Inicial}. ({Fecha}). {Título de la página}. {Nombre del sitio web}. {URL}",
+          "without_author": "{Título de la página}. ({Fecha}). {Nombre del sitio web}. {URL}",
+          "without_date": "{Apellido}, {Inicial}. (s.f.). {Título}. {Sitio web}. Recuperado {Fecha de acceso}, de {URL}",
+          "example": "Organización Mundial de la Salud. (2023, 15 de marzo). Salud mental en el trabajo. OMS. https://www.who.int/es/news-room/xxxxx"
+        },
+        "conference_paper": {
+          "template": "{Apellido}, {Inicial}. ({Año}, {Mes} {Días}). {Título de la ponencia} [{Tipo: Ponencia / Póster}]. {Nombre del congreso}, {Lugar}. {URL si existe}",
+          "example": "Rodríguez, F. (2023, 5-7 de noviembre). Inteligencia artificial en investigación educativa [Ponencia]. Congreso Iberoamericano de Educación, Madrid, España."
+        },
+        "government_report": {
+          "template": "{Nombre de la entidad}. ({Año}). {Título del informe} ({Número de publicación si existe}). {URL}",
+          "example": "Ministerio de Educación Nacional. (2022). Plan Nacional de Educación 2022-2030 (Documento CONPES 4050). https://www.mineducacion.gov.co/xxxxx"
+        },
+        "social_media": {
+          "twitter_x": "{Apellido}, {Inicial}. [@usuario]. ({Fecha}). {Texto del tweet hasta 20 palabras} [Tweet]. Twitter. {URL}",
+          "youtube": "{Apellido}, {Inicial}. [{Nombre del canal}]. ({Fecha}). {Título del video} [Video]. YouTube. {URL}",
+          "instagram": "{Apellido}, {Inicial}. [@usuario]. ({Fecha}). {Descripción} [Fotografía/Video]. Instagram. {URL}"
+        },
+        "ai_generated_content": {
+          "description": "APA 7 Section 10.10 — Contenido generado por IA.",
+          "template": "{Nombre de la herramienta} ({Versión}). ({Año}). {Descripción del prompt/consulta} [{Tipo: Texto generado / Respuesta de IA}]. {Nombre de la empresa}. {URL de la herramienta}",
+          "example_chatgpt": "OpenAI. (2024). ChatGPT (versión GPT-4) [Modelo de lenguaje]. https://chat.openai.com",
+          "example_claude": "Anthropic. (2024). Claude (versión 3.5 Sonnet) [Modelo de lenguaje]. https://claude.ai",
+          "in_text_note": "Describir en Metodología cómo se usó la herramienta de IA. La cita in-text es parentética: (OpenAI, 2024).",
+          "ethical_note": "Verificar las políticas de la institución sobre el uso de IA en trabajos académicos."
+        },
+        "dataset": {
+          "template": "{Apellido}, {Inicial}. ({Año}). {Título del dataset} (Versión {X}) [Conjunto de datos]. {Repositorio}. https://doi.org/xxxxx",
+          "example": "Instituto Nacional de Estadística. (2023). Encuesta Nacional de Hogares 2023 [Conjunto de datos]. DANE. https://www.dane.gov.co/xxxxx"
+        },
+        "software": {
+          "template": "{Apellido}, {Inicial}. ({Año}). {Nombre del software} (Versión {X}) [Software]. {URL}",
+          "example": "R Core Team. (2023). R: A language and environment for statistical computing (Versión 4.3) [Software]. https://www.r-project.org/"
+        }
+      }
     }
   }
 }

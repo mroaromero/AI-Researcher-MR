@@ -1,0 +1,13 @@
+var R=require("../../../chunks/[turbopack]_runtime.js")("server/app/api/upload/route.js")
+R.c("server/chunks/node_modules_next_a7d48d26._.js")
+R.c("server/chunks/node_modules_@opentelemetry_api_build_esm_7e8f41ca._.js")
+R.c("server/chunks/node_modules_zod_v3_f358d7b3._.js")
+R.c("server/chunks/node_modules_axios_f4609b97._.js")
+R.c("server/chunks/464b8_mime-db_78a234b4._.js")
+R.c("server/chunks/node_modules_js-tiktoken_dist_index_2a60c078.js")
+R.c("server/chunks/node_modules_js-tiktoken_dist_chunk-VL2OQCWN_7369b295.js")
+R.c("server/chunks/[root-of-the-server]__f021723a._.js")
+R.c("server/chunks/[root-of-the-server]__5a7e049b._.js")
+R.c("server/chunks/_next-internal_server_app_api_upload_route_actions_f15ed185.js")
+R.m("[project]/node_modules/next/dist/esm/build/templates/app-route.js { INNER_APP_ROUTE => \"[project]/src/app/api/upload/route.ts [app-route] (ecmascript)\" } [app-route] (ecmascript)")
+module.exports=R.m("[project]/node_modules/next/dist/esm/build/templates/app-route.js { INNER_APP_ROUTE => \"[project]/src/app/api/upload/route.ts [app-route] (ecmascript)\" } [app-route] (ecmascript)").exports

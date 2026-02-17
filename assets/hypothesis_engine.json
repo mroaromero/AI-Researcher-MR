@@ -83,12 +83,126 @@
       "scoring_threshold": "Must pass 5/5 checks to be accepted."
     },
     "module_5_simulation_projection": {
-      "description": "Anticipates requirements for testing the hypothesis (Module 7).",
+      "description": "Anticipates requirements for testing the hypothesis (Module 5).",
       "projections": [
         "Statistical Test Required (e.g., T-Test, ANOVA, Pearson Correlation)",
         "Sample Size Estimation (Low/Medium/High power)",
         "Data Collection Strategy (Survey, Experiment, Observation)"
       ]
+    },
+    "module_6_testing_framework": {
+      "description": "Maps hypotheses to specific statistical tests and defines testing parameters (Module 6).",
+      "statistical_test_mapping": {
+        "descriptive_hypothesis": {
+          "tests": ["Descriptive Statistics (Mean, Median, SD)", "Frequency Distribution", "One-sample t-test"],
+          "when_to_use": "When hypothesis predicts a single variable's state or level."
+        },
+        "correlational_hypothesis": {
+          "tests": ["Pearson r (both continuous, normal)", "Spearman rho (ordinal or non-normal)", "Kendall tau (small samples, ordinal)"],
+          "when_to_use": "When hypothesis predicts association without causation."
+        },
+        "causal_hypothesis": {
+          "2_groups": {
+            "independent": {"normal": "Independent t-test", "non_normal": "Mann-Whitney U"},
+            "paired": {"normal": "Paired t-test", "non_normal": "Wilcoxon signed-rank"}
+          },
+          "3_or_more_groups": {
+            "independent": {"normal": "One-way ANOVA + post-hoc (Tukey/Bonferroni)", "non_normal": "Kruskal-Wallis + Dunn"},
+            "repeated_measures": {"normal": "Repeated measures ANOVA", "non_normal": "Friedman test"}
+          },
+          "factorial": "Two-way ANOVA (interaction effects between 2+ IVs)"
+        },
+        "null_hypothesis": {
+          "tests": "Same as the alternative hypothesis type — null is tested by failing to reject.",
+          "alpha_levels": {"standard": 0.05, "conservative": 0.01, "exploratory": 0.10}
+        }
+      },
+      "effect_size_guidance": {
+        "description": "Effect size quantifies the magnitude of the relationship, independent of sample size.",
+        "measures": [
+          {"name": "Cohen's d", "use_with": "t-tests (comparing means)", "interpretation": {"small": 0.2, "medium": 0.5, "large": 0.8}},
+          {"name": "Eta squared (η²)", "use_with": "ANOVA (variance explained)", "interpretation": {"small": 0.01, "medium": 0.06, "large": 0.14}},
+          {"name": "Pearson r", "use_with": "Correlations", "interpretation": {"small": 0.1, "medium": 0.3, "large": 0.5}},
+          {"name": "Odds Ratio (OR)", "use_with": "Logistic regression / Chi-square", "interpretation": {"small": 1.5, "medium": 2.5, "large": 4.0}},
+          {"name": "Cramér's V", "use_with": "Chi-square (categorical variables)", "interpretation": {"small": 0.1, "medium": 0.3, "large": 0.5}}
+        ]
+      },
+      "power_analysis": {
+        "description": "Determines the minimum sample size needed to detect an effect of a given size.",
+        "parameters": {
+          "alpha": "Significance level (typically 0.05)",
+          "power": "Probability of detecting a true effect (typically 0.80)",
+          "effect_size": "Expected magnitude (use Cohen's conventions if unknown)",
+          "tails": "One-tailed (directional) or two-tailed (non-directional)"
+        },
+        "tools": ["G*Power (free, recommended)", "R (pwr package)", "Python (statsmodels)"],
+        "rule_of_thumb": {
+          "small_effect": "Large sample needed (n > 300)",
+          "medium_effect": "Moderate sample (n = 50-150)",
+          "large_effect": "Small sample sufficient (n = 20-50)"
+        }
+      }
+    },
+    "module_7_iterative_refinement": {
+      "description": "Refines hypotheses based on literature review feedback and manages multiple hypotheses (Module 7).",
+      "post_literature_review_adjustment": {
+        "description": "After reviewing the literature, hypotheses may need refinement.",
+        "triggers": [
+          "New variables discovered in literature that mediate or moderate the relationship.",
+          "Prior studies show opposite direction than initially predicted.",
+          "The theoretical framework suggests a more specific mechanism.",
+          "Sample characteristics differ from original assumptions.",
+          "Measurement instruments found in literature suggest different operationalization."
+        ],
+        "adjustment_protocol": [
+          "1. Document the original hypothesis (H1.0).",
+          "2. Identify the specific finding or theory that prompts the change.",
+          "3. Formulate the refined hypothesis (H1.1) with explicit justification.",
+          "4. Re-validate using module_4_validation_checklist.",
+          "5. Update the simulation projection (module_5) with new test requirements."
+        ]
+      },
+      "hypothesis_versioning": {
+        "description": "Track hypothesis evolution through the research process.",
+        "format": "H{number}.{version} — e.g., H1.0 (original), H1.1 (post-literature), H1.2 (post-pilot)",
+        "changelog_template": {
+          "version": "H1.1",
+          "date": "YYYY-MM-DD",
+          "change_type": "Direction change | Variable addition | Scope narrowing | Operationalization change",
+          "justification": "Based on [Author] (Year) findings that...",
+          "previous_version": "H1.0"
+        }
+      },
+      "multi_hypothesis_management": {
+        "description": "Strategies for handling multiple hypotheses in a single study.",
+        "hierarchy": {
+          "primary_hypothesis": "The main prediction that directly answers the research question. Only ONE per study.",
+          "secondary_hypotheses": "Additional predictions about sub-questions, mediators, or moderators.",
+          "exploratory_hypotheses": "Tentative predictions without strong theoretical backing, clearly labeled."
+        },
+        "naming_convention": {
+          "primary": "H1 (General hypothesis)",
+          "secondary": "H2, H3, H4... (Specific hypotheses)",
+          "null": "H0 (Paired with each alternative: H0₁, H0₂...)"
+        },
+        "correction_for_multiple_testing": {
+          "problem": "Testing multiple hypotheses increases the chance of Type I errors (false positives).",
+          "solutions": [
+            {"method": "Bonferroni correction", "formula": "α_adjusted = α / number_of_tests", "use_when": "Conservative approach, few tests"},
+            {"method": "Holm-Bonferroni", "formula": "Step-down procedure", "use_when": "Less conservative, more power"},
+            {"method": "Benjamini-Hochberg (FDR)", "formula": "Controls false discovery rate", "use_when": "Exploratory studies with many tests"}
+          ]
+        }
+      },
+      "qualitative_hypothesis_clarification": {
+        "description": "In qualitative research, formal hypotheses are replaced by working assumptions.",
+        "terminology": {
+          "working_hypothesis": "Tentative anticipation of meaning, NOT a prediction to be tested statistically.",
+          "research_propositions": "Theoretical statements that guide inquiry without constraining findings.",
+          "sensitizing_concepts": "Conceptual frameworks that orient attention without predetermining outcomes."
+        },
+        "when_to_use_qualitative_type": "Use the 'Qualitative' template from module_3 ONLY when the study has a qualitative approach AND the researcher wants to articulate initial anticipations."
+      }
     }
   }
 }

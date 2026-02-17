@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["file:///C:/Users/Admin/Desktop/ai-research-mr/src/components/dashboard-layout.tsx"],"sourcesContent":["\"use client\";\r\n\r\nimport { useState, useEffect } from \"react\";\r\n// import { cn } from \"@/lib/utils\";\r\n\r\nfunction cn(...inputs: any[]) {\r\n  return inputs.flat().filter(Boolean).join(\" \");\r\n}\r\n\r\nexport default function DashboardLayout() {\r\n  const [mounted, setMounted] = useState(false);\r\n\r\n  useEffect(() => {\r\n    setMounted(true);\r\n  }, []);\r\n\r\n  if (!mounted) return <div className=\"h-screen w-full bg-background\" />;\r\n\r\n  return (\r\n    <div className={cn(\"h-screen w-full bg-background\", \"flex flex-col\")}>\r\n       <div>Minimal Dashboard with Inline CN</div>\r\n    </div>\r\n  );\r\n}\r\n"],"names":[],"mappings":";;;;;AAEA;AAFA;;;AAGA,oCAAoC;AAEpC,SAAS,GAAG,GAAG,MAAa;IAC1B,OAAO,OAAO,IAAI,GAAG,MAAM,CAAC,SAAS,IAAI,CAAC;AAC5C;AAEe,SAAS;IACtB,MAAM,CAAC,SAAS,WAAW,GAAG,IAAA,iNAAQ,EAAC;IAEvC,IAAA,kNAAS,EAAC;QACR,WAAW;IACb,GAAG,EAAE;IAEL,IAAI,CAAC,SAAS,qBAAO,8OAAC;QAAI,WAAU;;;;;;IAEpC,qBACE,8OAAC;QAAI,WAAW,GAAG,iCAAiC;kBACjD,cAAA,8OAAC;sBAAI;;;;;;;;;;;AAGZ"}}]
+}

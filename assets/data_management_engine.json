@@ -1,0 +1,134 @@
+{
+  "metadata": {
+    "component": "Data Management Engine",
+    "context": "Research Data Management — Storage, Security, FAIR Principles, and Data Sharing",
+    "purpose": "Guide researchers in creating data management plans, ensuring data security, and complying with FAIR principles.",
+    "version": "1.0",
+    "linked_from": ["research_process_master_engine > step_8", "ethics_irb_engine > 3_data_protection"]
+  },
+  "data_management_engine": {
+    "0_fair_principles": {
+      "description": "Principios FAIR para datos de investigación (Wilkinson et al., 2016).",
+      "principles": [
+        {
+          "principle": "Findable (Encontrable)",
+          "requirements": [
+            "Asignar identificador persistente y único (DOI) a los datos.",
+            "Describir datos con metadatos ricos y detallados.",
+            "Registrar datos en un repositorio indexado y buscable."
+          ]
+        },
+        {
+          "principle": "Accessible (Accesible)",
+          "requirements": [
+            "Los datos (o al menos los metadatos) deben ser recuperables mediante protocolo estándar (HTTP).",
+            "Definir condiciones de acceso claras (abierto, restringido, embargo).",
+            "Los metadatos deben permanecer accesibles incluso si los datos ya no están disponibles."
+          ]
+        },
+        {
+          "principle": "Interoperable (Interoperable)",
+          "requirements": [
+            "Usar formatos abiertos y estándar (CSV, JSON, XML, no formatos propietarios).",
+            "Usar vocabularios y ontologías reconocidas en el campo.",
+            "Incluir referencias a otros datos relacionados."
+          ]
+        },
+        {
+          "principle": "Reusable (Reutilizable)",
+          "requirements": [
+            "Incluir licencia clara de uso (CC-BY, CC0, etc.).",
+            "Documentar proveniencia (cómo se recolectaron, procesaron).",
+            "Cumplir estándares de la comunidad disciplinaria."
+          ]
+        }
+      ]
+    },
+    "1_data_management_plan": {
+      "description": "Estructura de un Plan de Gestión de Datos (DMP - Data Management Plan).",
+      "sections": [
+        {
+          "section": "Descripción de los datos",
+          "questions": [
+            "¿Qué tipo de datos se generarán (cuantitativos, cualitativos, multimedia)?",
+            "¿En qué formatos se almacenarán (CSV, SPSS, audio MP3, transcripciones DOCX)?",
+            "¿Cuál es el volumen estimado de datos (GB, número de archivos)?"
+          ]
+        },
+        {
+          "section": "Recolección y documentación",
+          "questions": [
+            "¿Qué instrumentos y procedimientos se usarán para recolectar datos?",
+            "¿Cómo se documentará el proceso (codebook, metadata schema)?",
+            "¿Qué convención de nombres se usará para archivos?"
+          ],
+          "naming_convention": {
+            "recommended": "[Proyecto]_[TipoDato]_[Participante]_[Fecha]_[Version]",
+            "example": "TESIS_ENT_P05_20240315_v01.docx",
+            "rules": ["No usar espacios (usar guiones bajos)", "No usar caracteres especiales (ñ, á, etc.)", "Incluir fecha en formato YYYYMMDD", "Incluir versión (v01, v02)"]
+          }
+        },
+        {
+          "section": "Almacenamiento y seguridad",
+          "questions": [
+            "¿Dónde se almacenarán durante la investigación (disco local, nube, servidor institucional)?",
+            "¿Qué medidas de seguridad se aplicarán (cifrado, contraseñas, acceso restringido)?",
+            "¿Cuál es la estrategia de respaldo (backups)?"
+          ],
+          "backup_strategy": {
+            "rule_3_2_1": "3 copias de los datos, en 2 tipos de medio diferentes, con 1 copia fuera del sitio.",
+            "frequency": "Backup automático diario o después de cada sesión de recolección.",
+            "tools": ["Google Drive / OneDrive institucional (cifrado en tránsito y reposo)", "Disco duro externo cifrado (BitLocker/FileVault)", "Repositorio institucional con control de versiones"]
+          }
+        },
+        {
+          "section": "Ética y confidencialidad",
+          "questions": [
+            "¿Los datos contienen información personal identificable?",
+            "¿Cómo se anonimizarán/pseudonimizarán?",
+            "¿Qué normativas de protección de datos aplican (GDPR, Ley 1581, LGPD)?",
+            "¿El consentimiento informado incluye permisos para compartir datos?"
+          ]
+        },
+        {
+          "section": "Preservación y compartición",
+          "questions": [
+            "¿Se compartirán los datos tras la publicación? ¿Dónde?",
+            "¿Qué licencia se aplicará a los datos?",
+            "¿Cuánto tiempo se conservarán los datos después del estudio?",
+            "¿Hay restricciones para compartir (datos sensibles, acuerdos de confidencialidad)?"
+          ]
+        }
+      ],
+      "dmp_tools": [
+        {"tool": "DMPTool", "url": "https://dmptool.org/", "description": "Herramienta gratuita para crear DMPs con plantillas por financiador."},
+        {"tool": "DMPonline", "url": "https://dmponline.dcc.ac.uk/", "description": "Similar, más usado en Europa."},
+        {"tool": "ARGOS", "url": "https://argos.openaire.eu/", "description": "DMP machine-actionable de OpenAIRE."}
+      ]
+    },
+    "2_data_repositories": {
+      "description": "Repositorios recomendados para depositar datos de investigación.",
+      "general_purpose": [
+        {"name": "Zenodo", "url": "https://zenodo.org/", "cost": "Gratuito (hasta 50GB)", "doi": true, "license_options": "CC-BY, CC0, etc.", "note": "Respaldado por CERN. Excelente para cualquier disciplina."},
+        {"name": "Figshare", "url": "https://figshare.com/", "cost": "Gratuito (hasta 20GB privado, ilimitado público)", "doi": true, "note": "Soporta cualquier tipo de archivo."},
+        {"name": "OSF (Open Science Framework)", "url": "https://osf.io/", "cost": "Gratuito", "doi": true, "note": "Ideal para proyectos colaborativos, incluye preregistro."},
+        {"name": "Dryad", "url": "https://datadryad.org/", "cost": "$120 USD por dataset", "doi": true, "note": "Curación de datos, alta calidad."}
+      ],
+      "discipline_specific": [
+        {"discipline": "Ciencias sociales", "repository": "ICPSR (Inter-university Consortium for Political and Social Research)"},
+        {"discipline": "Ciencias de la salud", "repository": "ClinicalTrials.gov (ensayos clínicos)"},
+        {"discipline": "Genómica", "repository": "GenBank, European Nucleotide Archive"},
+        {"discipline": "Geoespacial", "repository": "PANGAEA"}
+      ]
+    },
+    "3_data_licenses": {
+      "description": "Licencias comunes para datos de investigación.",
+      "licenses": [
+        {"license": "CC0 (Public Domain)", "permissions": "Sin restricciones. Máxima reutilización.", "recommended_for": "Datos que deben ser libres para cualquier uso."},
+        {"license": "CC-BY 4.0", "permissions": "Reutilización con atribución al creador.", "recommended_for": "Mayoría de datos de investigación (equilibrio entre apertura y crédito)."},
+        {"license": "CC-BY-NC 4.0", "permissions": "Reutilización no comercial con atribución.", "recommended_for": "Datos que no se quieren usar comercialmente."},
+        {"license": "Restricted Access", "permissions": "Acceso bajo solicitud y aprobación.", "recommended_for": "Datos sensibles, datos con acuerdos de confidencialidad."}
+      ]
+    }
+  }
+}

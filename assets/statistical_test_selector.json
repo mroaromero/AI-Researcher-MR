@@ -1,0 +1,214 @@
+{
+  "metadata": {
+    "component": "Statistical Test Selector Engine",
+    "context": "Quantitative Research — Data Analysis Phase",
+    "purpose": "Decision tree for selecting the appropriate statistical test based on research design, variable types, and assumptions.",
+    "version": "1.0",
+    "linked_from": ["research_process_master_engine > step_9_quantitative_analysis", "hypothesis_engine > module_6_testing_framework"]
+  },
+  "statistical_test_selector": {
+    "0_prerequisite_checks": {
+      "description": "Antes de seleccionar una prueba, verificar estas condiciones.",
+      "checks": [
+        {
+          "check": "Nivel de medición de las variables",
+          "options": {
+            "nominal": "Categorías sin orden (ej: género, grupo étnico, sí/no).",
+            "ordinal": "Categorías con orden (ej: Likert 1-5, nivel educativo).",
+            "interval": "Numérica con intervalos iguales, sin cero absoluto (ej: temperatura °C, puntaje IQ).",
+            "ratio": "Numérica con cero absoluto (ej: edad, ingresos, peso)."
+          }
+        },
+        {
+          "check": "Normalidad de la distribución",
+          "tests": {
+            "shapiro_wilk": "Para n < 50. H0: los datos son normales. p > 0.05 = normalidad.",
+            "kolmogorov_smirnov": "Para n ≥ 50. Misma lógica que Shapiro-Wilk.",
+            "visual": "Histograma + Q-Q Plot como complemento visual."
+          },
+          "if_normal": "Usar pruebas paramétricas.",
+          "if_not_normal": "Usar pruebas no paramétricas (o transformar datos: log, raíz cuadrada)."
+        },
+        {
+          "check": "Homogeneidad de varianzas",
+          "test": "Levene's Test. H0: varianzas iguales. p > 0.05 = homogeneidad.",
+          "if_homogeneous": "Usar pruebas estándar.",
+          "if_not_homogeneous": "Usar corrección de Welch (para t-test) o Games-Howell (para ANOVA post-hoc)."
+        },
+        {
+          "check": "Independencia de observaciones",
+          "rule": "Cada participante contribuye UN solo dato. Si hay mediciones repetidas, usar pruebas para datos pareados."
+        }
+      ]
+    },
+    "1_comparison_tests": {
+      "description": "Pruebas para comparar grupos o condiciones.",
+      "two_groups": {
+        "independent": {
+          "parametric": {
+            "test": "t-test para muestras independientes",
+            "requirements": ["DV continua (interval/ratio)", "2 grupos independientes", "Normalidad en cada grupo", "Homogeneidad de varianzas"],
+            "reports": "t(df) = X.XX, p = .XXX, d = X.XX",
+            "alternative_if_violated": "Mann-Whitney U (no paramétrica)"
+          },
+          "non_parametric": {
+            "test": "Mann-Whitney U (Wilcoxon rank-sum)",
+            "requirements": ["DV al menos ordinal", "2 grupos independientes"],
+            "reports": "U = XXXX, z = X.XX, p = .XXX, r = X.XX"
+          }
+        },
+        "paired_repeated": {
+          "parametric": {
+            "test": "t-test para muestras pareadas",
+            "requirements": ["DV continua", "Mismos sujetos medidos 2 veces (pre-post)", "Normalidad de las diferencias"],
+            "reports": "t(df) = X.XX, p = .XXX, d = X.XX",
+            "alternative_if_violated": "Wilcoxon signed-rank (no paramétrica)"
+          },
+          "non_parametric": {
+            "test": "Wilcoxon signed-rank",
+            "requirements": ["DV al menos ordinal", "Mismos sujetos medidos 2 veces"],
+            "reports": "Z = X.XX, p = .XXX, r = X.XX"
+          }
+        }
+      },
+      "three_or_more_groups": {
+        "independent": {
+          "parametric": {
+            "test": "ANOVA one-way",
+            "requirements": ["DV continua", "3+ grupos independientes", "Normalidad", "Homogeneidad (Levene)"],
+            "reports": "F(df1, df2) = X.XX, p = .XXX, η² = X.XX",
+            "post_hoc": {
+              "equal_variances": "Tukey HSD (más usado) o Bonferroni (más conservador)",
+              "unequal_variances": "Games-Howell"
+            },
+            "alternative_if_violated": "Kruskal-Wallis (no paramétrica)"
+          },
+          "non_parametric": {
+            "test": "Kruskal-Wallis",
+            "requirements": ["DV al menos ordinal", "3+ grupos independientes"],
+            "reports": "H(df) = X.XX, p = .XXX",
+            "post_hoc": "Prueba de Dunn con corrección de Bonferroni"
+          }
+        },
+        "repeated_measures": {
+          "parametric": {
+            "test": "ANOVA de medidas repetidas",
+            "requirements": ["DV continua", "Mismos sujetos medidos 3+ veces", "Esfericidad (Mauchly's test)"],
+            "reports": "F(df1, df2) = X.XX, p = .XXX, η² = X.XX",
+            "if_sphericity_violated": "Corrección de Greenhouse-Geisser o Huynh-Feldt",
+            "alternative_if_violated": "Friedman (no paramétrica)"
+          },
+          "non_parametric": {
+            "test": "Friedman",
+            "requirements": ["DV al menos ordinal", "Mismos sujetos medidos 3+ veces"],
+            "reports": "χ²(df) = X.XX, p = .XXX",
+            "post_hoc": "Wilcoxon signed-rank con corrección de Bonferroni"
+          }
+        }
+      },
+      "factorial": {
+        "test": "ANOVA factorial (two-way o N-way)",
+        "requirements": ["DV continua", "2+ VIs categóricas", "Normalidad", "Homogeneidad"],
+        "reports": "Efecto principal A: F(df) = X.XX, p = .XXX; Efecto principal B: F(df) = X.XX, p = .XXX; Interacción A×B: F(df) = X.XX, p = .XXX",
+        "interpretation": "Si la interacción es significativa, interpretar efectos simples antes que principales."
+      }
+    },
+    "2_association_tests": {
+      "description": "Pruebas para evaluar relación entre variables.",
+      "both_continuous": {
+        "parametric": {
+          "test": "Correlación de Pearson (r)",
+          "requirements": ["Ambas variables continuas", "Relación lineal", "Normalidad bivariada"],
+          "reports": "r(N-2) = .XX, p = .XXX",
+          "interpretation": {"weak": "< .30", "moderate": ".30 - .70", "strong": "> .70"}
+        },
+        "non_parametric": {
+          "test": "Correlación de Spearman (ρ)",
+          "requirements": ["Al menos una ordinal O relación no lineal pero monótona"],
+          "reports": "ρ(N-2) = .XX, p = .XXX"
+        }
+      },
+      "both_categorical": {
+        "test": "Chi-cuadrado de independencia (χ²)",
+        "requirements": ["Ambas variables categóricas (nominal u ordinal)", "Frecuencias esperadas ≥ 5 en >80% de celdas"],
+        "reports": "χ²(df) = X.XX, p = .XXX, V de Cramér = .XX",
+        "alternative": "Test exacto de Fisher (cuando frecuencias esperadas < 5 o tabla 2×2)",
+        "effect_size": "V de Cramér (tablas > 2×2) o Phi (φ) para tablas 2×2"
+      },
+      "one_continuous_one_categorical": {
+        "description": "Usar pruebas de comparación de grupos (Sección 1) con la variable categórica como VI y la continua como VD."
+      }
+    },
+    "3_prediction_tests": {
+      "description": "Pruebas para predecir una variable a partir de otra(s).",
+      "linear_regression": {
+        "simple": {
+          "test": "Regresión lineal simple",
+          "when": "1 VI continua predice 1 VD continua",
+          "requirements": ["Linealidad", "Normalidad de residuos", "Homocedasticidad", "Independencia de errores (Durbin-Watson)"],
+          "reports": "R² = .XX, F(1, N-2) = X.XX, p = .XXX, β = .XX"
+        },
+        "multiple": {
+          "test": "Regresión lineal múltiple",
+          "when": "2+ VIs predicen 1 VD continua",
+          "requirements": ["Mismos que simple + No multicolinealidad (VIF < 10, Tolerancia > 0.1)"],
+          "reports": "R² = .XX, R² ajustado = .XX, F(k, N-k-1) = X.XX; Para cada predictor: B, SE, β, t, p"
+        }
+      },
+      "logistic_regression": {
+        "test": "Regresión logística",
+        "when": "VD es dicotómica (sí/no, éxito/fracaso)",
+        "requirements": ["VD binaria", "VIs continuas o categóricas", "Independencia de observaciones", "Sin multicolinealidad"],
+        "reports": "χ²(df) = X.XX, p = .XXX; Nagelkerke R² = .XX; Para cada predictor: B, SE, Wald, p, OR (IC 95%)"
+      }
+    },
+    "4_reliability_validity": {
+      "description": "Pruebas para evaluar la calidad de instrumentos de medición.",
+      "reliability": {
+        "internal_consistency": {
+          "test": "Alpha de Cronbach",
+          "interpretation": {"unacceptable": "< .60", "questionable": ".60-.70", "acceptable": ".70-.80", "good": ".80-.90", "excellent": "> .90"},
+          "note": "Si α > .95, posible redundancia de ítems."
+        },
+        "test_retest": {
+          "test": "Correlación de Pearson o CCI (Coeficiente de Correlación Intraclase)",
+          "when": "Aplicar el mismo instrumento en 2 momentos.",
+          "acceptable": "CCI ≥ .70"
+        }
+      },
+      "validity": {
+        "construct": "Análisis Factorial Exploratorio (AFE) o Confirmatorio (AFC). KMO > .70, Bartlett p < .05.",
+        "convergent": "Correlación alta con instrumentos que miden constructos similares.",
+        "discriminant": "Correlación baja con instrumentos que miden constructos diferentes."
+      }
+    },
+    "5_software_reference": {
+      "description": "Software recomendado según nivel de experiencia.",
+      "beginner": {
+        "name": "JASP",
+        "cost": "Gratuito",
+        "strengths": "Interfaz visual, fácil de aprender, incluye estadística bayesiana.",
+        "url": "https://jasp-stats.org/"
+      },
+      "intermediate": {
+        "name": "SPSS",
+        "cost": "Licencia comercial (versión estudiantil disponible)",
+        "strengths": "Estándar en ciencias sociales, interfaz de menús."
+      },
+      "advanced": [
+        {
+          "name": "R + RStudio",
+          "cost": "Gratuito",
+          "strengths": "Máxima flexibilidad, paquetes para todo, reproducibilidad.",
+          "key_packages": ["tidyverse", "psych", "lavaan", "lme4", "ggplot2"]
+        },
+        {
+          "name": "Python (scipy + statsmodels)",
+          "cost": "Gratuito",
+          "strengths": "Integración con ML, visualización potente.",
+          "key_packages": ["scipy.stats", "statsmodels", "pingouin", "seaborn"]
+        }
+      ]
+    }
+  }
+}

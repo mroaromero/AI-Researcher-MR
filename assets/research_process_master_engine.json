@@ -328,7 +328,133 @@
         "structure_guide": "drafting_engine",
         "report_flow": "methodology_engine > 6_report_structure_guide (Seleccionar quantitative_flow o qualitative_flow según enfoque)",
         "formatting": "apa_7_engine",
-        "writing_style": "connectors_library"
+        "writing_style": "connectors_library",
+        "publication": "publication_strategy (Selección de revista, open access, envío)",
+        "data_management": "data_management_engine (Almacenamiento y compartición de datos)"
+      }
+    },
+
+    "_section_quality_gates": "===== QUALITY GATES (Control de Calidad entre Pasos) =====",
+
+    "quality_gates": {
+      "description": "Checkpoints obligatorios entre pasos para asegurar calidad antes de avanzar.",
+      "gates": [
+        {
+          "gate_id": "QG1",
+          "between": "step_2 → step_3",
+          "name": "Validación del Problema",
+          "checks": [
+            "¿El problema es investigable (no es una opinión ni un juicio de valor)?",
+            "¿Existen al menos 3 objetivos específicos alineados con el general?",
+            "¿La pregunta de investigación contiene las variables clave?",
+            "¿Se ha justificado la relevancia social, teórica y/o práctica?"
+          ],
+          "action_if_fail": "Regresar a step_2 para refinar planteamiento."
+        },
+        {
+          "gate_id": "QG2",
+          "between": "step_3 → step_4",
+          "name": "Solidez del Marco Teórico",
+          "checks": [
+            "¿Se incluyen al menos 8 antecedentes de los últimos 5 años?",
+            "¿Las bases teóricas cubren TODAS las variables del estudio?",
+            "¿Se identificaron vacíos en la literatura que justifiquen la investigación?",
+            "¿No hay párrafos huérfanos (sin citas) en el marco teórico?",
+            "¿Se usa >85% parafraseo constructivo vs <15% citas directas?"
+          ],
+          "action_if_fail": "Regresar a step_3 para fortalecer revisión de literatura.",
+          "linked_engine": "theoretical_framework_engine > 6_synthesis_and_gap_analysis"
+        },
+        {
+          "gate_id": "QG3",
+          "between": "step_4b → step_5",
+          "name": "Coherencia Metodológica (Golden Rule)",
+          "checks": [
+            "¿El enfoque seleccionado es coherente con el tipo de pregunta de investigación?",
+            "¿El alcance (exploratorio/descriptivo/etc.) es compatible con el enfoque?",
+            "¿Se ha verificado con methodologist_check_consistency?"
+          ],
+          "action_if_fail": "Usar methodologist_check_consistency para diagnosticar incoherencia.",
+          "linked_engine": "methodology_engine > 0_golden_rule_consistency"
+        },
+        {
+          "gate_id": "QG4",
+          "between": "step_5 → step_6",
+          "name": "Validación de Hipótesis/Preguntas",
+          "checks_quantitative": [
+            "¿Las hipótesis son testables empíricamente?",
+            "¿Cada hipótesis contiene variables claramente identificadas?",
+            "¿Se definió hipótesis nula para cada alternativa?",
+            "¿Se pasó el checklist de validación (module_4)?"
+          ],
+          "checks_qualitative": [
+            "¿Las preguntas son abiertas (no predeterminan la respuesta)?",
+            "¿Hay pregunta central + sub-preguntas dimensionales?",
+            "¿Los supuestos teóricos están explicitados?"
+          ],
+          "action_if_fail": "Regresar a step_5 para refinar hipótesis/preguntas.",
+          "linked_engine": "hypothesis_engine > module_4_validation_checklist"
+        },
+        {
+          "gate_id": "QG5",
+          "between": "step_7 → step_8",
+          "name": "Validación de Muestra e Instrumentos",
+          "checks_quantitative": [
+            "¿Se calculó el tamaño de muestra con fórmula apropiada?",
+            "¿Los instrumentos tienen evidencia de validez y confiabilidad?",
+            "¿Se definieron criterios de inclusión/exclusión?"
+          ],
+          "checks_qualitative": [
+            "¿Se justificó la selección de participantes (muestreo intencional)?",
+            "¿Se explicó el criterio de saturación teórica?",
+            "¿Se diseñaron guiones de entrevista/observación?"
+          ],
+          "action_if_fail": "Regresar a step_7 para recalcular muestra o rediseñar instrumentos."
+        },
+        {
+          "gate_id": "QG6",
+          "between": "step_9 → step_10",
+          "name": "Validación Pre-Reporte",
+          "checks": [
+            "¿Los resultados responden a TODOS los objetivos planteados?",
+            "¿La discusión contrasta hallazgos con el marco teórico?",
+            "¿Se declararon limitaciones del estudio?",
+            "¿Se verificó formato APA 7 en citas y referencias?",
+            "¿Las conclusiones derivan lógicamente de los resultados?"
+          ],
+          "action_if_fail": "Regresar al paso apropiado según la deficiencia.",
+          "linked_engine": "drafting_engine > 2_structural_coherence_rules"
+        }
+      ]
+    },
+
+    "_section_new_linked_engines": "===== ENGINES ADICIONALES INTEGRADOS EN v2.1 =====",
+
+    "new_engine_references": {
+      "description": "Engines nuevos disponibles para consulta en pasos específicos.",
+      "statistical_test_selector": {
+        "use_at": ["step_5_quantitative_hypothesis", "step_9_quantitative_analysis"],
+        "purpose": "Árbol de decisión para seleccionar prueba estadística según variables y diseño."
+      },
+      "qualitative_analysis_tools": {
+        "use_at": ["step_9_qualitative_analysis"],
+        "purpose": "Guía detallada de codificación, software y criterios de calidad cualitativa."
+      },
+      "mixed_methods_integration": {
+        "use_at": ["step_5_to_9_mixed_methods_note"],
+        "purpose": "Estrategias de integración, joint displays y criterios de calidad mixta."
+      },
+      "ethics_irb_engine": {
+        "use_at": ["step_7_quantitative_sampling", "step_7_qualitative_participants", "step_8_quantitative_data_collection", "step_8_qualitative_data_collection"],
+        "purpose": "Protocolo de aprobación ética, consentimiento informado y cronograma IRB."
+      },
+      "data_management_engine": {
+        "use_at": ["step_8_quantitative_data_collection", "step_8_qualitative_data_collection", "step_10_reporting"],
+        "purpose": "Plan de gestión de datos, almacenamiento seguro y principios FAIR."
+      },
+      "contingency_planning": {
+        "use_at": "Cualquier paso donde surjan problemas o bloqueos.",
+        "purpose": "Soluciones a problemas comunes: baja tasa de respuesta, rechazo de hipótesis, etc."
       }
     }
   }

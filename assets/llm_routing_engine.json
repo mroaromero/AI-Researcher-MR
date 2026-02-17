@@ -1,0 +1,167 @@
+{
+  "metadata": {
+    "component": "LLM Routing Engine",
+    "context": "Multi-Model API Management — Provider Selection & Fallback",
+    "purpose": "Configuration for routing requests to different LLM providers based on task type, cost, and performance requirements.",
+    "version": "1.0",
+    "used_by": "Backend API routes (/api/chat, /api/agents)"
+  },
+  "llm_routing_engine": {
+    "0_providers": {
+      "description": "Proveedores de LLM compatibles con la API de OpenAI.",
+      "providers": [
+        {
+          "id": "groq",
+          "name": "Groq",
+          "base_url": "https://api.groq.com/openai/v1",
+          "auth_header": "Authorization: Bearer {GROQ_API_KEY}",
+          "free_tier": true,
+          "rate_limits_free": {"requests_per_minute": 30, "tokens_per_minute": 15000, "tokens_per_day": 500000},
+          "strengths": ["Fastest inference (LPU hardware)", "Free tier generous", "DeepSeek R1 with visible CoT"],
+          "weaknesses": ["Rate limits on free tier", "Limited model selection"],
+          "models": [
+            {"id": "llama-3.3-70b-versatile", "context_window": 131072, "speed": "very_fast", "cost_per_1m_input": 0.59, "cost_per_1m_output": 0.79, "supports_cot": false},
+            {"id": "deepseek-r1-distill-llama-70b", "context_window": 131072, "speed": "fast", "cost_per_1m_input": 0.75, "cost_per_1m_output": 0.99, "supports_cot": true},
+            {"id": "llama-3.1-8b-instant", "context_window": 131072, "speed": "ultra_fast", "cost_per_1m_input": 0.05, "cost_per_1m_output": 0.08, "supports_cot": false},
+            {"id": "mixtral-8x7b-32768", "context_window": 32768, "speed": "very_fast", "cost_per_1m_input": 0.24, "cost_per_1m_output": 0.24, "supports_cot": false}
+          ]
+        },
+        {
+          "id": "openrouter",
+          "name": "OpenRouter",
+          "base_url": "https://openrouter.ai/api/v1",
+          "auth_header": "Authorization: Bearer {OPENROUTER_API_KEY}",
+          "free_tier": true,
+          "strengths": ["Largest model variety", "Free models available", "Unified API for 100+ models", "Automatic fallback"],
+          "weaknesses": ["Variable latency", "Rate limits on free models"],
+          "models": [
+            {"id": "deepseek/deepseek-r1:free", "context_window": 163840, "speed": "moderate", "cost_per_1m_input": 0, "cost_per_1m_output": 0, "supports_cot": true, "note": "Free but rate limited"},
+            {"id": "meta-llama/llama-3.1-8b-instruct:free", "context_window": 131072, "speed": "fast", "cost_per_1m_input": 0, "cost_per_1m_output": 0, "supports_cot": false},
+            {"id": "google/gemini-2.0-flash-001", "context_window": 1048576, "speed": "fast", "cost_per_1m_input": 0.1, "cost_per_1m_output": 0.4, "supports_cot": false},
+            {"id": "anthropic/claude-3.5-sonnet", "context_window": 200000, "speed": "moderate", "cost_per_1m_input": 3.0, "cost_per_1m_output": 15.0, "supports_cot": false, "note": "Best writing quality"}
+          ]
+        },
+        {
+          "id": "custom",
+          "name": "Custom OpenAI-Compatible",
+          "base_url": "{CUSTOM_API_BASE_URL}",
+          "auth_header": "Authorization: Bearer {CUSTOM_API_KEY}",
+          "free_tier": false,
+          "strengths": ["Self-hosted models", "No rate limits", "Data privacy"],
+          "weaknesses": ["Requires infrastructure", "Setup complexity"],
+          "models": [],
+          "note": "Compatible with Ollama, vLLM, LM Studio, text-generation-webui, etc."
+        }
+      ]
+    },
+    "1_task_routing": {
+      "description": "Mapeo de tipos de tarea a modelos óptimos basado en requisitos.",
+      "routes": [
+        {
+          "task": "hypothesis_generation",
+          "requires": ["strong_reasoning", "chain_of_thought"],
+          "preferred_model": "deepseek-r1-distill-llama-70b",
+          "preferred_provider": "groq",
+          "fallback": {"model": "deepseek/deepseek-r1:free", "provider": "openrouter"},
+          "reason": "DeepSeek R1 excels at multi-step reasoning with visible CoT."
+        },
+        {
+          "task": "literature_search_queries",
+          "requires": ["fast_inference", "good_recall"],
+          "preferred_model": "llama-3.3-70b-versatile",
+          "preferred_provider": "groq",
+          "fallback": {"model": "meta-llama/llama-3.1-8b-instruct:free", "provider": "openrouter"},
+          "reason": "Fast inference needed for generating multiple search queries."
+        },
+        {
+          "task": "academic_writing",
+          "requires": ["high_quality_prose", "nuance", "citation_accuracy"],
+          "preferred_model": "anthropic/claude-3.5-sonnet",
+          "preferred_provider": "openrouter",
+          "fallback": {"model": "llama-3.3-70b-versatile", "provider": "groq"},
+          "reason": "Claude produces the best academic writing quality."
+        },
+        {
+          "task": "quick_formatting",
+          "requires": ["speed", "low_cost"],
+          "preferred_model": "llama-3.1-8b-instant",
+          "preferred_provider": "groq",
+          "fallback": {"model": "meta-llama/llama-3.1-8b-instruct:free", "provider": "openrouter"},
+          "reason": "Simple formatting tasks don't need large models."
+        },
+        {
+          "task": "methodology_design",
+          "requires": ["strong_reasoning", "domain_knowledge"],
+          "preferred_model": "llama-3.3-70b-versatile",
+          "preferred_provider": "groq",
+          "fallback": {"model": "deepseek/deepseek-r1:free", "provider": "openrouter"},
+          "reason": "Needs solid reasoning for design decisions."
+        },
+        {
+          "task": "statistical_guidance",
+          "requires": ["mathematical_reasoning", "chain_of_thought"],
+          "preferred_model": "deepseek-r1-distill-llama-70b",
+          "preferred_provider": "groq",
+          "fallback": {"model": "deepseek/deepseek-r1:free", "provider": "openrouter"},
+          "reason": "Statistical test selection requires structured reasoning."
+        },
+        {
+          "task": "document_assembly",
+          "requires": ["long_context", "consistency"],
+          "preferred_model": "google/gemini-2.0-flash-001",
+          "preferred_provider": "openrouter",
+          "fallback": {"model": "llama-3.3-70b-versatile", "provider": "groq"},
+          "reason": "Gemini's 1M context window handles full document assembly."
+        },
+        {
+          "task": "multi_model_consensus",
+          "requires": ["diversity_of_perspective"],
+          "strategy": "Send same prompt to 3 models simultaneously, compare responses.",
+          "models": [
+            {"model": "deepseek-r1-distill-llama-70b", "provider": "groq"},
+            {"model": "llama-3.3-70b-versatile", "provider": "groq"},
+            {"model": "deepseek/deepseek-r1:free", "provider": "openrouter"}
+          ],
+          "reason": "Multiple perspectives increase reliability for critical decisions."
+        }
+      ]
+    },
+    "2_fallback_strategy": {
+      "description": "Estrategia de fallback cuando un proveedor falla.",
+      "retry_policy": {
+        "max_retries": 2,
+        "base_delay_ms": 1000,
+        "backoff_multiplier": 2,
+        "retry_on": [429, 500, 502, 503, 504]
+      },
+      "fallback_chain": [
+        {"priority": 1, "provider": "groq", "reason": "Fastest, free tier"},
+        {"priority": 2, "provider": "openrouter", "reason": "Largest model variety, free options"},
+        {"priority": 3, "provider": "custom", "reason": "Self-hosted fallback"}
+      ],
+      "circuit_breaker": {
+        "description": "Si un proveedor falla 5 veces consecutivas, desactivar por 5 minutos.",
+        "failure_threshold": 5,
+        "cooldown_ms": 300000
+      }
+    },
+    "3_cost_tracking": {
+      "description": "Seguimiento de costos por sesión y por usuario.",
+      "tracking_fields": [
+        "provider", "model", "input_tokens", "output_tokens",
+        "cost_usd", "latency_ms", "task_type", "timestamp"
+      ],
+      "alerts": {
+        "session_budget_warning": 0.50,
+        "session_budget_limit": 2.00,
+        "daily_budget_limit": 10.00
+      },
+      "optimization_tips": [
+        "Use Groq free tier for iterative tasks (search queries, formatting).",
+        "Reserve Claude/GPT-4 for final writing passes only.",
+        "Use 8B models for classification and routing tasks.",
+        "Cache common engine responses to avoid redundant API calls."
+      ]
+    }
+  }
+}

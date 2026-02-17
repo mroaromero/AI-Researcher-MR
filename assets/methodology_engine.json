@@ -131,6 +131,122 @@
         "4. Resultados (Categorías emergentes, Narrativa, Citas)",
         "5. Discusión y Reflexiones finales"
       ]
+    },
+    "7_design_decision_tree": {
+      "description": "Árbol de decisión para seleccionar el diseño de investigación adecuado.",
+      "quantitative_tree": {
+        "question_1": {
+          "ask": "¿El investigador manipula variables (intervención)?",
+          "yes": {
+            "path": "DISEÑO EXPERIMENTAL",
+            "question_2": {
+              "ask": "¿Hay asignación aleatoria a los grupos?",
+              "yes": {
+                "path": "Experimental Puro",
+                "question_3": {
+                  "ask": "¿Cuántos grupos de comparación?",
+                  "one_group_pretest_posttest": "Diseño preexperimental (débil, sin control)",
+                  "two_groups": "Diseño con grupo control y experimental",
+                  "multiple_groups": "Diseño factorial (evalúa interacciones entre factores)"
+                }
+              },
+              "no": {
+                "path": "Cuasi-experimental",
+                "note": "Grupos intactos (clases, departamentos). Usar pre-test para verificar equivalencia inicial."
+              }
+            }
+          },
+          "no": {
+            "path": "DISEÑO NO EXPERIMENTAL",
+            "question_2": {
+              "ask": "¿Los datos se recolectan en un solo momento o a lo largo del tiempo?",
+              "single_moment": {
+                "path": "Transversal",
+                "subtypes": {
+                  "exploratorio": "Explorar variables desconocidas en una población.",
+                  "descriptivo": "Medir la prevalencia o distribución de una variable.",
+                  "correlacional": "Evaluar relación entre 2+ variables en un momento.",
+                  "causal_comparativo": "Comparar grupos preexistentes (ex post facto)."
+                }
+              },
+              "over_time": {
+                "path": "Longitudinal",
+                "subtypes": {
+                  "panel": "Los MISMOS sujetos medidos en varios momentos.",
+                  "tendencia_trend": "La MISMA población pero diferentes muestras en cada medición.",
+                  "cohorte": "Un SUBGRUPO específico seguido a lo largo del tiempo."
+                }
+              }
+            }
+          }
+        }
+      },
+      "qualitative_tree": {
+        "question_1": {
+          "ask": "¿Qué tipo de fenómeno se estudia?",
+          "culture_social_group": {
+            "design": "Etnográfico",
+            "when": "Interesa comprender creencias, prácticas y valores de un grupo cultural.",
+            "data": "Observación participante prolongada, entrevistas, diarios de campo."
+          },
+          "lived_experience": {
+            "design": "Fenomenológico",
+            "when": "Interesa comprender la esencia de una experiencia vivida (ej: vivir con una enfermedad).",
+            "data": "Entrevistas en profundidad, análisis de narrativas."
+          },
+          "theory_generation": {
+            "design": "Teoría Fundamentada (Grounded Theory)",
+            "when": "No existe teoría previa adecuada. Se busca construir una teoría desde los datos.",
+            "data": "Entrevistas + codificación constante (abierta, axial, selectiva)."
+          },
+          "social_transformation": {
+            "design": "Investigación Acción",
+            "when": "Se busca resolver un problema práctico mientras se genera conocimiento.",
+            "data": "Ciclos de planificación-acción-observación-reflexión."
+          },
+          "single_entity_depth": {
+            "design": "Estudio de Caso",
+            "when": "Se analiza un caso único o múltiple de forma intensiva.",
+            "data": "Múltiples fuentes: entrevistas, documentos, observación, artefactos."
+          }
+        }
+      },
+      "mixed_methods_tree": {
+        "question_1": {
+          "ask": "¿Cuál es la relación temporal entre las fases cuantitativa y cualitativa?",
+          "sequential": {
+            "question_2": {
+              "ask": "¿Qué fase va primero?",
+              "quant_first": "Secuencial Explicativo (QUAN → qual): Primero datos numéricos, luego se profundiza cualitativamente.",
+              "qual_first": "Secuencial Exploratorio (QUAL → quan): Primero exploración cualitativa, luego se generaliza cuantitativamente."
+            }
+          },
+          "concurrent": "Triangulación Concurrente (QUAN + QUAL): Ambas fases en paralelo, se comparan al final.",
+          "embedded": "Diseño Anidado: Una fase es dominante, la otra se inserta dentro para complementar."
+        }
+      }
+    },
+    "8_ethical_considerations_by_design": {
+      "description": "Consideraciones éticas específicas según el tipo de diseño.",
+      "experimental": [
+        "Consentimiento informado obligatorio antes de cualquier intervención.",
+        "No negar tratamiento beneficioso a un grupo control (usar lista de espera si es posible).",
+        "Monitorear efectos adversos de la intervención.",
+        "Debriefing al finalizar el estudio."
+      ],
+      "non_experimental_survey": [
+        "Anonimato y confidencialidad de respuestas.",
+        "Derecho a retirarse en cualquier momento sin consecuencias.",
+        "No incluir preguntas que puedan causar daño psicológico.",
+        "Almacenamiento seguro de datos personales."
+      ],
+      "qualitative": [
+        "Consentimiento informado con opción de retirar datos post-entrevista.",
+        "Pseudónimos obligatorios para participantes.",
+        "Revisión por participantes (member checking) para validar interpretaciones.",
+        "Sensibilidad cultural y contextual en la interacción.",
+        "Manejo responsable de información sensible o traumática."
+      ]
     }
   }
 }

@@ -99,6 +99,95 @@
           "rule": "El diseño metodológico declarado en el resumen debe coincidir exactamente con el capítulo de metodología."
         }
       ]
+    },
+    "3_section_proportions": {
+      "description": "Guía de proporciones recomendadas por tipo de producto académico.",
+      "thesis": {
+        "total_pages_range": "80-150 páginas (varía por institución)",
+        "proportions": {
+          "portada_y_preliminares": "5-8%",
+          "introduccion_planteamiento": "10-15%",
+          "marco_teorico": "25-30%",
+          "marco_metodologico": "15-20%",
+          "resultados": "15-20%",
+          "discusion_y_conclusiones": "10-15%",
+          "referencias_y_anexos": "5-10%"
+        }
+      },
+      "scientific_article_imryd": {
+        "total_words_range": "3000-8000 palabras (según revista)",
+        "proportions": {
+          "abstract": "150-300 palabras (fijo, no proporcional)",
+          "introduction": "15-20%",
+          "methodology": "20-25%",
+          "results": "25-30%",
+          "discussion": "20-25%",
+          "conclusions": "5-10%"
+        }
+      },
+      "essay": {
+        "total_pages_range": "5-25 páginas (según tipo)",
+        "proportions": {
+          "introduccion": "15%",
+          "desarrollo_cuerpo": "70%",
+          "conclusion": "15%"
+        }
+      },
+      "validation_rule": "Si una sección supera el 35% del documento, probablemente necesita dividirse o recortarse."
+    },
+    "4_section_transition_strategies": {
+      "description": "Técnicas para conectar secciones de forma fluida y lógica.",
+      "strategies": [
+        {
+          "transition": "Introducción → Marco Teórico",
+          "technique": "Cerrar la introducción mencionando los ejes conceptuales que se desarrollarán. Abrir el marco teórico retomando esos ejes.",
+          "example_connector": "Para comprender esta problemática, es necesario revisar los fundamentos teóricos que sustentan..."
+        },
+        {
+          "transition": "Marco Teórico → Metodología",
+          "technique": "Cerrar el marco teórico con un párrafo que sintetice el vacío o la necesidad de estudio. Abrir metodología declarando cómo se abordará.",
+          "example_connector": "A partir de los vacíos identificados en la literatura, se diseñó un estudio que permite..."
+        },
+        {
+          "transition": "Metodología → Resultados",
+          "technique": "Cerrar metodología con el procedimiento de análisis. Abrir resultados siguiendo el mismo orden de los objetivos o hipótesis.",
+          "example_connector": "Una vez aplicados los instrumentos descritos, se procedió al análisis de los datos, cuyos resultados se presentan a continuación."
+        },
+        {
+          "transition": "Resultados → Discusión",
+          "technique": "Cerrar resultados con el hallazgo más relevante. Abrir discusión retomando ese hallazgo y contrastándolo con la literatura.",
+          "example_connector": "El hallazgo más significativo fue [X]. Este resultado es consistente/contradictorio con lo reportado por [Autor] (Año), quien encontró que..."
+        },
+        {
+          "transition": "Discusión → Conclusiones",
+          "technique": "Cerrar discusión con las implicaciones globales. Abrir conclusiones con una síntesis de alto nivel, NO un resumen detallado.",
+          "example_connector": "En síntesis, los resultados obtenidos permiten concluir que..."
+        }
+      ]
+    },
+    "5_literature_review_blueprint": {
+      "description": "Plantilla específica para la sección de revisión de literatura (ausente en versión anterior).",
+      "structure": {
+        "opening_paragraph": "Contextualizar el campo de estudio y justificar la necesidad de revisión.",
+        "thematic_organization": {
+          "description": "Organizar por temas/variables, NO cronológicamente ni por autor.",
+          "recommended_flow": [
+            "1. Variable/Concepto principal: Definición, evolución, autores clave.",
+            "2. Variable/Concepto secundario: Definición, relación con la primera.",
+            "3. Relación entre variables: Estudios que conectan ambas.",
+            "4. Contexto específico: Estudios en el mismo contexto geográfico/poblacional.",
+            "5. Vacíos identificados: Qué NO se ha estudiado (justifica tu investigación)."
+          ]
+        },
+        "closing_paragraph": "Síntesis del estado actual del conocimiento y cómo tu estudio contribuye."
+      },
+      "common_errors": [
+        "Listar fuentes sin conectarlas (efecto 'catálogo').",
+        "Organizar cronológicamente en vez de temáticamente.",
+        "No incluir párrafo de síntesis/vacíos al final.",
+        "Citar solo un autor por párrafo sin establecer diálogo entre fuentes.",
+        "Incluir fuentes tangenciales que no contribuyen al argumento central."
+      ]
     }
   }
 }

@@ -1,0 +1,181 @@
+{
+  "metadata": {
+    "component": "Mixed Methods Integration Engine",
+    "context": "Mixed Methods Research — Design, Integration & Quality",
+    "purpose": "Detailed strategies for integrating quantitative and qualitative phases, joint displays, and quality criteria for mixed methods studies.",
+    "version": "1.0",
+    "linked_from": ["research_process_master_engine > step_5_to_9_mixed_methods_note"]
+  },
+  "mixed_methods_integration": {
+    "0_notation_system": {
+      "description": "Sistema de notación estándar para representar diseños mixtos (Morse, 1991; Creswell & Plano Clark).",
+      "rules": {
+        "MAYÚSCULAS": "Fase dominante/prioritaria (ej: QUAN = cuantitativo es prioritario).",
+        "minúsculas": "Fase complementaria/suplementaria (ej: qual = cualitativo es secundario).",
+        "flecha_→": "Secuencia temporal (la fase izquierda va primero).",
+        "signo_+": "Fases concurrentes (simultáneas).",
+        "paréntesis_()": "Fase incrustada/anidada dentro de otra."
+      },
+      "examples": [
+        {"notation": "QUAN → qual", "meaning": "Secuencial explicativo: Cuantitativo primero (dominante), luego cualitativo para profundizar."},
+        {"notation": "QUAL → quan", "meaning": "Secuencial exploratorio: Cualitativo primero (dominante), luego cuantitativo para generalizar."},
+        {"notation": "QUAN + QUAL", "meaning": "Triangulación concurrente: Ambas fases simultáneas, ninguna domina."},
+        {"notation": "QUAN(qual)", "meaning": "Diseño anidado: Cuantitativo dominante con fase cualitativa incrustada."},
+        {"notation": "QUAL → quan → QUAL", "meaning": "Multifase: Tres fases secuenciales con dominancia cualitativa."}
+      ]
+    },
+    "1_design_catalog": {
+      "description": "Diseños mixtos principales con características y aplicaciones.",
+      "designs": [
+        {
+          "name": "Secuencial Explicativo",
+          "notation": "QUAN → qual",
+          "description": "Primero se recolectan y analizan datos cuantitativos. Los resultados informan la segunda fase cualitativa que busca explicar o profundizar hallazgos.",
+          "when_to_use": [
+            "Resultados cuantitativos inesperados o contradictorios necesitan explicación.",
+            "Se quiere entender POR QUÉ ocurre un patrón estadístico.",
+            "Se busca dar voz a los participantes detrás de los números."
+          ],
+          "workflow": [
+            "1. Diseñar y ejecutar fase QUAN (encuesta, experimento).",
+            "2. Analizar resultados QUAN (estadística descriptiva e inferencial).",
+            "3. Identificar resultados que necesitan profundización.",
+            "4. Diseñar fase qual basada en resultados QUAN (selección intencional de participantes).",
+            "5. Recolectar datos qual (entrevistas, grupos focales).",
+            "6. Analizar datos qual (codificación temática).",
+            "7. Integrar: ¿Los hallazgos cualitativos explican los patrones cuantitativos?"
+          ],
+          "integration_point": "Después de QUAN y antes de qual (los resultados QUAN informan el diseño qual)."
+        },
+        {
+          "name": "Secuencial Exploratorio",
+          "notation": "QUAL → quan",
+          "description": "Primero se explora cualitativamente. Los hallazgos se usan para desarrollar instrumentos o hipótesis que se prueban cuantitativamente.",
+          "when_to_use": [
+            "No existen instrumentos válidos para medir el fenómeno.",
+            "Se necesita construir una escala o cuestionario basado en experiencias reales.",
+            "El tema es poco estudiado y se necesita explorar antes de medir."
+          ],
+          "workflow": [
+            "1. Diseñar y ejecutar fase QUAL (entrevistas exploratorias).",
+            "2. Analizar datos QUAL (identificar temas y categorías).",
+            "3. Desarrollar instrumento/hipótesis basado en hallazgos QUAL.",
+            "4. Validar instrumento (pilotaje, análisis factorial).",
+            "5. Ejecutar fase quan (aplicar instrumento a muestra representativa).",
+            "6. Analizar datos quan (estadística).",
+            "7. Integrar: ¿Los datos cuantitativos confirman/amplían los temas cualitativos?"
+          ],
+          "integration_point": "Después de QUAL y antes de quan (los hallazgos QUAL generan el instrumento/hipótesis quan)."
+        },
+        {
+          "name": "Triangulación Concurrente",
+          "notation": "QUAN + QUAL",
+          "description": "Ambas fases se ejecutan simultáneamente e independientemente. Los resultados se comparan y contrastan al final.",
+          "when_to_use": [
+            "Se busca validar hallazgos usando métodos complementarios.",
+            "Se quiere una visión completa del fenómeno desde múltiples ángulos.",
+            "Hay tiempo y recursos para ejecutar ambas fases en paralelo."
+          ],
+          "workflow": [
+            "1. Diseñar ambas fases de forma independiente (misma pregunta, diferentes métodos).",
+            "2. Ejecutar QUAN y QUAL simultáneamente.",
+            "3. Analizar cada conjunto de datos por separado.",
+            "4. Comparar resultados en un joint display (tabla de convergencia).",
+            "5. Identificar: convergencia (acuerdo), divergencia (desacuerdo), complementariedad (uno amplía al otro)."
+          ],
+          "integration_point": "Al final, durante la interpretación (comparación de resultados)."
+        },
+        {
+          "name": "Diseño Anidado (Embedded)",
+          "notation": "QUAN(qual) o QUAL(quan)",
+          "description": "Una fase es dominante y la otra se inserta dentro de ella para responder una pregunta secundaria.",
+          "when_to_use": [
+            "Un método no puede responder todas las preguntas de investigación.",
+            "Se necesita información complementaria dentro de un diseño dominante.",
+            "Recursos limitados para dos fases completas."
+          ]
+        },
+        {
+          "name": "Diseño Transformativo",
+          "notation": "Variable (cualquier combinación con lente teórico)",
+          "description": "Un marco teórico de justicia social guía todo el diseño (feminismo, teoría crítica de raza, etc.).",
+          "when_to_use": "La investigación busca dar voz a grupos marginados y generar cambio social."
+        }
+      ]
+    },
+    "2_joint_display_templates": {
+      "description": "Tablas de integración (joint displays) para visualizar la convergencia de hallazgos mixtos.",
+      "side_by_side_comparison": {
+        "description": "Comparar hallazgos QUAN y QUAL tema por tema.",
+        "columns": ["Tema/Variable", "Hallazgo QUAN", "Hallazgo QUAL", "Interpretación Mixta (Convergencia/Divergencia/Complementariedad)"],
+        "example_row": {
+          "tema": "Satisfacción laboral",
+          "quan": "M = 3.8/5, SD = 0.9 (moderada-alta satisfacción)",
+          "qual": "Participantes expresan ambivalencia: 'Me gusta el trabajo pero no el ambiente'",
+          "mixed": "COMPLEMENTARIEDAD: El promedio numérico oculta la complejidad emocional que emerge en las entrevistas."
+        }
+      },
+      "statistics_by_themes": {
+        "description": "Cruzar categorías cualitativas con variables cuantitativas.",
+        "columns": ["Categoría Cualitativa", "n en esta categoría", "Media de VD", "Diferencia estadística"],
+        "use": "Cuando se identifican subgrupos cualitativos y se quiere ver si difieren estadísticamente."
+      },
+      "case_oriented_display": {
+        "description": "Análisis caso por caso integrando datos QUAN y QUAL.",
+        "columns": ["Caso/Participante", "Puntaje QUAN", "Perfil Cualitativo", "Clasificación Integrada"],
+        "use": "Cuando se busca tipologías o perfiles mixtos."
+      }
+    },
+    "3_quality_criteria": {
+      "description": "Criterios de calidad específicos para investigación mixta (Teddlie & Tashakkori, 2009; legitimation framework).",
+      "legitimation_types": [
+        {
+          "type": "Sample Integration Legitimation",
+          "question": "¿Las muestras QUAN y QUAL son comparables o complementarias?",
+          "threat": "Muestras incompatibles que no permiten integración válida.",
+          "strategy": "Usar submuestras: participantes de la encuesta QUAN participan también en entrevistas QUAL."
+        },
+        {
+          "type": "Inside-Outside Legitimation",
+          "question": "¿Se balancean perspectivas internas (participantes) y externas (investigador)?",
+          "threat": "Sobre-enfatizar una perspectiva a costa de la otra.",
+          "strategy": "Member checking para datos QUAL + validación estadística para datos QUAN."
+        },
+        {
+          "type": "Weakness Minimization Legitimation",
+          "question": "¿Las debilidades de un método son compensadas por las fortalezas del otro?",
+          "threat": "Ambos métodos comparten las mismas debilidades.",
+          "strategy": "Diseñar fases para que sean complementarias, no redundantes."
+        },
+        {
+          "type": "Sequential Legitimation",
+          "question": "¿Los hallazgos de la primera fase influyeron apropiadamente en el diseño de la segunda?",
+          "threat": "La segunda fase no usa realmente los resultados de la primera.",
+          "strategy": "Documentar explícitamente qué hallazgos informaron qué decisiones."
+        },
+        {
+          "type": "Paradigmatic Mixing Legitimation",
+          "question": "¿Es coherente combinar epistemologías positivistas e interpretativas?",
+          "threat": "Incompatibilidad filosófica no abordada.",
+          "strategy": "Adoptar pragmatismo como paradigma paraguas que justifica la integración."
+        }
+      ]
+    },
+    "4_writing_integration_section": {
+      "description": "Cómo escribir la sección de integración en el documento final.",
+      "structure": [
+        "1. Recordar la pregunta de investigación mixta.",
+        "2. Resumir los hallazgos QUAN principales.",
+        "3. Resumir los hallazgos QUAL principales.",
+        "4. Presentar el joint display (tabla de integración).",
+        "5. Para cada tema: declarar si hay convergencia, divergencia o complementariedad.",
+        "6. Interpretar las divergencias (no ignorarlas — son hallazgos valiosos).",
+        "7. Concluir con una meta-inferencia que trascienda ambos métodos."
+      ],
+      "meta_inference": {
+        "description": "La conclusión mixta no es la suma de QUAN + QUAL, sino una nueva comprensión que emerge de su integración.",
+        "template": "Los resultados cuantitativos sugieren que [hallazgo QUAN], mientras que las experiencias de los participantes revelan que [hallazgo QUAL]. La integración de ambas perspectivas permite concluir que [meta-inferencia]."
+      }
+    }
+  }
+}

@@ -5,3 +5,5 @@ dist/
 .DS_Store
 research_state.json
 *.log
+nul
+Wait, don't use Add-Content for this, I have a tool for it

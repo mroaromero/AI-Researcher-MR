@@ -1,0 +1,146 @@
+{
+  "metadata": {
+    "component": "Publication Strategy Engine",
+    "context": "Academic Publishing — Journal Selection, Open Access, Submission",
+    "purpose": "Guide researchers in selecting appropriate publication venues, avoiding predatory journals, and navigating the submission process.",
+    "version": "1.0",
+    "linked_from": ["research_process_master_engine > step_10_reporting"]
+  },
+  "publication_strategy": {
+    "0_publication_types": {
+      "description": "Tipos de publicación académica y sus características.",
+      "types": [
+        {
+          "type": "Artículo en revista indexada",
+          "prestige": "Alto",
+          "review_process": "Peer review (doble ciego típicamente)",
+          "timeline": "3-12 meses desde envío hasta publicación",
+          "best_for": "Resultados originales de investigación"
+        },
+        {
+          "type": "Conferencia / Congreso",
+          "prestige": "Medio-Alto (varía por conferencia)",
+          "review_process": "Peer review (generalmente simple ciego)",
+          "timeline": "1-4 meses",
+          "best_for": "Resultados preliminares, networking, retroalimentación temprana"
+        },
+        {
+          "type": "Capítulo de libro",
+          "prestige": "Medio",
+          "review_process": "Editor invitation o peer review",
+          "timeline": "6-18 meses",
+          "best_for": "Revisiones teóricas, contribuciones a compilaciones"
+        },
+        {
+          "type": "Preprint",
+          "prestige": "Bajo (pero creciente)",
+          "review_process": "Sin peer review formal",
+          "timeline": "Inmediato (1-3 días)",
+          "best_for": "Compartir resultados rápidamente, establecer prioridad",
+          "platforms": ["arXiv", "SSRN", "OSF Preprints", "bioRxiv", "SocArXiv"]
+        }
+      ]
+    },
+    "1_journal_selection": {
+      "description": "Criterios para seleccionar la revista adecuada.",
+      "selection_criteria": [
+        {
+          "criterion": "Alcance temático (Scope)",
+          "question": "¿La revista publica estudios sobre tu tema específico?",
+          "how_to_check": "Leer la sección 'Aims & Scope' de la revista. Revisar los últimos 2-3 números."
+        },
+        {
+          "criterion": "Factor de impacto / Métricas",
+          "question": "¿Cuál es el ranking de la revista en tu campo?",
+          "metrics": {
+            "JCR_Impact_Factor": "Web of Science (Clarivate). Q1-Q4 por categoría.",
+            "SJR": "Scopus (Scimago). Q1-Q4 por categoría.",
+            "h_index": "Índice h de la revista en Google Scholar.",
+            "CiteScore": "Scopus. Citas promedio por documento."
+          },
+          "strategy": "Apuntar a Q1-Q2 si es posible. Q3 es aceptable para primeras publicaciones."
+        },
+        {
+          "criterion": "Tiempo de revisión",
+          "question": "¿Cuánto tarda en promedio desde envío hasta decisión?",
+          "how_to_check": "Buscar en la web de la revista o en plataformas como SciRev."
+        },
+        {
+          "criterion": "Tasa de aceptación",
+          "question": "¿Qué porcentaje de artículos enviados son aceptados?",
+          "reference": {"top_journals": "5-15%", "mid_tier": "20-40%", "regional": "40-60%"}
+        },
+        {
+          "criterion": "Acceso abierto vs. suscripción",
+          "question": "¿La revista es open access? ¿Hay APC (Article Processing Charge)?",
+          "note": "Muchas universidades cubren APCs. Verificar con la biblioteca."
+        },
+        {
+          "criterion": "Indexación",
+          "question": "¿En qué bases está indexada?",
+          "priority_order": ["Scopus + WoS (máximo prestigio)", "Scopus o WoS (alto)", "SciELO, Redalyc, DOAJ (bueno para LATAM)", "Latindex Catálogo 2.0 (mínimo aceptable)", "Solo Latindex Directorio (insuficiente para muchas instituciones)"]
+        }
+      ],
+      "tools_for_selection": [
+        {"tool": "Journal Finder (Elsevier)", "url": "https://journalfinder.elsevier.com/", "description": "Sugiere revistas basado en abstract y título."},
+        {"tool": "Journal Suggester (Springer)", "url": "https://journalsuggester.springer.com/", "description": "Similar, para revistas Springer/Nature."},
+        {"tool": "JANE (Journal/Author Name Estimator)", "url": "https://jane.biosemantics.org/", "description": "Gratis, basado en PubMed."},
+        {"tool": "Scimago Journal Rank", "url": "https://www.scimagojr.com/", "description": "Rankings y métricas de revistas."}
+      ]
+    },
+    "2_predatory_journal_detection": {
+      "description": "Cómo identificar y evitar revistas depredadoras.",
+      "red_flags": [
+        "Emails no solicitados invitando a publicar ('Dear Researcher...').",
+        "Prometen revisión y publicación en menos de 2 semanas.",
+        "No tienen editor en jefe identificable o el consejo editorial es ficticio.",
+        "Cobran APC sin transparencia en la web.",
+        "No están indexadas en Scopus, WoS, DOAJ o SciELO.",
+        "Nombre similar a una revista legítima ('International Journal of...').",
+        "Publican artículos de calidad extremadamente baja o fuera de scope.",
+        "No tienen proceso de peer review claro."
+      ],
+      "verification_tools": [
+        {"tool": "DOAJ (Directory of Open Access Journals)", "url": "https://doaj.org/", "description": "Si está en DOAJ, es legítima."},
+        {"tool": "Beall's List (actualizada)", "url": "https://beallslist.net/", "description": "Lista de editoriales potencialmente depredadoras."},
+        {"tool": "Think Check Submit", "url": "https://thinkchecksubmit.org/", "description": "Checklist oficial para verificar revistas."},
+        {"tool": "Cabells Predatory Reports", "url": "https://www2.cabells.com/", "description": "Base de datos comercial de revistas depredadoras."}
+      ]
+    },
+    "3_submission_process": {
+      "description": "Guía paso a paso para enviar un artículo.",
+      "steps": [
+        {"step": 1, "action": "Formatear según las Author Guidelines de la revista seleccionada.", "details": "Márgenes, fuente, estilo de citas, límite de palabras, formato de figuras/tablas."},
+        {"step": 2, "action": "Preparar Cover Letter.", "template": "Dear Editor, We are pleased to submit our manuscript titled '{Título}' for consideration in {Nombre de Revista}. This study {descripción breve de contribución}. The manuscript has not been published elsewhere and is not under review in another journal. We believe this work aligns with the scope of your journal because {justificación}. Thank you for your consideration. Sincerely, {Autores}"},
+        {"step": 3, "action": "Preparar documentos suplementarios.", "items": ["Declaración de conflicto de interés", "Declaración de contribución de autores (CRediT)", "Declaración de aprobación ética", "Archivos de datos (si requerido)"]},
+        {"step": 4, "action": "Enviar vía sistema de la revista (ScholarOne, Editorial Manager, OJS).", "tip": "Guardar confirmación de envío con número de manuscrito."},
+        {"step": 5, "action": "Esperar decisión.", "possible_outcomes": ["Accept (raro en primera ronda)", "Minor Revisions (buena señal)", "Major Revisions (requiere trabajo significativo)", "Revise & Resubmit (casi rechazado pero con oportunidad)", "Reject (enviar a otra revista)"]},
+        {"step": 6, "action": "Responder a revisores.", "strategy": "Carta punto por punto: Citar el comentario del revisor → Describir el cambio realizado → Indicar dónde en el manuscrito."}
+      ]
+    },
+    "4_open_access_guide": {
+      "description": "Modalidades de acceso abierto y estrategias.",
+      "routes": [
+        {
+          "type": "Gold Open Access",
+          "description": "Publicación en revista open access. APC pagado por autores/institución.",
+          "cost": "$500 - $5,000+ USD dependiendo de la revista",
+          "advantage": "Máxima visibilidad y acceso inmediato."
+        },
+        {
+          "type": "Green Open Access (Self-archiving)",
+          "description": "Publicar en revista de suscripción PERO depositar preprint/postprint en repositorio institucional.",
+          "cost": "Gratuito",
+          "advantage": "Sin costo. Verificar política de la revista en SHERPA/RoMEO.",
+          "tool": {"name": "SHERPA/RoMEO", "url": "https://v2.sherpa.ac.uk/romeo/", "description": "Verifica políticas de autoarchivo de cada revista."}
+        },
+        {
+          "type": "Diamond/Platinum Open Access",
+          "description": "Revista open access sin APC (costos cubiertos por institución/gobierno).",
+          "cost": "Gratuito para autores",
+          "examples": "Muchas revistas de SciELO, Redalyc, DOAJ en LATAM."
+        }
+      ]
+    }
+  }
+}

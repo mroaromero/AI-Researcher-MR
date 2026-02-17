@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__Desktop_Commander__list_directory",
+      "WebFetch(domain:skills.sh)",
+      "mcp__Desktop_Commander__read_file",
+      "mcp__Desktop_Commander__get_file_info"
+    ]
+  }
+}

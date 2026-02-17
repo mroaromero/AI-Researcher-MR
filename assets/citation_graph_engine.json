@@ -1,0 +1,139 @@
+{
+  "metadata": {
+    "component": "Citation Graph Engine",
+    "context": "Literature Visualization — Citation Networks, Co-citation Analysis, and Bibliometrics",
+    "purpose": "Metadata and configuration for building citation network visualizations in the dashboard, enabling researchers to see relationships between sources.",
+    "version": "1.0",
+    "used_by": "Frontend (Dashboard citation graph component)"
+  },
+  "citation_graph_engine": {
+    "0_node_types": {
+      "description": "Tipos de nodos en el grafo de citaciones.",
+      "types": [
+        {
+          "type": "source",
+          "description": "Un artículo, libro o fuente citada en el estudio.",
+          "visual": {"shape": "circle", "default_size": 20, "size_scale": "citation_count"},
+          "data_fields": ["id", "author", "year", "title", "type", "doi", "citation_count", "is_seminal"]
+        },
+        {
+          "type": "variable",
+          "description": "Una variable del estudio (independiente, dependiente, moderadora).",
+          "visual": {"shape": "diamond", "default_size": 30, "color_by": "variable_type"},
+          "data_fields": ["id", "name", "variable_type", "linked_sources"]
+        },
+        {
+          "type": "theory",
+          "description": "Una teoría o marco teórico referenciado.",
+          "visual": {"shape": "hexagon", "default_size": 35},
+          "data_fields": ["id", "name", "seminal_author", "year", "linked_sources"]
+        }
+      ]
+    },
+    "1_edge_types": {
+      "description": "Tipos de relaciones (aristas) entre nodos.",
+      "types": [
+        {
+          "type": "cites",
+          "description": "La fuente A cita a la fuente B.",
+          "visual": {"style": "solid", "arrow": true, "color": "#6B6B73"},
+          "weight": "Número de veces que A referencia a B en el texto."
+        },
+        {
+          "type": "co_citation",
+          "description": "A y B son citados juntos en la misma oración o párrafo.",
+          "visual": {"style": "dashed", "arrow": false, "color": "#8B5CF6"},
+          "weight": "Número de co-ocurrencias en el texto.",
+          "significance": "Co-citation alta sugiere que ambas fuentes abordan el mismo concepto."
+        },
+        {
+          "type": "supports",
+          "description": "La fuente A apoya/confirma los hallazgos de B.",
+          "visual": {"style": "solid", "arrow": true, "color": "#10B981"}
+        },
+        {
+          "type": "contradicts",
+          "description": "La fuente A contradice o refuta los hallazgos de B.",
+          "visual": {"style": "solid", "arrow": true, "color": "#EF4444"}
+        },
+        {
+          "type": "extends",
+          "description": "La fuente A amplía o profundiza el trabajo de B.",
+          "visual": {"style": "solid", "arrow": true, "color": "#3B82F6"}
+        },
+        {
+          "type": "defines_variable",
+          "description": "La fuente define o mide una variable específica del estudio.",
+          "visual": {"style": "dotted", "arrow": true, "color": "#F59E0B"}
+        }
+      ]
+    },
+    "2_layout_algorithms": {
+      "description": "Algoritmos de disposición para el grafo.",
+      "options": [
+        {
+          "algorithm": "Force-directed (d3-force)",
+          "best_for": "Exploración general de relaciones. Nodos relacionados se agrupan naturalmente.",
+          "parameters": {"charge_strength": -300, "link_distance": 100, "collision_radius": 30}
+        },
+        {
+          "algorithm": "Temporal (timeline)",
+          "best_for": "Visualizar evolución cronológica de la literatura (eje X = año).",
+          "parameters": {"x_axis": "year", "y_axis": "auto_cluster"}
+        },
+        {
+          "algorithm": "Cluster by variable",
+          "best_for": "Agrupar fuentes por la variable que abordan.",
+          "parameters": {"group_by": "primary_variable", "layout_within_group": "force-directed"}
+        }
+      ]
+    },
+    "3_bibliometric_metrics": {
+      "description": "Métricas bibliométricas calculables desde el grafo.",
+      "metrics": [
+        {
+          "metric": "Citation count (in-study)",
+          "description": "Cuántas veces aparece una fuente citada en tu documento.",
+          "visualization": "Tamaño del nodo proporcional a las citas."
+        },
+        {
+          "metric": "Co-citation strength",
+          "description": "Frecuencia con que dos fuentes aparecen juntas en tu texto.",
+          "visualization": "Grosor de la arista entre nodos co-citados."
+        },
+        {
+          "metric": "Betweenness centrality",
+          "description": "Fuentes que actúan como 'puentes' entre clusters temáticos.",
+          "visualization": "Color de nodo más intenso = mayor centralidad."
+        },
+        {
+          "metric": "Recency index",
+          "description": "Proporción de fuentes publicadas en los últimos 5 años vs. total.",
+          "target": ">60% para estudios empíricos, flexible para teóricos."
+        },
+        {
+          "metric": "Source diversity",
+          "description": "Variedad de tipos de fuente (artículos, libros, tesis, reportes).",
+          "visualization": "Color de nodo por tipo de fuente."
+        },
+        {
+          "metric": "Gap indicator",
+          "description": "Variables del estudio con pocas fuentes que las respalden directamente.",
+          "visualization": "Nodos de variable con borde rojo si tienen < 3 fuentes conectadas."
+        }
+      ]
+    },
+    "4_interaction_features": {
+      "description": "Funcionalidades interactivas del grafo en el dashboard.",
+      "features": [
+        {"feature": "Click node", "action": "Mostrar detalle completo de la fuente (autor, año, título, DOI, resumen)."},
+        {"feature": "Hover node", "action": "Resaltar todas las conexiones del nodo (highlight neighbors)."},
+        {"feature": "Click edge", "action": "Mostrar el contexto textual donde ambas fuentes aparecen juntas."},
+        {"feature": "Filter by year", "action": "Slider temporal para mostrar/ocultar fuentes por rango de años."},
+        {"feature": "Filter by type", "action": "Toggle para mostrar/ocultar por tipo (artículo, libro, tesis, etc.)."},
+        {"feature": "Search", "action": "Buscar una fuente por autor o título y centrar el grafo en ella."},
+        {"feature": "Export", "action": "Exportar grafo como imagen (PNG/SVG) o datos (JSON/CSV)."}
+      ]
+    }
+  }
+}

@@ -2,76 +2,289 @@
   "metadata": {
     "component": "PRISMA Protocol Engine",
     "context": "Systematic Literature Reviews & Meta-Analyses",
-    "standard": "PRISMA 2020 Statement",
-    "purpose": "Guide the selection, filtering, and reporting of scientific sources transparently.",
-    "source_image": "Diagrama de flujo PRISMA del proceso de exclusión e inclusión"
+    "standard": "PRISMA 2020 Statement (Page et al., 2021)",
+    "purpose": "Guide the selection, filtering, reporting, and quality assessment of scientific sources transparently.",
+    "source_image": "Diagrama de flujo PRISMA del proceso de exclusión e inclusión",
+    "version": "2.0 - Full PRISMA 2020 Compliance"
   },
   "prisma_engine": {
     "0_protocol_definition": {
-      "description": "Configuración inicial antes de iniciar el flujo.",
+      "description": "Configuración inicial antes de iniciar el flujo. Registrar protocolo ANTES de ejecutar búsquedas.",
       "required_inputs": [
         "Keywords (Palabras clave / Tesauros)",
         "Search Strings (Ecuaciones de búsqueda con operadores booleanos AND/OR)",
-        "Databases (e.g., Scopus, WoS, PubMed, ERIC)",
-        "Timeframe (Ventana de tiempo, ej: Últimos 5 años)"
-      ]
+        "Databases (e.g., Scopus, WoS, PubMed, ERIC, SciELO, Redalyc)",
+        "Timeframe (Ventana de tiempo, ej: Últimos 5 años)",
+        "Inclusion Criteria (Criterios de inclusión explícitos)",
+        "Exclusion Criteria (Criterios de exclusión explícitos)",
+        "Language Filter (Idiomas aceptados)",
+        "Study Types (Tipos de estudio aceptados: RCT, observational, qualitative, etc.)"
+      ],
+      "protocol_registration": {
+        "description": "Registrar el protocolo antes de iniciar para transparencia y reproducibilidad.",
+        "platforms": [
+          {"name": "PROSPERO", "url": "https://www.crd.york.ac.uk/prospero/", "for": "Revisiones sistemáticas de salud"},
+          {"name": "OSF Registries", "url": "https://osf.io/registries", "for": "Cualquier disciplina"},
+          {"name": "INPLASY", "url": "https://inplasy.com/", "for": "Protocolos de revisión rápida"}
+        ],
+        "required_elements": [
+          "Pregunta de investigación (formato PICO/PEO/SPIDER)",
+          "Estrategia de búsqueda completa",
+          "Criterios de elegibilidad",
+          "Método de extracción de datos",
+          "Evaluación de riesgo de sesgo",
+          "Plan de síntesis"
+        ]
+      }
     },
     "1_identification_phase": {
       "stage_name": "Identificación",
-      "action": "Recopilación masiva de registros desde bases de datos.",
+      "action": "Recopilación masiva de registros desde bases de datos y otras fuentes.",
       "process_steps": [
         {
           "step": "Database Search",
-          "instruction": "Ejecutar la búsqueda en las fuentes seleccionadas (n = Total bruto)."
+          "instruction": "Ejecutar la búsqueda en las fuentes seleccionadas (n = Total bruto).",
+          "best_practice": "Documentar la ecuación de búsqueda EXACTA usada en cada base de datos con fecha de ejecución."
+        },
+        {
+          "step": "Register Search",
+          "instruction": "Buscar en registros de ensayos clínicos y protocolos (ClinicalTrials.gov, ICTRP).",
+          "note": "Solo aplica para revisiones en salud/biomedicina."
+        },
+        {
+          "step": "Other Sources",
+          "instruction": "Buscar en fuentes adicionales: listas de referencias (snowballing), contacto con expertos, literatura gris.",
+          "types": ["Backward citation tracking (referencias de artículos incluidos)", "Forward citation tracking (quién cita los artículos incluidos)", "Hand-searching de revistas clave", "Contacto directo con autores"]
         },
         {
           "step": "Deduplication",
           "instruction": "Eliminar registros duplicados (Duplicate records removed).",
-          "automated_action": "Si se usan herramientas automatizadas (EndNote, Rayyan), registrar cuántos fueron marcados como inelegibles por la automatización."
+          "tools": ["EndNote (automático)", "Rayyan (web-based, gratuito)", "Zotero + plugin de deduplicación", "Covidence (premium)"],
+          "automated_action": "Registrar cuántos fueron marcados como inelegibles por la automatización."
         }
       ],
-      "output_metric": "Registros únicos listos para cribado."
+      "output_metric": "Registros únicos listos para cribado (n = Total tras deduplicación)."
     },
     "2_screening_phase": {
       "stage_name": "Cribado (Screening)",
-      "action": "Filtrado rápido basado en Título y Resumen (Abstract).",
-      "tool_support": "notebooklm_tool (Si los artículos están en un cuaderno de NotebookLM, usar ask_question para evaluar relevancia de cada estudio rápidamente sin leer textos completos.)",
+      "action": "Filtrado basado en Título y Resumen (Abstract).",
+      "tool_support": "notebooklm_tool (Si los artículos están en un cuaderno de NotebookLM, usar ask_question para evaluar relevancia rápidamente.)",
       "process_steps": [
         {
           "step": "Title/Abstract Review",
           "instruction": "Leer título y resumen. ¿Es relevante para el tema?",
-          "decision": "Si NO es relevante -> Excluir (Records excluded). Si ES relevante -> Pasar a recuperación."
+          "decision": "Si NO es relevante -> Excluir (Records excluded). Si ES relevante -> Pasar a recuperación.",
+          "best_practice": "Dos revisores independientes. Calcular concordancia inter-evaluador (Kappa de Cohen ≥ 0.60)."
         },
         {
           "step": "Retrieval",
-          "instruction": "Intentar recuperar el texto completo. Registrar si no se pudo acceder (Reports not retrieved)."
+          "instruction": "Intentar recuperar el texto completo. Registrar si no se pudo acceder (Reports not retrieved).",
+          "access_strategies": [
+            "Bases de datos institucionales",
+            "Sci-Hub (uso ético debatido)",
+            "Solicitud directa al autor vía ResearchGate o email",
+            "Préstamo interbibliotecario"
+          ]
         }
       ],
+      "conflict_resolution": {
+        "description": "Protocolo cuando dos revisores no coinciden.",
+        "steps": [
+          "1. Discusión entre los dos revisores para alcanzar consenso.",
+          "2. Si no hay consenso, un tercer revisor decide.",
+          "3. Documentar todos los desacuerdos y sus resoluciones."
+        ]
+      },
       "output_metric": "Informes buscados para recuperación y evaluados."
     },
     "3_eligibility_phase": {
       "stage_name": "Elegibilidad (Full-text Assessment)",
       "action": "Lectura profunda del texto completo para aplicar criterios de inclusión/exclusión.",
-      "tool_support": "notebooklm_tool (Consultar NotebookLM con preguntas específicas: '¿Cuál es el objetivo de este estudio?', '¿Mide la variable X?', '¿Qué metodología usa?' para aplicar criterios de exclusión sistemáticamente.)",
-      "exclusion_criteria_examples": {
-        "source": "Basado en las razones de exclusión de la imagen.",
-        "reasons": [
-          "Wrong Objective (El objetivo no coincide)",
-          "Wrong Information Unit (La unidad de análisis no es la correcta)",
-          "Wrong Variable/Outcome (No mide la variable de interés)",
-          "Wrong Conclusion/Method (Metodología o conclusión insuficiente)"
+      "tool_support": "notebooklm_tool (Consultar NotebookLM: '¿Cuál es el objetivo?', '¿Mide la variable X?', '¿Qué metodología usa?')",
+      "exclusion_criteria_framework": {
+        "description": "Categorías estandarizadas de exclusión (cada exclusión DEBE tener razón documentada).",
+        "categories": [
+          {"code": "E1", "reason": "Wrong Population", "description": "La población no coincide con los criterios definidos."},
+          {"code": "E2", "reason": "Wrong Intervention/Exposure", "description": "La intervención o variable independiente no es la de interés."},
+          {"code": "E3", "reason": "Wrong Comparator", "description": "No hay grupo de comparación adecuado (si aplica)."},
+          {"code": "E4", "reason": "Wrong Outcome", "description": "No mide la variable dependiente de interés."},
+          {"code": "E5", "reason": "Wrong Study Design", "description": "El diseño no cumple los criterios (ej: se excluyeron estudios descriptivos)."},
+          {"code": "E6", "reason": "Wrong Language", "description": "El artículo no está en un idioma aceptado."},
+          {"code": "E7", "reason": "Wrong Timeframe", "description": "Publicado fuera de la ventana temporal definida."},
+          {"code": "E8", "reason": "Insufficient Data", "description": "No reporta datos suficientes para extracción/síntesis."},
+          {"code": "E9", "reason": "Duplicate Publication", "description": "Mismos datos publicados en otro artículo ya incluido."}
         ]
       },
-      "instruction": "Cada documento excluido en esta fase DEBE tener una razón justificada."
+      "instruction": "Cada documento excluido en esta fase DEBE tener un código de razón (E1-E9)."
     },
     "4_inclusion_phase": {
       "stage_name": "Inclusión",
       "action": "Selección final para la síntesis cualitativa o cuantitativa (Meta-análisis).",
+      "data_extraction": {
+        "description": "Formulario estandarizado para extraer datos de cada estudio incluido.",
+        "fields": [
+          "ID del estudio (Autor, Año)",
+          "País y contexto",
+          "Diseño del estudio",
+          "Tamaño de muestra (N)",
+          "Características de los participantes",
+          "Variable independiente / Intervención",
+          "Variable dependiente / Outcome",
+          "Instrumentos de medición",
+          "Resultados principales (valores numéricos si cuantitativo)",
+          "Conclusiones del autor",
+          "Limitaciones reportadas",
+          "Calidad metodológica (evaluación de sesgo)"
+        ],
+        "template_note": "Usar tabla en Excel/Google Sheets con una fila por estudio."
+      },
       "output_metric": "Studies included in review (n = Final)."
     },
-    "5_reporting_template": {
-      "description": "Cómo narrar este proceso en la sección de Metodología del artículo.",
-      "narrative_structure": "La búsqueda se realizó en [Bases de Datos]. Se identificaron inicialmente [n] registros. Tras eliminar duplicados, se cribaron [n] documentos, de los cuales se excluyeron [n] por no cumplir criterios de título/resumen. Se evaluaron [n] textos completos, excluyendo [n] por razones como [Listar Razones]. Finalmente, se incluyeron [n] estudios para la revisión."
+    "5_quality_assessment": {
+      "description": "Evaluación del riesgo de sesgo y calidad metodológica de los estudios incluidos.",
+      "tools_by_study_type": [
+        {
+          "study_type": "Ensayos aleatorizados (RCTs)",
+          "tool": "RoB 2 (Risk of Bias 2)",
+          "domains": ["Randomization process", "Deviations from intervention", "Missing outcome data", "Measurement of outcome", "Selection of reported result"],
+          "scale": "Low risk / Some concerns / High risk"
+        },
+        {
+          "study_type": "Estudios no aleatorizados",
+          "tool": "ROBINS-I",
+          "domains": ["Confounding", "Selection", "Classification of interventions", "Deviations", "Missing data", "Measurement", "Reporting"],
+          "scale": "Low / Moderate / Serious / Critical"
+        },
+        {
+          "study_type": "Estudios observacionales",
+          "tool": "Newcastle-Ottawa Scale (NOS)",
+          "domains": ["Selection (4 stars)", "Comparability (2 stars)", "Outcome (3 stars)"],
+          "scale": "0-9 stars (≥7 = high quality)"
+        },
+        {
+          "study_type": "Estudios cualitativos",
+          "tool": "CASP Qualitative Checklist",
+          "domains": ["Clear research aims", "Appropriate methodology", "Research design", "Recruitment strategy", "Data collection", "Researcher-participant relationship", "Ethical considerations", "Rigorous analysis", "Clear findings", "Value of research"],
+          "scale": "Yes / Can't tell / No (10 items)"
+        },
+        {
+          "study_type": "Estudios de diagnóstico",
+          "tool": "QUADAS-2",
+          "domains": ["Patient selection", "Index test", "Reference standard", "Flow and timing"],
+          "scale": "Low risk / High risk / Unclear"
+        },
+        {
+          "study_type": "Estudios mixtos",
+          "tool": "MMAT (Mixed Methods Appraisal Tool)",
+          "domains": ["Screening questions (2)", "Methodology-specific criteria (5 per type)"],
+          "scale": "Met / Not met / Can't tell"
+        }
+      ]
+    },
+    "6_synthesis_methods": {
+      "description": "Métodos para sintetizar los resultados de los estudios incluidos.",
+      "qualitative_synthesis": {
+        "name": "Síntesis narrativa",
+        "when": "Cuando los estudios son heterogéneos y no se pueden combinar estadísticamente.",
+        "steps": [
+          "1. Organizar estudios por tema, variable o resultado.",
+          "2. Describir patrones de convergencia y divergencia.",
+          "3. Explorar posibles explicaciones de heterogeneidad.",
+          "4. Evaluar la solidez general de la evidencia."
+        ]
+      },
+      "quantitative_synthesis": {
+        "name": "Meta-análisis",
+        "when": "Cuando hay ≥3 estudios con el mismo outcome medido de forma comparable.",
+        "steps": [
+          "1. Seleccionar medida de efecto (OR, RR, d de Cohen, r).",
+          "2. Evaluar heterogeneidad: Q de Cochran (p < 0.10 = heterogéneo), I² (<25% baja, 25-75% moderada, >75% alta).",
+          "3. Seleccionar modelo: Efectos fijos (I² < 25%) o efectos aleatorios (I² ≥ 25%).",
+          "4. Calcular efecto combinado con intervalos de confianza.",
+          "5. Generar Forest Plot (diagrama de bosque)."
+        ],
+        "software": ["RevMan (Cochrane, gratuito)", "R (metafor package)", "Stata (metan)", "Comprehensive Meta-Analysis (CMA)"]
+      },
+      "publication_bias_detection": {
+        "description": "Métodos para detectar sesgo de publicación.",
+        "methods": [
+          {
+            "name": "Funnel Plot",
+            "description": "Gráfico de embudo: Precision (1/SE) vs. Effect size. Asimetría sugiere sesgo.",
+            "interpretation": "Simétrico = bajo sesgo. Asimétrico con vacío inferior-izquierdo = posible sesgo contra estudios pequeños con resultados negativos."
+          },
+          {
+            "name": "Egger's Test",
+            "description": "Test de regresión para asimetría del funnel plot.",
+            "interpretation": "p < 0.10 indica asimetría significativa (posible sesgo de publicación)."
+          },
+          {
+            "name": "Trim and Fill",
+            "description": "Método iterativo que estima y corrige estudios 'faltantes' del funnel plot.",
+            "interpretation": "Si el efecto ajustado difiere sustancialmente del original, el sesgo puede ser importante."
+          }
+        ]
+      }
+    },
+    "7_prisma_2020_checklist": {
+      "description": "Los 27 ítems obligatorios del checklist PRISMA 2020 para reportar revisiones sistemáticas.",
+      "sections": {
+        "title": [
+          {"item": 1, "description": "Identificar el reporte como revisión sistemática en el título."}
+        ],
+        "abstract": [
+          {"item": 2, "description": "Resumen estructurado con objetivo, fuentes, elegibilidad, participantes, intervenciones, evaluación, síntesis, resultados, limitaciones, conclusiones, registro."}
+        ],
+        "introduction": [
+          {"item": 3, "description": "Describir la justificación en el contexto de lo que ya se conoce."},
+          {"item": 4, "description": "Proveer una declaración explícita de los objetivos/preguntas abordadas con referencia a PICOS."}
+        ],
+        "methods": [
+          {"item": 5, "description": "Indicar si existe protocolo publicado; proporcionar registro y acceso."},
+          {"item": 6, "description": "Especificar criterios de elegibilidad (inclusión y exclusión)."},
+          {"item": 7, "description": "Describir todas las fuentes de información (bases de datos con fechas de búsqueda)."},
+          {"item": 8, "description": "Presentar la estrategia de búsqueda completa para al menos una base de datos."},
+          {"item": 9, "description": "Describir el proceso de selección de estudios (cribado, elegibilidad)."},
+          {"item": 10, "description": "Describir el proceso de extracción de datos y métodos de obtención/confirmación."},
+          {"item": 11, "description": "Listar y definir todos los outcomes evaluados."},
+          {"item": 12, "description": "Describir métodos para evaluar riesgo de sesgo en estudios individuales."},
+          {"item": 13, "description": "Describir métodos de síntesis (narrativa, meta-análisis, etc.)."}
+        ],
+        "results": [
+          {"item": 14, "description": "Dar el número de estudios cribados, evaluados, incluidos con diagrama de flujo PRISMA."},
+          {"item": 15, "description": "Para cada estudio, presentar características y citas."},
+          {"item": 16, "description": "Presentar evaluación de riesgo de sesgo para cada estudio."},
+          {"item": 17, "description": "Para cada resultado, presentar datos de cada estudio y, si aplica, forest plot."},
+          {"item": 18, "description": "Presentar resultados de la síntesis (intervalos de confianza, heterogeneidad)."},
+          {"item": 19, "description": "Presentar resultados de análisis de sensibilidad."},
+          {"item": 20, "description": "Presentar evaluación de sesgo de publicación."}
+        ],
+        "discussion": [
+          {"item": 21, "description": "Resumen de evidencia principal incluyendo fuerza de la evidencia."},
+          {"item": 22, "description": "Discutir limitaciones a nivel de estudios y a nivel de revisión."},
+          {"item": 23, "description": "Proveer interpretación general en el contexto de otra evidencia."}
+        ],
+        "other": [
+          {"item": 24, "description": "Describir fuentes de financiamiento de la revisión."},
+          {"item": 25, "description": "Declarar conflictos de interés de los autores."},
+          {"item": 26, "description": "Indicar disponibilidad de datos, código y otros materiales."},
+          {"item": 27, "description": "Proporcionar registro y protocolo, indicando acceso y desviaciones."}
+        ]
+      }
+    },
+    "8_reporting_template": {
+      "description": "Cómo narrar el proceso PRISMA en la sección de Metodología.",
+      "narrative_structure": "La búsqueda se realizó en [Bases de Datos] entre [Fecha inicio] y [Fecha fin]. Se identificaron inicialmente [n] registros. Tras eliminar [n] duplicados, se cribaron [n] documentos por título y resumen, de los cuales se excluyeron [n] por no cumplir criterios de relevancia. Se recuperaron y evaluaron [n] textos completos, excluyendo [n] por razones documentadas (ver Tabla X). Finalmente, se incluyeron [n] estudios para la síntesis [cualitativa/cuantitativa]. La calidad metodológica se evaluó mediante [herramienta] (ver Tabla Y).",
+      "required_tables": [
+        "Tabla de características de estudios incluidos",
+        "Tabla de evaluación de calidad/riesgo de sesgo",
+        "Diagrama de flujo PRISMA 2020"
+      ],
+      "required_appendices": [
+        "Estrategia de búsqueda completa por base de datos",
+        "Lista de estudios excluidos con razones",
+        "Formulario de extracción de datos"
+      ]
     }
   }
 }

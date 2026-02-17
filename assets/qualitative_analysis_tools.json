@@ -1,0 +1,242 @@
+{
+  "metadata": {
+    "component": "Qualitative Analysis Tools Engine",
+    "context": "Qualitative & Mixed Methods Research — Data Analysis Phase",
+    "purpose": "Detailed coding strategies, software guides, trustworthiness criteria, and saturation detection for qualitative data analysis.",
+    "version": "1.0",
+    "linked_from": ["research_process_master_engine > step_9_qualitative_analysis"]
+  },
+  "qualitative_analysis_tools": {
+    "0_analysis_paradigms": {
+      "description": "Enfoques principales para el análisis de datos cualitativos.",
+      "approaches": [
+        {
+          "name": "Análisis Temático (Braun & Clarke)",
+          "when": "Enfoque flexible, compatible con cualquier diseño cualitativo.",
+          "phases": [
+            "1. Familiarización con los datos (lectura repetida, notas iniciales).",
+            "2. Generación de códigos iniciales (etiquetas descriptivas).",
+            "3. Búsqueda de temas (agrupar códigos en temas candidatos).",
+            "4. Revisión de temas (refinar, fusionar, dividir temas).",
+            "5. Definición y denominación de temas (nombre claro, definición de alcance).",
+            "6. Producción del informe (narrativa con citas ilustrativas)."
+          ]
+        },
+        {
+          "name": "Teoría Fundamentada (Strauss & Corbin)",
+          "when": "Se busca generar teoría a partir de los datos, no verificar teoría existente.",
+          "phases": [
+            "1. Codificación abierta (fragmentar datos en conceptos).",
+            "2. Codificación axial (relacionar categorías con subcategorías).",
+            "3. Codificación selectiva (identificar categoría central).",
+            "4. Muestreo teórico (recolectar datos adicionales guiados por la teoría emergente).",
+            "5. Saturación teórica (dejar de recolectar cuando no emergen nuevos conceptos)."
+          ]
+        },
+        {
+          "name": "Análisis Fenomenológico Interpretativo (IPA)",
+          "when": "Se busca comprender la experiencia vivida desde la perspectiva del participante.",
+          "phases": [
+            "1. Lectura y re-lectura de cada transcripción individual.",
+            "2. Notas exploratorias (descriptivas, lingüísticas, conceptuales).",
+            "3. Desarrollo de temas emergentes por caso.",
+            "4. Conexión de temas dentro de cada caso.",
+            "5. Análisis cruzado de casos (patrones entre participantes).",
+            "6. Escritura narrativa con doble hermenéutica."
+          ]
+        },
+        {
+          "name": "Análisis de Contenido Cualitativo",
+          "when": "Se busca cuantificar la frecuencia de temas/categorías en datos textuales.",
+          "phases": [
+            "1. Definir unidad de análisis (párrafo, oración, fragmento temático).",
+            "2. Crear esquema de categorías (deductivo desde teoría o inductivo desde datos).",
+            "3. Codificar unidades en categorías.",
+            "4. Calcular frecuencias y patrones.",
+            "5. Interpretar resultados en contexto teórico."
+          ]
+        }
+      ]
+    },
+    "1_coding_strategies": {
+      "description": "Técnicas de codificación paso a paso.",
+      "open_coding": {
+        "description": "Primera ronda: fragmentar datos en unidades de significado.",
+        "technique": "Leer línea por línea. Asignar una etiqueta (código) a cada fragmento relevante.",
+        "types_of_codes": [
+          {"type": "Descriptivo", "description": "Resume el contenido literal.", "example": "'Frustración con el sistema' — participante describe irritación."},
+          {"type": "In Vivo", "description": "Usa las palabras exactas del participante.", "example": "'Me sentía como un número más' — frase literal del entrevistado."},
+          {"type": "Procesual", "description": "Captura acciones o procesos.", "example": "'Adaptándose al cambio' — participante describe proceso de ajuste."},
+          {"type": "Emocional", "description": "Identifica emociones o afectos.", "example": "'Miedo al rechazo' — participante expresa temor."},
+          {"type": "Valorativo", "description": "Captura juicios o evaluaciones.", "example": "'Sistema injusto' — participante evalúa una política."}
+        ],
+        "best_practices": [
+          "Codificar todo lo que parezca relevante (no filtrar prematuramente).",
+          "Un fragmento puede tener múltiples códigos.",
+          "Mantener un codebook (libro de códigos) con definiciones y ejemplos.",
+          "Registrar memos analíticos junto con los códigos."
+        ]
+      },
+      "axial_coding": {
+        "description": "Segunda ronda: agrupar códigos en categorías y establecer relaciones.",
+        "technique": "Organizar códigos abiertos en categorías más amplias basadas en propiedades y dimensiones comunes.",
+        "paradigm_model": {
+          "description": "Modelo de Strauss & Corbin para organizar categorías axiales.",
+          "components": {
+            "conditions": "¿Qué condiciones causan o influyen en el fenómeno?",
+            "phenomenon": "¿Cuál es el fenómeno central que emerge?",
+            "context": "¿En qué contexto específico ocurre?",
+            "strategies": "¿Qué acciones/estrategias usan los participantes?",
+            "consequences": "¿Cuáles son los resultados de esas estrategias?"
+          }
+        }
+      },
+      "selective_coding": {
+        "description": "Tercera ronda: identificar la categoría central y construir la teoría.",
+        "technique": "Seleccionar UNA categoría central que integre y explique todas las demás.",
+        "criteria_for_core_category": [
+          "Aparece frecuentemente en los datos.",
+          "Se relaciona con la mayoría de las otras categorías.",
+          "Es suficientemente abstracta para generar teoría.",
+          "Explica variación en los datos.",
+          "Tiene poder explicativo sobre el fenómeno estudiado."
+        ]
+      }
+    },
+    "2_memo_writing": {
+      "description": "Los memos son el motor del análisis cualitativo. NO son opcionales.",
+      "types": [
+        {"type": "Memo de código", "purpose": "Definir y refinar el significado de cada código.", "when": "Durante codificación abierta."},
+        {"type": "Memo teórico", "purpose": "Explorar relaciones entre categorías e ideas emergentes.", "when": "Durante codificación axial."},
+        {"type": "Memo operacional", "purpose": "Registrar decisiones metodológicas y procedimentales.", "when": "A lo largo de todo el análisis."},
+        {"type": "Memo reflexivo", "purpose": "Documentar la posición, sesgos y reacciones del investigador.", "when": "Continuo (reflexividad)."}
+      ],
+      "template": {
+        "date": "YYYY-MM-DD",
+        "code_or_category": "[Nombre]",
+        "content": "[Reflexión analítica]",
+        "data_reference": "[Participante X, línea Y]",
+        "connections": "[Relación con otros códigos/categorías]"
+      }
+    },
+    "3_software_guides": {
+      "description": "Herramientas de software para análisis cualitativo (CAQDAS).",
+      "tools": [
+        {
+          "name": "Atlas.ti",
+          "cost": "Licencia comercial (versión web gratuita limitada)",
+          "strengths": "Interfaz visual potente, network views, soporte multimedia.",
+          "workflow": [
+            "1. Crear proyecto y agregar documentos (transcripciones, imágenes, audio).",
+            "2. Usar herramienta de resaltado para crear citas (quotations).",
+            "3. Asignar códigos a citas (crear nuevos o usar existentes).",
+            "4. Usar Code Manager para organizar códigos en grupos y familias.",
+            "5. Crear networks para visualizar relaciones entre códigos.",
+            "6. Generar reportes por código, documento o grupo."
+          ]
+        },
+        {
+          "name": "NVivo",
+          "cost": "Licencia comercial",
+          "strengths": "Fuerte en análisis de texto, integración con encuestas, visualizaciones.",
+          "workflow": [
+            "1. Importar fuentes al proyecto (documentos, audios, videos).",
+            "2. Crear nodos (equivalente a códigos).",
+            "3. Codificar texto seleccionando y arrastrando a nodos.",
+            "4. Organizar nodos en jerarquías (nodo padre / nodo hijo).",
+            "5. Usar Matrix Coding Query para cruzar nodos con atributos.",
+            "6. Generar visualizaciones (word clouds, cluster analysis)."
+          ]
+        },
+        {
+          "name": "MAXQDA",
+          "cost": "Licencia comercial (versión estudiante más económica)",
+          "strengths": "Excelente para mixed methods, joint displays, integración QUAN+QUAL."
+        },
+        {
+          "name": "Método manual (Excel/Google Sheets)",
+          "cost": "Gratuito",
+          "strengths": "Accesible, sin curva de aprendizaje, suficiente para estudios pequeños.",
+          "workflow": [
+            "1. Columnas: ID_Participante | Fragmento | Código | Categoría | Memo.",
+            "2. Una fila por fragmento codificado.",
+            "3. Usar filtros y tablas dinámicas para agrupar por código/categoría.",
+            "4. Colorear celdas por categoría para visualización rápida.",
+            "5. Crear hoja separada para codebook con definiciones."
+          ],
+          "limitation": "No recomendado para >20 entrevistas o >500 códigos."
+        }
+      ]
+    },
+    "4_trustworthiness_criteria": {
+      "description": "Equivalente cualitativo de validez y confiabilidad (Lincoln & Guba, 1985).",
+      "criteria": [
+        {
+          "criterion": "Credibilidad (≈ Validez interna)",
+          "definition": "¿Los hallazgos representan fielmente la realidad de los participantes?",
+          "strategies": [
+            {"strategy": "Triangulación", "description": "Usar múltiples fuentes (entrevistas + observación + documentos) o múltiples investigadores."},
+            {"strategy": "Member checking", "description": "Devolver hallazgos a los participantes para verificar interpretaciones."},
+            {"strategy": "Inmersión prolongada", "description": "Pasar tiempo suficiente en el campo para comprender el contexto."},
+            {"strategy": "Casos negativos", "description": "Buscar activamente datos que contradigan la interpretación emergente."},
+            {"strategy": "Peer debriefing", "description": "Discutir hallazgos con un colega no involucrado en el estudio."}
+          ]
+        },
+        {
+          "criterion": "Transferibilidad (≈ Validez externa)",
+          "definition": "¿Los hallazgos pueden aplicarse a otros contextos similares?",
+          "strategies": [
+            {"strategy": "Thick description", "description": "Descripción densa del contexto, participantes y proceso para que otros juzguen transferibilidad."},
+            {"strategy": "Muestreo intencional diverso", "description": "Incluir casos variados para ampliar el rango de hallazgos."}
+          ]
+        },
+        {
+          "criterion": "Dependabilidad (≈ Confiabilidad)",
+          "definition": "¿El proceso de investigación es consistente y rastreable?",
+          "strategies": [
+            {"strategy": "Audit trail", "description": "Documentar cada decisión del proceso (desde diseño hasta conclusiones)."},
+            {"strategy": "Codebook", "description": "Mantener un libro de códigos con definiciones, ejemplos y contraejemplos."},
+            {"strategy": "Inter-coder reliability", "description": "Dos codificadores independientes comparan códigos. Kappa de Cohen ≥ 0.60."}
+          ]
+        },
+        {
+          "criterion": "Confirmabilidad (≈ Objetividad)",
+          "definition": "¿Los hallazgos emergen de los datos y no de los sesgos del investigador?",
+          "strategies": [
+            {"strategy": "Reflexivity journal", "description": "Diario donde el investigador registra sus supuestos, sesgos y reacciones emocionales."},
+            {"strategy": "Data-grounded claims", "description": "Cada afirmación debe estar respaldada por citas textuales de los participantes."},
+            {"strategy": "Auditoría externa", "description": "Un investigador externo revisa el proceso y las interpretaciones."}
+          ]
+        }
+      ]
+    },
+    "5_saturation_detection": {
+      "description": "Criterios para determinar cuándo dejar de recolectar datos.",
+      "types": [
+        {
+          "type": "Saturación de datos",
+          "definition": "No emergen nuevos códigos en las últimas 2-3 entrevistas.",
+          "operationalization": "Si la entrevista N genera <5% de códigos nuevos respecto al total acumulado, se alcanzó saturación."
+        },
+        {
+          "type": "Saturación teórica",
+          "definition": "Las categorías están completamente desarrolladas y las relaciones entre ellas están claras.",
+          "operationalization": "Las propiedades y dimensiones de cada categoría ya no se enriquecen con nuevos datos."
+        },
+        {
+          "type": "Saturación temática",
+          "definition": "Los temas principales ya no cambian con nuevos datos.",
+          "operationalization": "El mapa temático se mantiene estable tras 2-3 entrevistas adicionales."
+        }
+      ],
+      "sample_size_guidelines": {
+        "note": "No hay número fijo. Depende de la complejidad y homogeneidad de la muestra.",
+        "phenomenological": "6-25 participantes (Creswell recomienda 5-25).",
+        "grounded_theory": "20-30 entrevistas hasta saturación teórica.",
+        "ethnographic": "Variable (meses de observación participante).",
+        "case_study": "1-5 casos (en profundidad).",
+        "focus_groups": "3-6 grupos de 6-10 participantes cada uno."
+      }
+    }
+  }
+}

@@ -1,0 +1,161 @@
+{
+  "metadata": {
+    "component": "Ethics & IRB Approval Engine",
+    "context": "Research Ethics — Institutional Review Board, Informed Consent, and Ethical Protocols",
+    "purpose": "Guide researchers through ethical approval processes, informed consent design, and ethical considerations by research type.",
+    "version": "1.0",
+    "linked_from": ["research_process_master_engine > quality_gates", "methodology_engine > 8_ethical_considerations_by_design"]
+  },
+  "ethics_irb_engine": {
+    "0_ethical_principles": {
+      "description": "Principios éticos fundamentales de la investigación (Informe Belmont, 1979 + Declaración de Helsinki).",
+      "principles": [
+        {
+          "principle": "Respeto por las personas (Autonomía)",
+          "description": "Los participantes deben dar consentimiento informado voluntario. Protección especial para poblaciones vulnerables.",
+          "implication": "Consentimiento informado obligatorio. Derecho a retirarse sin consecuencias."
+        },
+        {
+          "principle": "Beneficencia",
+          "description": "Maximizar beneficios y minimizar riesgos para los participantes.",
+          "implication": "Análisis de riesgo-beneficio antes de iniciar. No proceder si el riesgo supera el beneficio."
+        },
+        {
+          "principle": "Justicia",
+          "description": "Distribución equitativa de cargas y beneficios de la investigación.",
+          "implication": "No seleccionar participantes vulnerables por conveniencia. Los beneficios deben llegar a la población estudiada."
+        },
+        {
+          "principle": "No maleficencia",
+          "description": "No causar daño físico, psicológico, social o económico a los participantes.",
+          "implication": "Evaluar posibles daños: estrés, estigmatización, pérdida de privacidad, daño profesional."
+        }
+      ]
+    },
+    "1_irb_approval_process": {
+      "description": "Proceso típico de aprobación por Comité de Ética / IRB (Institutional Review Board).",
+      "timeline": {
+        "preparation": "2-4 semanas (preparar documentación)",
+        "submission": "1 semana (envío y registro)",
+        "review": "2-8 semanas (evaluación por el comité)",
+        "revisions": "1-4 semanas (si solicitan cambios)",
+        "total_estimated": "6-17 semanas desde inicio hasta aprobación"
+      },
+      "required_documents": [
+        {
+          "document": "Protocolo de investigación",
+          "content": "Descripción completa del estudio: objetivos, metodología, población, instrumentos, procedimiento."
+        },
+        {
+          "document": "Formulario de consentimiento informado",
+          "content": "Documento que el participante firma aceptando participar voluntariamente."
+        },
+        {
+          "document": "Instrumentos de recolección",
+          "content": "Cuestionarios, guiones de entrevista, protocolos de observación a utilizar."
+        },
+        {
+          "document": "Análisis de riesgos y beneficios",
+          "content": "Evaluación explícita de posibles daños y cómo se mitigarán."
+        },
+        {
+          "document": "Plan de confidencialidad y manejo de datos",
+          "content": "Cómo se protegerán los datos personales y cuánto tiempo se conservarán."
+        },
+        {
+          "document": "CV del investigador principal",
+          "content": "Calificaciones y experiencia del equipo de investigación."
+        }
+      ],
+      "review_categories": {
+        "exempt": {
+          "description": "Exento de revisión completa. Riesgo mínimo.",
+          "examples": ["Encuestas anónimas sin datos sensibles", "Análisis de datos públicos secundarios", "Observación en espacios públicos sin interacción"]
+        },
+        "expedited": {
+          "description": "Revisión rápida por 1-2 miembros. Riesgo mínimo con datos identificables.",
+          "examples": ["Encuestas con datos demográficos pero sin datos sensibles", "Entrevistas sobre temas no sensibles", "Estudios con adultos competentes sin intervención"]
+        },
+        "full_board": {
+          "description": "Revisión completa por todo el comité. Riesgo mayor que mínimo.",
+          "examples": ["Investigación con menores de edad", "Temas sensibles (salud mental, conducta sexual, drogas)", "Intervenciones experimentales", "Poblaciones vulnerables (prisioneros, pacientes, discapacitados)"]
+        }
+      }
+    },
+    "2_informed_consent": {
+      "description": "Estructura del formulario de consentimiento informado.",
+      "required_elements": [
+        {"element": "Título del estudio", "description": "Nombre formal de la investigación."},
+        {"element": "Investigador(es) responsable(s)", "description": "Nombres, afiliación institucional y datos de contacto."},
+        {"element": "Propósito del estudio", "description": "Explicación en lenguaje simple de qué se investiga y por qué."},
+        {"element": "Procedimientos", "description": "Qué se le pedirá al participante, cuánto tiempo tomará, cuántas sesiones."},
+        {"element": "Riesgos y molestias", "description": "Posibles efectos negativos de participar (incomodidad, estrés, fatiga)."},
+        {"element": "Beneficios", "description": "Beneficios directos (si los hay) e indirectos (contribución al conocimiento)."},
+        {"element": "Confidencialidad", "description": "Cómo se protegerán los datos, quién tendrá acceso, cuánto tiempo se guardarán."},
+        {"element": "Participación voluntaria", "description": "Derecho a negarse o retirarse en cualquier momento sin consecuencias."},
+        {"element": "Compensación", "description": "Si habrá compensación económica o no, y condiciones."},
+        {"element": "Contacto para preguntas", "description": "Datos del investigador y del comité de ética para dudas o quejas."},
+        {"element": "Firma y fecha", "description": "Espacio para firma del participante, del investigador y fecha."}
+      ],
+      "special_populations": {
+        "minors": {
+          "requirement": "Asentimiento del menor + Consentimiento del padre/tutor.",
+          "asentimiento": "Versión simplificada adaptada a la edad del participante."
+        },
+        "illiterate": {
+          "requirement": "Consentimiento oral con testigo imparcial que firme.",
+          "alternative": "Grabación del proceso de consentimiento oral."
+        },
+        "online_research": {
+          "requirement": "Consentimiento digital con checkbox explícito (no pre-marcado).",
+          "additional": "Incluir política de cookies y aviso de privacidad digital."
+        }
+      }
+    },
+    "3_data_protection": {
+      "description": "Protección de datos personales según normativas.",
+      "anonymization_techniques": [
+        {"technique": "Anonimización total", "description": "Eliminar TODOS los identificadores. Imposible re-identificar.", "when": "Datos sensibles, publicación en repositorio abierto."},
+        {"technique": "Pseudonimización", "description": "Reemplazar nombres por códigos. Tabla de correspondencia guardada por separado.", "when": "Necesidad de contacto futuro o longitudinal."},
+        {"technique": "Datos agregados", "description": "Reportar solo estadísticas grupales, nunca datos individuales.", "when": "Análisis cuantitativo con muestras pequeñas."}
+      ],
+      "storage_guidelines": {
+        "during_research": "Datos en dispositivo cifrado o nube institucional con acceso restringido.",
+        "after_publication": "Conservar datos mínimo 5 años (según regulación local). Después, destruir de forma segura.",
+        "sharing": "Compartir solo datos anonimizados. Usar repositorios como OSF, Figshare, Zenodo."
+      },
+      "applicable_regulations": [
+        {"regulation": "GDPR (Europa)", "key_requirement": "Base legal para procesamiento, derecho al olvido, DPO designado."},
+        {"regulation": "Ley 1581 de 2012 (Colombia)", "key_requirement": "Autorización previa para tratamiento de datos, habeas data."},
+        {"regulation": "LGPD (Brasil)", "key_requirement": "Consentimiento explícito, finalidad específica, minimización de datos."},
+        {"regulation": "HIPAA (EEUU - Salud)", "key_requirement": "Protected Health Information (PHI) requiere desidentificación o autorización."}
+      ]
+    },
+    "4_ethical_checklist_by_phase": {
+      "description": "Checklist ético rápido por fase de investigación.",
+      "design_phase": [
+        "¿Se ha realizado análisis de riesgo-beneficio?",
+        "¿Se ha identificado si la población es vulnerable?",
+        "¿Se ha obtenido o planificado la aprobación ética/IRB?",
+        "¿El diseño minimiza riesgos innecesarios?"
+      ],
+      "data_collection_phase": [
+        "¿Se obtuvo consentimiento informado de TODOS los participantes?",
+        "¿Los participantes saben que pueden retirarse?",
+        "¿Se ha establecido protocolo de respuesta si un participante se angustia?",
+        "¿Los datos se almacenan de forma segura desde el primer momento?"
+      ],
+      "analysis_phase": [
+        "¿Se han pseudonimizado/anonimizado los datos antes del análisis?",
+        "¿Se reportan los datos de forma que no permitan re-identificación?",
+        "¿Se analizan los datos con integridad (sin cherry-picking)?"
+      ],
+      "reporting_phase": [
+        "¿Se declaran conflictos de interés?",
+        "¿Se reportan limitaciones honestamente?",
+        "¿Se da crédito apropiado a todos los contribuyentes?",
+        "¿Se incluye declaración de aprobación ética en la publicación?"
+      ]
+    }
+  }
+}
